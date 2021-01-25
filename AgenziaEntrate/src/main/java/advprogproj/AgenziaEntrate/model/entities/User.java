@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -22,7 +24,10 @@ public class User
     private String password;
     private boolean handicap;
     
+    private Access access;
+    
     @Id
+    @Column(name = "USER_ID")
     public String getCf() {
 		return cf;
 	}
@@ -45,11 +50,11 @@ public class User
 		return secondName;
 	}
 	
-	public void setSecondName(String secondname) {
-		this.secondName = secondname;
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
 	}
 	
-	@Column
+	@Column( name = "BIRTH_DATE")
 	public Date getBirthD() {
 		return birthD;
 	}
@@ -84,4 +89,15 @@ public class User
 	public void setHandicap(boolean handicap) {
 		this.handicap = handicap;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "ACCESS_ID")
+	public Access getAccess() {
+		return access;
+	}
+
+	public void setAccess(Access access) {
+		this.access = access;
+	}
+
 }

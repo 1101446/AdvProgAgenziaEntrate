@@ -19,6 +19,7 @@ public class Vehicle{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_VEHICLE")
 	public long getId() {
 		return id;
 	}

@@ -1,7 +1,5 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +14,12 @@ public class RealEstate {
 	
 	private long id;
 	private String Address;
+	private String Country;
 	private long CAP;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_REAL_ESTATE")
 	public long getId() {
 		return id;
 	}
@@ -35,6 +35,15 @@ public class RealEstate {
 	
 	public void setAddress(String address) {
 		Address = address;
+	}
+	
+	@Column
+	public String getCountry() {
+		return Country;
+	}
+
+	public void setCountry(String country) {
+		Country = country;
 	}
 	
 	@Column

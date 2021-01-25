@@ -13,13 +13,14 @@ import javax.persistence.UniqueConstraint;
 public class Access
 {
     private long id;
-    private String accessName;
+    private String roleName;
     private int priority;
     private String description;
     
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long getId() {
+	@Column(name = "ACCESS_ID")
+    public long getId() {
 		return id;
 	}
     
@@ -27,13 +28,13 @@ public class Access
 		this.id = id;
 	}
 	
-	@Column
-	public String getAccessName() {
-		return accessName;
+	@Column(name = "ROLE")
+	public String getRoleName() {
+		return roleName;
 	}
 	
-	public void setAccessName(String accessName) {
-		this.accessName = accessName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	
 	@Column

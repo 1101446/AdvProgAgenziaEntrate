@@ -20,6 +20,7 @@ public class BankAccount {
 	private long balance;
 	
 	@Id
+	@Column(name = "ID_BANK_ACCOUNT")
 	public long getIBAN() {
 		return IBAN;
 	}
