@@ -1,12 +1,15 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "RealEstate")
@@ -16,6 +19,8 @@ public class RealEstate {
 	private String Address;
 	private String Country;
 	private long CAP;
+	
+	private Set<UserRealEstate> owner = new HashSet<UserRealEstate>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +57,15 @@ public class RealEstate {
 	}
 	public void setCAP(long cAP) {
 		CAP = cAP;
+	}
+	
+	@OneToMany(mappedBy = "realEstate")
+	public Set<UserRealEstate> getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Set<UserRealEstate> owner) {
+		this.owner = owner;
 	}
 	
 	

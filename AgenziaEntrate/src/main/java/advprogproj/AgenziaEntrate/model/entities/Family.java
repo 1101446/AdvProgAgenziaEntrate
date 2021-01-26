@@ -16,7 +16,8 @@ public class Family{
 	private long id;
 	private User user;
 	private String hierarchy;
-	
+	private String houseHolder;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -28,12 +29,13 @@ public class Family{
 		this.id = id;
 	}
 	
+	@Id
 	@ManyToOne
-	@JoinColumn(name = "USER_ID", nullable=false)
+	@JoinColumn(name = "USER_ID")
 	public User getUser() {
 		return user;
 	}
-
+	
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -47,4 +49,11 @@ public class Family{
 		this.hierarchy = hierarchy;
 	}
 	
+	public String getHouseHolder() {
+		return houseHolder;
+	}
+
+	public void setHouseHolder(String houseHolder) {
+		this.houseHolder = houseHolder;
+	}
 }

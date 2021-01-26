@@ -1,14 +1,20 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -26,8 +32,13 @@ public class User
     
     private Access access;
     
+    private Set<BankAccount> bankAccounts = new HashSet<BankAccount>();
+    
+    private Set<UserVehicle> userVehicles = new HashSet<UserVehicle>();
+    private Set<UserRealEstate> userRealEstates = new HashSet<UserRealEstate>();
+    
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = "ID_USER")
     public String getCf() {
 		return cf;
 	}
@@ -91,7 +102,7 @@ public class User
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "ACCESS_ID")
+	@JoinColumn(name = "ID_ACCESS")
 	public Access getAccess() {
 		return access;
 	}
@@ -99,5 +110,37 @@ public class User
 	public void setAccess(Access access) {
 		this.access = access;
 	}
+	
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(
+			name= "UserBankAccount",
+			joinColumns = @JoinColumn(name = "ID_USER"),
+			inverseJoinColumns = @JoinColumn(name = "ID_BANK_ACCOUNT"))
+	public Set<BankAccount> getBankAccounts() {
+		return bankAccounts;
+	}
 
+	public void setBankAccounts(Set<BankAccount> bankAccounts) {
+		this.bankAccounts = bankAccounts;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public Set<UserVehicle> getUserVehicles() {
+		return userVehicles;
+	}
+
+	public void setUserVehicles(Set<UserVehicle> userVehicles) {
+		this.userVehicles = userVehicles;
+	}
+	
+	@OneToMany(mappedBy = "user")
+	public Set<UserRealEstate> getUserRealEstates() {
+		return userRealEstates;
+	}
+
+	public void setUserRealEstates(Set<UserRealEstate> userRealEstates) {
+		this.userRealEstates = userRealEstates;
+	}
+
+	
 }

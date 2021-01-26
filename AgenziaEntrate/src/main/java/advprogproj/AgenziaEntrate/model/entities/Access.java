@@ -19,7 +19,7 @@ public class Access
     
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ACCESS_ID")
+	@Column(name = "ID_ACCESS")
     public long getId() {
 		return id;
 	}
