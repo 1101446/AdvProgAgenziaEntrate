@@ -9,6 +9,8 @@ public interface FamilyDao {
 	
 	public void setSession(Session session);
 	
+	Family findById(String User);
+	
 	Family create(User user, String hierarchy, String houseHolder);
 	
 	Family update(Family family);

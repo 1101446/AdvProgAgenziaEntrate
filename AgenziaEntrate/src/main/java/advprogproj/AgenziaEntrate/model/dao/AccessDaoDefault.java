@@ -5,6 +5,10 @@ import advprogproj.AgenziaEntrate.model.entities.Access;
 
 public class AccessDaoDefault extends DefaultDao implements AccessDao{
 	
+	public Access findById(long id) {
+		return this.getSession().find(Access.class, id);
+	}
+	
 	public Access create(String roleName, int priority, String description) {
 		Access access = new Access();
 		access.setRoleName(roleName);

@@ -8,6 +8,8 @@ public interface RealEstateDao {
 	
 	public void setSession(Session session);
 	
+	RealEstate findById(long id);
+	
 	RealEstate create(String address, String Country, long CAP);
 	
 	RealEstate update(RealEstate realEstate);

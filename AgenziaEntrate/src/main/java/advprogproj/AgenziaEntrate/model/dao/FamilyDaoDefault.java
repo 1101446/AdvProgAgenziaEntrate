@@ -6,6 +6,10 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 
 public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 	
+	public Family findById(String User) {
+		return this.getSession().find(Family.class, User);
+	}
+	
 	public Family create(User user, String hierarchy, String houseHolder) {
 		Family family = new Family();
 		family.setUser(user);

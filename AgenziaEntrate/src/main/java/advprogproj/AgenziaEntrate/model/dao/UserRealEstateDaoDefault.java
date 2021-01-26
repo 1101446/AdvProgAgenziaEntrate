@@ -8,6 +8,7 @@ import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
 public class UserRealEstateDaoDefault extends DefaultDao implements UserRealEstateDao{
+	
 	public UserRealEstate create(User user, RealEstate realEstate, Date endOfYear, long price) {
 		UserRealEstate userRealEstate = new UserRealEstate();
 		userRealEstate.setUser(user);

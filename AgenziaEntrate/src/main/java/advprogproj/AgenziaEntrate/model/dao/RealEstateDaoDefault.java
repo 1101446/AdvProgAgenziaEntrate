@@ -1,9 +1,20 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
+import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
 public class RealEstateDaoDefault extends DefaultDao implements RealEstateDao {
+	
+	public RealEstate findById(long id) {
+		return this.getSession().find(RealEstate.class, id);
+	}
 	
 	public RealEstate create(String address, String Country, long CAP) {
 		RealEstate realEstate = new RealEstate();
@@ -20,5 +31,10 @@ public class RealEstateDaoDefault extends DefaultDao implements RealEstateDao {
 	
 	public void delete(RealEstate realEstate) {
 		this.getSession().delete(realEstate);
+	}
+	
+	public Set<UserRealEstate> getUserRealEstate(RealEstate realEstate) {
+		Query q = this.getSession().createQuery("from UserRealEstate a JOIN FETCH a.realEstate WHERE a.realEstate = :realEstate", UserRealEstate.class);
+		return new HashSet<UserRealEstate>(q.setParameter("realEstate", realEstate).getResultList());
 	}
 }
