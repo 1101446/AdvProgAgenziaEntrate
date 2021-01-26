@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User
 {
     private String cf;
@@ -113,7 +113,7 @@ public class User
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
-			name= "UserBankAccount",
+			name= "user_bank_account",
 			joinColumns = @JoinColumn(name = "ID_USER"),
 			inverseJoinColumns = @JoinColumn(name = "ID_BANK_ACCOUNT")
 			)

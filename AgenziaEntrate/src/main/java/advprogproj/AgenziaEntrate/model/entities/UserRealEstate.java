@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UserRealEstate")
+@Table(name = "user_real_estate")
 public class UserRealEstate {
 	
 	private User user;
@@ -41,7 +41,7 @@ public class UserRealEstate {
 		this.realEstate = realEstate;
 	}
 	
-	@Column
+	@Id
 	public Date getEndOfYear() {
 		return endOfYear;
 	}

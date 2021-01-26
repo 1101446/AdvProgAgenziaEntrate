@@ -12,7 +12,7 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 		return getSession().find(BankAccount.class, IBAN);
 	}
 	
-	public BankAccount create(long IBAN, String bankName, Date billDate, long balance) {
+	public BankAccount create(String IBAN, String bankName, Date billDate, long balance) {
 		BankAccount bankAccount= new BankAccount();
 		bankAccount.setIBAN(IBAN);
 		bankAccount.setBankName(bankName);

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Access")
+@Table(name = "access")
 public class Access
 {
     private long id;

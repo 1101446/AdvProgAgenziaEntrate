@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "Family")
+@Table(name = "family")
 public class Family{
 	private long id;
 	private User user;
@@ -31,7 +31,7 @@ public class Family{
 	
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "USER_ID")
+	@JoinColumn(name = "ID_USER")
 	public User getUser() {
 		return user;
 	}

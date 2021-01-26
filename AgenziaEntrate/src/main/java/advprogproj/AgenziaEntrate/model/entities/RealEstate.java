@@ -12,12 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "RealEstate")
+@Table(name = "real_estate")
 public class RealEstate {
 	
 	private long id;
-	private String Address;
-	private String Country;
+	private String address;
+	private String country;
 	private long CAP;
 	
 	private Set<UserRealEstate> owner = new HashSet<UserRealEstate>();
@@ -35,23 +35,23 @@ public class RealEstate {
 	
 	@Column
 	public String getAddress() {
-		return Address;
+		return this.address;
 	}
 	
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
 	
 	@Column
 	public String getCountry() {
-		return Country;
+		return this.country;
 	}
 
 	public void setCountry(String country) {
 		Country = country;
 	}
 	
-	@Column
+	@Column(name = "cap")
 	public long getCAP() {
 		return CAP;
 	}
@@ -67,6 +67,5 @@ public class RealEstate {
 	public void setOwner(Set<UserRealEstate> owner) {
 		this.owner = owner;
 	}
-	
 	
 }

@@ -13,7 +13,7 @@ public interface BankAccountDao {
 	
 	BankAccount findById(String IBAN);
 	
-	BankAccount create(long IBAN, String bankName, Date billDate, long balance);
+	BankAccount create(String IBAN, String bankName, Date billDate, long balance);
 	
 	BankAccount update(BankAccount bankAccount);
 	

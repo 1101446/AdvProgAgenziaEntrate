@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UserRealEstate")
+@Table(name = "user_vehicle")
 public class UserVehicle {
 	private User user;
 	private Vehicle vehicle;
@@ -20,7 +20,7 @@ public class UserVehicle {
 	
 	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "USER_ID")
+	@JoinColumn(name = "ID_USER")
 	public User getUser() {
 		return user;
 	}

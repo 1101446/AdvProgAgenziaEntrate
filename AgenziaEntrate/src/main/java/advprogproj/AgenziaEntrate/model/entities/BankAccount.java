@@ -11,10 +11,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BankAccount")
+@Table(name = "bank_account")
 public class BankAccount {
 	
-	private long IBAN;
+	private String IBAN;
 	private String bankName;
 	private Date billDate;
 	private long balance;
@@ -23,11 +23,11 @@ public class BankAccount {
 	
 	@Id
 	@Column(name = "ID_BANK_ACCOUNT")
-	public long getIBAN() {
+	public String getIBAN() {
 		return IBAN;
 	}
 	
-	public void setIBAN(long iBAN) {
+	public void setIBAN(String iBAN) {
 		IBAN = iBAN;
 	}
 	
