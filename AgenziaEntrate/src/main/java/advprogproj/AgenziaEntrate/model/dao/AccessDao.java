@@ -8,7 +8,7 @@ public interface AccessDao {
 	
 	public void setSession(Session session);
 	
-	Access create(long id, String roleName, int priority, String description);
+	Access create(String roleName, int priority, String description);
 	
 	Access update(Access access);
 	

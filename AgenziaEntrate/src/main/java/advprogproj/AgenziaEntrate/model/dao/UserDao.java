@@ -9,9 +9,9 @@ public interface UserDao {
 	
 	public void setSession(Session session);
 	
-	User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap);
+	User findById(String id);
 	
-	User create(User user);
+	User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap);
 	
 	User update(User user);
 	

@@ -5,9 +5,8 @@ import advprogproj.AgenziaEntrate.model.entities.Access;
 
 public class AccessDaoDefault extends DefaultDao implements AccessDao{
 	
-	public Access create(long id, String roleName, int priority, String description) {
+	public Access create(String roleName, int priority, String description) {
 		Access access = new Access();
-		access.setId(id);
 		access.setRoleName(roleName);
 		access.setPriority(priority);
 		access.setDescription(description);
