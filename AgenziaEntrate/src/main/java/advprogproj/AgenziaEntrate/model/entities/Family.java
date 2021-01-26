@@ -20,7 +20,7 @@ public class Family{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "ID_FAMILY")
 	public long getId() {
 		return id;
 	}

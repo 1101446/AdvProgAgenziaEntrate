@@ -115,7 +115,8 @@ public class User
 	@JoinTable(
 			name= "UserBankAccount",
 			joinColumns = @JoinColumn(name = "ID_USER"),
-			inverseJoinColumns = @JoinColumn(name = "ID_BANK_ACCOUNT"))
+			inverseJoinColumns = @JoinColumn(name = "ID_BANK_ACCOUNT")
+			)
 	public Set<BankAccount> getBankAccounts() {
 		return bankAccounts;
 	}
@@ -141,6 +142,5 @@ public class User
 	public void setUserRealEstates(Set<UserRealEstate> userRealEstates) {
 		this.userRealEstates = userRealEstates;
 	}
-
 	
 }

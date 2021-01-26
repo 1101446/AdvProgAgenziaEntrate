@@ -10,8 +10,6 @@ public interface AccessDao {
 	
 	Access create(long id, String roleName, int priority, String description);
 	
-	Access create(Access access);
-	
 	Access update(Access access);
 	
 	void delete(Access access);

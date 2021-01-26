@@ -55,8 +55,8 @@ public class RealEstate {
 	public long getCAP() {
 		return CAP;
 	}
-	public void setCAP(long cAP) {
-		CAP = cAP;
+	public void setCAP(long CAP) {
+		this.CAP = CAP;
 	}
 	
 	@OneToMany(mappedBy = "realEstate")

@@ -66,6 +66,5 @@ public class BankAccount {
 	public void setOwner(Set<User> owner) {
 		this.owner = owner;
 	}
-	
-	
+		
 }
