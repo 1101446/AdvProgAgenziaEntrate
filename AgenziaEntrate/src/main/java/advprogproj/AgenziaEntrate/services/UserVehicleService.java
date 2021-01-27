@@ -9,9 +9,6 @@ import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 public interface UserVehicleService {
-	Session getSession();
-	
-	public void setSession(Session session);
 	
 	UserVehicle create(User user, Vehicle vehicle, Date endOfYear, long price);
 	

@@ -31,7 +31,7 @@ public class BankAccount {
 		IBAN = iBAN;
 	}
 	
-	@Column
+	@Column(name = "BANK_NAME")
 	public String getBankName() {
 		return bankName;
 	}
@@ -40,7 +40,7 @@ public class BankAccount {
 		this.bankName = bankName;
 	}
 	
-	@Column
+	@Column(name = "BILL_DATE")
 	public Date getBillDate() {
 		return billDate;
 	}
@@ -49,7 +49,7 @@ public class BankAccount {
 		this.billDate = billDate;
 	}
 	
-	@Column
+	@Column(name = "BALANCE")
 	public long getBalance() {
 		return balance;
 	}

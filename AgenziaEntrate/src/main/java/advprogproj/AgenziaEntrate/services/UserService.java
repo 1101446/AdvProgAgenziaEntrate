@@ -15,9 +15,6 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
 public interface UserService {
-	Session getSession();
-	
-	public void setSession(Session session);
 	
 	User findById(String id);
 	

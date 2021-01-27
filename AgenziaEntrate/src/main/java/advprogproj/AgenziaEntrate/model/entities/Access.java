@@ -36,7 +36,7 @@ public class Access
 		this.roleName = roleName;
 	}
 	
-	@Column
+	@Column(name = "PRIORITY")
 	public int getPriority() {
 		return priority;
 	}

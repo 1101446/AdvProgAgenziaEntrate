@@ -6,10 +6,12 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
+@Repository("vehicleDao")
 public class VehicleDaoDefault extends DefaultDao implements VehicleDao{
 	
 	public Vehicle create(String brand, String model, String vehicleRegistration) {

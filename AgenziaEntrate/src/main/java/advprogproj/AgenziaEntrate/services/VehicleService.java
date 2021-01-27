@@ -8,9 +8,6 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
 public interface VehicleService {
-	Session getSession();
-	
-	public void setSession(Session session);
 	
 	Vehicle create(String brand, String model, String vehicleRegistration);
 	

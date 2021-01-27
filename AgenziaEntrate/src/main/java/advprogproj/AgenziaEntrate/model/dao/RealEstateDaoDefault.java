@@ -6,10 +6,13 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
+
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
+@Repository("realEstateDao")
 public class RealEstateDaoDefault extends DefaultDao implements RealEstateDao {
 	
 	public RealEstate findById(long id) {

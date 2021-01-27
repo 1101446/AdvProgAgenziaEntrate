@@ -7,9 +7,6 @@ import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface BankAccountService {
-	Session getSession();
-	
-	public void setSession(Session session);
 	
 	BankAccount findById(String IBAN);
 	

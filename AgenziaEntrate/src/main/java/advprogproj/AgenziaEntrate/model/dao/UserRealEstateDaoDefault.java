@@ -3,10 +3,13 @@ package advprogproj.AgenziaEntrate.model.dao;
 import java.util.Date;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
+
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
+@Repository("userRealEstateDao")
 public class UserRealEstateDaoDefault extends DefaultDao implements UserRealEstateDao{
 	
 	public UserRealEstate create(User user, RealEstate realEstate, Date endOfYear, long price) {

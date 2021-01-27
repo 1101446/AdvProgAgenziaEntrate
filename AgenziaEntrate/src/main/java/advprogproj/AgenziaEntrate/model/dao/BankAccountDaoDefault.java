@@ -2,10 +2,12 @@ package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.Date;
 
-import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
+
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
+@Repository("bankAccountDao")
 public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 	
 	public BankAccount findById(String IBAN) {

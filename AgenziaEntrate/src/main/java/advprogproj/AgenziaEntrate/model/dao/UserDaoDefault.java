@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
@@ -17,6 +18,7 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.dao.DefaultDao;
 
+@Repository("userDao")
 public class UserDaoDefault extends DefaultDao implements UserDao{
 	
 	@Autowired

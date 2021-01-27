@@ -1,8 +1,10 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
-import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
+
 import advprogproj.AgenziaEntrate.model.entities.Access;
 
+@Repository("accessDao")
 public class AccessDaoDefault extends DefaultDao implements AccessDao{
 	
 	public Access findById(long id) {

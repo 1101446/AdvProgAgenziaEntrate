@@ -1,9 +1,12 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
+
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
+@Repository("familyDao")
 public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 	
 	public Family findById(String User) {
