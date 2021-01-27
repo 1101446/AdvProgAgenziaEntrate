@@ -3,9 +3,12 @@ package advprogproj.AgenziaEntrate.services;
 import java.util.Date;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
+
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
+@Service("bankAccount")
 public class BankAccountServiceDefault implements BankAccountService{
 	
 	public BankAccount findById(String IBAN) {

@@ -10,11 +10,11 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface UserRealEstateService {
 	
-	UserRealEstate create(User user, RealEstate realEstate, Date endOfYear,long price);
+	public UserRealEstate create(User user, RealEstate realEstate, Date endOfYear,long price);
 	
-	UserRealEstate update(UserRealEstate userRealEstate);
+	public UserRealEstate update(UserRealEstate userRealEstate);
 	
-	void delete(UserRealEstate userRealEstate);
+	public void delete(UserRealEstate userRealEstate);
 	
 	public Set<UserRealEstate> getUserRealEstate(RealEstate realEstate);
 }

@@ -6,10 +6,12 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
 
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
+@Service("vehicle")
 public class VehicleServiceDefault implements VehicleService{
 	
 	public Vehicle create(String brand, String model, String vehicleRegistration) {

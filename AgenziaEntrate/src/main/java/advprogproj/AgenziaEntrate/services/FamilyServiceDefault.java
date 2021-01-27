@@ -1,9 +1,12 @@
 package advprogproj.AgenziaEntrate.services;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
+
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
+@Service("family")
 public class FamilyServiceDefault implements FamilyService{
 	
 	public Family findById(String User) {

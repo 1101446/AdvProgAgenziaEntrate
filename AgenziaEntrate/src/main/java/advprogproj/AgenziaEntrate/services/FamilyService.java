@@ -6,11 +6,11 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface FamilyService {
 	
-	Family findById(String User);
+	public Family findById(String User);
 	
-	Family create(User user, String hierarchy, String houseHolder);
+	public Family create(User user, String hierarchy, String houseHolder);
 	
-	Family update(Family family);
+	public Family update(Family family);
 	
-	void delete(Family family);
+	public void delete(Family family);
 }

@@ -5,11 +5,11 @@ import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 
 public interface RealEstateService {
 
-	RealEstate findById(long id);
+	public RealEstate findById(long id);
 	
-	RealEstate create(String address, String Country, long CAP);
+	public RealEstate create(String address, String Country, long CAP);
 	
-	RealEstate update(RealEstate realEstate);
+	public RealEstate update(RealEstate realEstate);
 	
-	void delete(RealEstate realEstate);
+	public void delete(RealEstate realEstate);
 }

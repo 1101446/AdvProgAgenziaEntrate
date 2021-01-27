@@ -16,19 +16,19 @@ import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
 public interface UserService {
 	
-	User findById(String id);
+	public User findById(String id);
 	
-	User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access);
+	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access);
 	
-	User update(User user);
+	public User update(User user);
 	
-	void delete(User user);
+	public void delete(User user);
 	
-	Set<BankAccount> getBankAccounts(User user);
+	public Set<BankAccount> getBankAccounts(User user);
 	
-	Set<UserVehicle> getUserVehicles(User user);
+	public Set<UserVehicle> getUserVehicles(User user);
 	
-	Set<UserRealEstate> getUserRealEstate(User user);
+	public Set<UserRealEstate> getUserRealEstate(User user);
 	
 	public String encryptPassword(String password);
 }

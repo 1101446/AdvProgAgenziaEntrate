@@ -4,11 +4,11 @@ import advprogproj.AgenziaEntrate.model.entities.Access;
 
 public interface AccessService {
 	
-	Access findById(long id);
+	public Access findById(long id);
 	
-	Access create(String roleName, int priority, String description);
+	public Access create(String roleName, int priority, String description);
 	
-	Access update(Access access);
+	public Access update(Access access);
 	
-	void delete(Access access);
+	public void delete(Access access);
 }

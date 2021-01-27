@@ -6,10 +6,13 @@ import java.util.Set;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
+
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
+@Service("realEstate")
 public class RealEstateServiceDefault implements RealEstateService {
 	
 	public RealEstate findById(long id) {
