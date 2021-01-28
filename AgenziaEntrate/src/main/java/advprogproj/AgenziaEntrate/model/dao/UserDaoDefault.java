@@ -70,6 +70,14 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 		return new HashSet<UserRealEstate>(q.setParameter("user", user).getResultList());
 	}
 	
+	public void addBankAccount(User user, BankAccount bankAccount) {
+		user.addBankAccount(bankAccount);
+	}
+	
+	public void removeBankAccount(User user, BankAccount bankAccount) {
+		user.removeBankAccount(bankAccount);
+	}
+	
 	public String encryptPassword(String password) {
 		return this.passwordEncoder.encode(password);
 	}

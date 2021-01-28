@@ -35,5 +35,9 @@ public interface UserDao {
 	
 	Set<UserRealEstate> getUserRealEstate(User user);
 	
+	void addBankAccount(User user, BankAccount bankAccount);
+	
+	void removeBankAccount(User user, BankAccount bankAccount);
+	
 	public String encryptPassword(String password);
 }

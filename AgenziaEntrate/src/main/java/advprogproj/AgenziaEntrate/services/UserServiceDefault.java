@@ -10,31 +10,50 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
-
-import advprogproj.AgenziaEntrate.model.entities.Access;
+import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
+import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 
 @Service("userService")
 public class UserServiceDefault implements UserService{
 	
 	private UserDaoDefault userDao;
+	private BankAccountDaoDefault bankAccountDao;
+	private AccessDaoDefault accessDao;
 	
-	public User findById(String id) {
-		return this.userDao.findById(id);
+	@Transactional
+	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, long access) {
+		return this.userDao.create(cf, firstName, secondName, birthDate, email, password, handicap, this.accessDao.findById(access));
 	}
 	
-	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access) {
-		return this.userDao.create(cf, firstName, secondName, birthDate, email, password, handicap, access);
+	@Transactional
+	public User update(String user){
+		return this.update(this.userDao.findById(user));
 	}
 	
+	@Transactional
 	public User update(User user) {
 		return this.userDao.update(user);
 	}
 	
-	public void delete(User user) {
-		this.userDao.delete(user);
+	@Transactional
+	public void delete(String user, String bankAccount) {
+		this.removeBankAccount(user, bankAccount);		
+		this.userDao.delete(this.userDao.findById(user));
 	}
+	
+	@Transactional
+	public void addBankAccount(String user, String bankAccount) {
+		this.userDao.addBankAccount(this.userDao.findById(user), this.bankAccountDao.findById(bankAccount));
+	}
+	
+	@Transactional
+	public void removeBankAccount(String user, String bankAccount) {
+		this.userDao.removeBankAccount(this.userDao.findById(user), this.bankAccountDao.findById(bankAccount));
+	}
+
 	
 }

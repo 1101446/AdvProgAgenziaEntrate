@@ -8,11 +8,15 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface BankAccountService {
 	
-	public BankAccount findById(String IBAN);
-	
 	public BankAccount create(String IBAN, String bankName, Date billDate, long balance);
+	
+	public BankAccount update(String bankAccount);
 	
 	public BankAccount update(BankAccount bankAccount);
 	
-	public void delete(BankAccount bankAccount);
+	public void delete(String bankAccount, String user);
+	
+	public void addOwner(String user, String bankAccount) ;
+	
+	public void removeOwner(String user, String bankAccount);
 }

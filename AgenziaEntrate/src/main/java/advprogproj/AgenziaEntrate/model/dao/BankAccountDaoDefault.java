@@ -1,7 +1,11 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -12,9 +16,7 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 	
 	public List<BankAccount> findAll(){
-		return this.getSession().
-				createQuery("from BankAccount a", BankAccount.class).
-				getResultList();
+		return this.getSession().createQuery("from BankAccount a", BankAccount.class).getResultList();
 	}
 	
 	public BankAccount findById(String IBAN) {
@@ -38,4 +40,18 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 	public void delete(BankAccount bankAccount) {
 		this.getSession().delete(bankAccount);
 	}
+	
+	public void addOwner(User user, BankAccount bankAccount) {
+		bankAccount.addOwner(user);
+	}
+	
+	public void removeOwner(User user, BankAccount bankAccount) {
+		bankAccount.removeOwner(user);
+	}
+	
+	public Set<User> getOwners(BankAccount bankAccount){
+		Query q = this.getSession().createQuery("from User a JOIN FETCH a.bankAccounts WHERE a.bankAccounts = :bankAccount", User.class);
+		return new HashSet<User>(q.setParameter("bankAccount", bankAccount).getResultList());
+	}
+	
 }

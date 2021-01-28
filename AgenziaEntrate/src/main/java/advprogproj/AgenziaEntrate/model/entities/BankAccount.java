@@ -19,7 +19,7 @@ public class BankAccount {
 	private Date billDate;
 	private long balance;
 	
-	private Set<User> owner = new HashSet<User>();
+	private Set<User> owners = new HashSet<User>();
 	
 	@Id
 	@Column(name = "ID_BANK_ACCOUNT")
@@ -60,20 +60,20 @@ public class BankAccount {
 	
 	@ManyToMany(mappedBy = "bankAccounts")
 	public Set<User> getOwner() {
-		return owner;
+		return this.owners;
 	}
 
-	public void setOwner(Set<User> owner) {
-		this.owner = owner;
+	public void setOwner(Set<User> owners) {
+		this.owners = owners;
 	}
 	
 	public void addOwner(User user) {
-		this.owner.add(user);
+		this.owners.add(user);
 		user.getBankAccounts().add(this);
 	}
 	
 	public void removeOwner(User user) {
-		this.owner.remove(user);
+		this.owners.remove(user);
 		user.getBankAccounts().remove(this);
 	}
 		
