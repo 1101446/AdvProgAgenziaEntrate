@@ -18,12 +18,13 @@ public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 				getResultList();
 	}
 	
-	public Family findById(String User) {
-		return this.getSession().find(Family.class, User);
+	public Family findById(String user) {
+		return this.getSession().find(Family.class, user);
 	}
 	
-	public Family create(User user, String hierarchy, String houseHolder) {
+	public Family create(long id, User user, String hierarchy, String houseHolder) {
 		Family family = new Family();
+		family.setId(id);
 		family.setUser(user);
 		family.setHierarchy(hierarchy);
 		family.setHouseHolder(houseHolder);

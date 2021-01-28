@@ -19,7 +19,6 @@ public class Family{
 	private String houseHolder;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_FAMILY")
 	public long getId() {
 		return id;

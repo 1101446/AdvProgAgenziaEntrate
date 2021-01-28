@@ -17,6 +17,11 @@ public class BankAccountServiceDefault implements BankAccountService{
 	private UserDaoDefault userDao;
 	
 	@Transactional
+	public BankAccount findById(String bankAccount) {
+		return this.bankAccountDao.findById(bankAccount);
+	}
+	
+	@Transactional
 	public BankAccount create(String IBAN, String bankName, Date billDate, long balance) {
 		return this.bankAccountDao.create(IBAN, bankName, billDate, balance);
 	}
@@ -41,12 +46,12 @@ public class BankAccountServiceDefault implements BankAccountService{
 	
 	@Transactional
 	public void addOwner(String user, String bankAccount) {
-		this.bankAccountDao.addOwner(this.userDao.findById(user), this.bankAccountDao.findById(bankAccount));
+		this.bankAccountDao.addOwner(this.userDao.findById(user), this.findById(bankAccount));
 	}
 	
 	@Transactional
 	public void removeOwner(String user, String bankAccount) {
-		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.bankAccountDao.findById(bankAccount));
+		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findById(bankAccount));
 	}
 	
 }

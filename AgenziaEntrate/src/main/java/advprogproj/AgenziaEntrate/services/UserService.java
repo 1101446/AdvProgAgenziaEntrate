@@ -16,6 +16,8 @@ import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
 public interface UserService {
 	
+	public User findById(String user);
+	
 	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, long access);
 	
 	public User update(String user);

@@ -6,9 +6,9 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface FamilyService {
 	
-	public Family findById(String User);
+	public Family findById(String user);
 	
-	public Family create(User user, String hierarchy, String houseHolder);
+	public Family create(long id, String user, String hierarchy, String houseHolder);
 	
 	public Family update(Family family);
 	
