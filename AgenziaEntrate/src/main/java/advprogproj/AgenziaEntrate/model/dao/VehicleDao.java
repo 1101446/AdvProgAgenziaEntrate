@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -11,6 +12,10 @@ public interface VehicleDao {
 	Session getSession();
 	
 	public void setSession(Session session);
+	
+	List<Vehicle> findAll();
+	
+	Vehicle findById(long id);
 	
 	Vehicle create(String brand, String model, String vehicleRegistration);
 	

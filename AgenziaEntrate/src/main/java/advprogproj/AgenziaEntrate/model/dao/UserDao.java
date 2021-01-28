@@ -1,7 +1,7 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Query;
@@ -18,6 +18,8 @@ public interface UserDao {
 	Session getSession();
 	
 	public void setSession(Session session);
+	
+	List<User> findAll();
 	
 	User findById(String id);
 	

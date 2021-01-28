@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Query;
@@ -17,6 +18,10 @@ public class RealEstateDaoDefault extends DefaultDao implements RealEstateDao {
 	
 	public RealEstate findById(long id) {
 		return this.getSession().find(RealEstate.class, id);
+	}
+	
+	public List<RealEstate> findAll(){
+		return this.getSession().createQuery("from RealEstate a", RealEstate.class).getResultList();
 	}
 	
 	public RealEstate create(String address, String Country, long CAP) {

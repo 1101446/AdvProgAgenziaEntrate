@@ -1,13 +1,22 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
 @Repository("familyDao")
 public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
+	
+	public List<Family> findAll(){
+		return this.getSession().
+				createQuery("from Family a", Family.class).
+				getResultList();
+	}
 	
 	public Family findById(String User) {
 		return this.getSession().find(Family.class, User);

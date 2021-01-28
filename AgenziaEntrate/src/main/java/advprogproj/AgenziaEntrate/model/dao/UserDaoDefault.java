@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Query;
@@ -24,10 +25,14 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	public List<User> findAll(){
+		return this.getSession().createQuery("from User a", User.class).getResultList();
+	}
+	
 	public User findById(String id) {
 		return getSession().find(User.class, id);
 	}
-	
+
 	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access) {
 		User user = new User();
 		user.setCf(cf);

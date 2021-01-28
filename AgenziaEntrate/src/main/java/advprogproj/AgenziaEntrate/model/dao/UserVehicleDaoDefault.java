@@ -15,7 +15,7 @@ public class UserVehicleDaoDefault extends DefaultDao implements UserVehicleDao{
 	public UserVehicle create(User user, Vehicle vehicle, Date endOfYear, long price) {
 		UserVehicle userVehicle = new UserVehicle();
 		userVehicle.setUser(user);
-		userVehicle.setVechicle(vehicle);
+		userVehicle.setVehicle(vehicle);
 		userVehicle.setEndOfYear(endOfYear);
 		userVehicle.setPrice(price);
 		this.getSession().save(userVehicle);
