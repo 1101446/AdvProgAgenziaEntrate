@@ -39,5 +39,13 @@ public interface UserDao {
 	
 	void removeBankAccount(User user, BankAccount bankAccount);
 	
+	public void addUserVehicle(User user, UserVehicle userVehicle);
+	
+	public void removeUserVehicle(User user, UserVehicle userVehicle);
+	
+	public void addUserRealEstate(User user, UserRealEstate userRealEstate);
+	
+	public void removeUserRealEstate(User user, UserRealEstate userRealEstate) ;
+	
 	public String encryptPassword(String password);
 }

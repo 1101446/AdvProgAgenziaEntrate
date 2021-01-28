@@ -75,4 +75,12 @@ public class RealEstate {
 	public void removeOwner(UserRealEstate userRealEstate) {
 		this.owner.remove(userRealEstate);
 	}
+	
+	public void addUserRealEstate(UserRealEstate userRealEstate) {
+		this.addUserRealEstate(userRealEstate);
+	}
+	
+	public void removeUserRealEstate(UserRealEstate userRealEstate) {
+		this.removeUserRealEstate(userRealEstate);
+	}
 }

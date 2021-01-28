@@ -45,4 +45,12 @@ public class RealEstateDaoDefault extends DefaultDao implements RealEstateDao {
 		Query q = this.getSession().createQuery("from UserRealEstate a JOIN FETCH a.realEstate WHERE a.realEstate = :realEstate", UserRealEstate.class);
 		return new HashSet<UserRealEstate>(q.setParameter("realEstate", realEstate).getResultList());
 	}
+	
+	public void addUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate) {
+		realEstate.addUserRealEstate(userRealEstate);
+	}
+	
+	public void removeUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate) {
+		realEstate.removeUserRealEstate(userRealEstate);
+	}
 }

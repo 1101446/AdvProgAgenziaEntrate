@@ -164,7 +164,7 @@ public class User
 		this.userRealEstates.add(userRealEstate);
 	}
 	
-	public void removeRealEstate(UserRealEstate userRealEstate) {
+	public void removeUserRealEstate(UserRealEstate userRealEstate) {
 		this.userRealEstates.remove(userRealEstate);
 	}
 }

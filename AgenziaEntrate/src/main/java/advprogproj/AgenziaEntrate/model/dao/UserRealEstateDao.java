@@ -16,4 +16,5 @@ public interface UserRealEstateDao {
 	UserRealEstate update(UserRealEstate userRealEstate);
 	
 	void delete(UserRealEstate userRealEstate);
+	
 }

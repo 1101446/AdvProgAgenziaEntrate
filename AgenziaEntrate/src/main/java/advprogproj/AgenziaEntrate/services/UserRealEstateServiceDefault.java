@@ -1,32 +1,44 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
+import advprogproj.AgenziaEntrate.model.dao.RealEstateDaoDefault;
+import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
+import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
 @Service("userRealEstate")
 public class UserRealEstateServiceDefault implements UserRealEstateService{
 	
-	public UserRealEstate create(User user, RealEstate realEstate, Date endOfYear, long price) {
-		UserRealEstate userRealEstate = new UserRealEstate();
-		userRealEstate.setUser(user);
-		userRealEstate.setRealEstate(realEstate);
-		userRealEstate.setEndOfYear(endOfYear);
-		userRealEstate.setPrice(price);
-		this.getSession().save(userRealEstate);
-		return userRealEstate;
+	private UserRealEstateDaoDefault userRealEstateDao;
+	private UserDaoDefault userDao;
+	private RealEstateDaoDefault realEstateDao;
+	
+	@Transactional
+	public UserRealEstate create(String user, long realEstate, Date endOfYear, long price) {
+		UserRealEstate ure = this.userRealEstateDao.create(this.userDao.findById(user), this.realEstateDao.findById(realEstate), endOfYear, price);
+		this.userDao.addUserRealEstate(this.userDao.findById(user), ure);
+		this.realEstateDao.addUserRealEstate(this.realEstateDao.findById(realEstate), ure);
+		return ure;
 	}
 	
+	@Transactional
 	public UserRealEstate update(UserRealEstate userRealEstate) {
-		return (UserRealEstate)this.getSession().merge(userRealEstate);
+		
 	}
 	
+	@Transactional
 	public void delete(UserRealEstate userRealEstate) {
-		this.getSession().delete(userRealEstate);
+
+	}
+	public Set<UserRealEstate> getUserRealEstate(RealEstate realEstate){
+		
 	}
 }

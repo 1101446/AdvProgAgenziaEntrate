@@ -78,6 +78,22 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 		user.removeBankAccount(bankAccount);
 	}
 	
+	public void addUserVehicle(User user, UserVehicle userVehicle) {
+		user.addUserVehicle(userVehicle);
+	}
+	
+	public void removeUserVehicle(User user, UserVehicle userVehicle) {
+		user.removeUserVehicle(userVehicle);
+	}
+	
+	public void addUserRealEstate(User user, UserRealEstate userRealEstate) {
+		user.addUserRealEstate(userRealEstate);
+	}
+	
+	public void removeUserRealEstate(User user, UserRealEstate userRealEstate) {
+		user.removeUserRealEstate(userRealEstate);
+	}
+	
 	public String encryptPassword(String password) {
 		return this.passwordEncoder.encode(password);
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
+import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
 public interface RealEstateDao {
 	Session getSession();
@@ -19,4 +20,9 @@ public interface RealEstateDao {
 	RealEstate update(RealEstate realEstate);
 	
 	void delete(RealEstate realEstate);
+	
+	public void addUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate);
+	
+	public void removeUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate);
+	
 }
