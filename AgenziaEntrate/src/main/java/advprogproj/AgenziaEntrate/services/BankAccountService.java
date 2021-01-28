@@ -10,7 +10,7 @@ public interface BankAccountService {
 	
 	public BankAccount findById(String IBAN);
 	
-	public BankAccount create(long IBAN, String bankName, Date billDate, long balance);
+	public BankAccount create(String IBAN, String bankName, Date billDate, long balance);
 	
 	public BankAccount update(BankAccount bankAccount);
 	

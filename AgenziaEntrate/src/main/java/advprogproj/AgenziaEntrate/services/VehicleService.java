@@ -15,5 +15,4 @@ public interface VehicleService {
 	
 	public void delete(Vehicle vehicle);
 	
-	public Set<UserVehicle> getUserVehicles(Vehicle vehicle);
 }

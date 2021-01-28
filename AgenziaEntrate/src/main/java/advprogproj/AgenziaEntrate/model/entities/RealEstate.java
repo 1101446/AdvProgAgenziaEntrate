@@ -33,7 +33,7 @@ public class RealEstate {
 		this.id = id;
 	}
 	
-	@Column
+	@Column(name = "ADDRESS")
 	public String getAddress() {
 		return this.address;
 	}
@@ -42,16 +42,16 @@ public class RealEstate {
 		this.address = address;
 	}
 	
-	@Column
+	@Column(name = "COUNTRY")
 	public String getCountry() {
 		return this.country;
 	}
 
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
 	}
 	
-	@Column(name = "cap")
+	@Column(name = "CAP")
 	public long getCAP() {
 		return CAP;
 	}
@@ -68,4 +68,12 @@ public class RealEstate {
 		this.owner = owner;
 	}
 	
+	public void addOwner(UserRealEstate userRealEstate) {
+		this.owner.add(userRealEstate);
+		userRealEstate.setRealEstate(this);
+	}
+	
+	public void removeOwner(UserRealEstate userRealEstate) {
+		this.owner.remove(userRealEstate);
+	}
 }

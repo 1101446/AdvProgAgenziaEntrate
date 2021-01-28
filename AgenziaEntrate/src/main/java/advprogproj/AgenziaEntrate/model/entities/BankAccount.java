@@ -66,5 +66,15 @@ public class BankAccount {
 	public void setOwner(Set<User> owner) {
 		this.owner = owner;
 	}
+	
+	public void addOwner(User user) {
+		this.owner.add(user);
+		user.getBankAccounts().add(this);
+	}
+	
+	public void removeOwner(User user) {
+		this.owner.remove(user);
+		user.getBankAccounts().remove(this);
+	}
 		
 }

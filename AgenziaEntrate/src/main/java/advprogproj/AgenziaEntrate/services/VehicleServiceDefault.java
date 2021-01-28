@@ -8,31 +8,24 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
-import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
+import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
 @Service("vehicle")
 public class VehicleServiceDefault implements VehicleService{
 	
+	private VehicleDaoDefault vehicleDao;
+	
 	public Vehicle create(String brand, String model, String vehicleRegistration) {
-		Vehicle vehicle = new Vehicle();
-		vehicle.setBrand(brand);
-		vehicle.setModel(model);
-		vehicle.setVehicleRegistration(vehicleRegistration);
-		this.getSession().save(vehicle);
-		return vehicle;
+		return this.vehicleDao.create(brand, model, vehicleRegistration);
 	}
 	
 	public Vehicle update(Vehicle vehicle) {
-		return (Vehicle)this.getSession().merge(vehicle);
+		return this.vehicleDao.update(vehicle);
 	}
 	
 	public void delete(Vehicle vehicle) {
-		this.getSession().delete(vehicle);
+		this.vehicleDao.delete(vehicle);
 	}
 	
-	public Set<UserVehicle> getUserVehicles(Vehicle vehicle) {
-		Query q = this.getSession().createQuery("from UserVehicle a JOIN FETCH a.vehicle WHERE a.vehicle = :vehicle", UserVehicle.class);
-		return new HashSet<UserVehicle>(q.setParameter("vehicle", vehicle).getResultList());
-	}
 }

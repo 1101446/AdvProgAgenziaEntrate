@@ -36,7 +36,7 @@ public class UserVehicle {
 		return vehicle;
 	}
 
-	public void setVechicle(Vehicle vehicle) {
+	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}
 	

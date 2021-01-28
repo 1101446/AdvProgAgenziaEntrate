@@ -40,7 +40,7 @@ public class Family{
 		this.user = user;
 	}
 
-	@Column
+	@Column(name = "HIERARCHY")
 	public String getHierarchy() {
 		return hierarchy;
 	}
@@ -49,6 +49,7 @@ public class Family{
 		this.hierarchy = hierarchy;
 	}
 	
+	@Column(name = "HOUSE_HOLDER")
 	public String getHouseHolder() {
 		return houseHolder;
 	}
@@ -56,4 +57,5 @@ public class Family{
 	public void setHouseHolder(String houseHolder) {
 		this.houseHolder = houseHolder;
 	}
+	
 }

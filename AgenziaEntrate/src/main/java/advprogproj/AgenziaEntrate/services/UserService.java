@@ -24,11 +24,4 @@ public interface UserService {
 	
 	public void delete(User user);
 	
-	public Set<BankAccount> getBankAccounts(User user);
-	
-	public Set<UserVehicle> getUserVehicles(User user);
-	
-	public Set<UserRealEstate> getUserRealEstate(User user);
-	
-	public String encryptPassword(String password);
 }
