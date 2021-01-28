@@ -143,4 +143,28 @@ public class User
 		this.userRealEstates = userRealEstates;
 	}
 	
+	public void addBankAccount(BankAccount bankAccount) {
+		this.bankAccounts.add(bankAccount);
+		bankAccount.getOwner().add(this);
+	}
+	
+	public void removeBankAccount(BankAccount bankAccount) {
+		this.bankAccounts.remove(bankAccount);
+		bankAccount.getOwner().remove(this);
+	}
+	
+	public void addUserVehicle(UserVehicle userVehicle) {
+		this.userVehicles.add(userVehicle);
+	}
+	
+	public void removeUserVehicle(UserVehicle userVehicle) {
+		this.userVehicles.remove(userVehicle);
+	}
+	public void addUserRealEstate(UserRealEstate userRealEstate) {
+		this.userRealEstates.add(userRealEstate);
+	}
+	
+	public void removeRealEstate(UserRealEstate userRealEstate) {
+		this.userRealEstates.remove(userRealEstate);
+	}
 }

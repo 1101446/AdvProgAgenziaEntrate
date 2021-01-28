@@ -70,7 +70,6 @@ public class RealEstate {
 	
 	public void addOwner(UserRealEstate userRealEstate) {
 		this.owner.add(userRealEstate);
-		userRealEstate.setRealEstate(this);
 	}
 	
 	public void removeOwner(UserRealEstate userRealEstate) {

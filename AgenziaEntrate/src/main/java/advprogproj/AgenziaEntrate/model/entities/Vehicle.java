@@ -72,7 +72,6 @@ public class Vehicle{
 	
 	public void addOwner(UserVehicle userVehicle) {
 		this.owner.add(userVehicle);
-		userVehicle.setVehicle(this);
 	}
 	
 	public void removeOwner(UserVehicle userVehicle) {
