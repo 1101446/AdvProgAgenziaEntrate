@@ -3,6 +3,7 @@ package advprogproj.AgenziaEntrate.services;
 import java.util.Date;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,5 +43,21 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 		this.userDao.removeUserRealEstate(userRealEstate.getUser(), userRealEstate);
 		this.realEstateDao.removeUserRealEstate(userRealEstate.getRealEstate(), userRealEstate);
 	}
-
+	
+	@Autowired
+	public void setUserRealEstateDao(UserRealEstateDaoDefault userRealEstateDao) {
+		this.userRealEstateDao = userRealEstateDao;
+	}
+	
+	@Autowired
+	public void setUserDao(UserDaoDefault userDao) {
+		this.userDao = userDao;
+	}
+	
+	@Autowired
+	public void setRealEstateDao(RealEstateDaoDefault realEstateDao) {
+		this.realEstateDao = realEstateDao;
+	}
+	
+	
 }

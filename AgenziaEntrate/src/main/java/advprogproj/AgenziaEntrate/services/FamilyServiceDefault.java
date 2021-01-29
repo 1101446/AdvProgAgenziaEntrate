@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,4 +34,15 @@ public class FamilyServiceDefault implements FamilyService{
 	public void delete(Family family) {
 		this.familyDao.delete(family);
 	}
+	
+	@Autowired
+	public void setFamilyDao(FamilyDaoDefault familyDao) {
+		this.familyDao = familyDao;
+	}
+	
+	@Autowired
+	public void setUserDao(UserDaoDefault userDao) {
+		this.userDao = userDao;
+	}
+	
 }

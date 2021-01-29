@@ -3,6 +3,7 @@ package advprogproj.AgenziaEntrate.services;
 import java.util.Date;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
@@ -52,5 +53,16 @@ public class BankAccountServiceDefault implements BankAccountService{
 	public void removeOwner(String user, String bankAccount) {
 		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findBankAccount(bankAccount));
 	}
+	
+	@Autowired
+	public void setBankAccountDao(BankAccountDaoDefault bankAccountDao) {
+		this.bankAccountDao = bankAccountDao;
+	}
+	
+	@Autowired
+	public void setUserDao(UserDaoDefault userDao) {
+		this.userDao = userDao;
+	}
+	
 	
 }

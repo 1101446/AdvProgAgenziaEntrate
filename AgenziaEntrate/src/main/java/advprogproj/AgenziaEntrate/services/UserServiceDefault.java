@@ -54,5 +54,22 @@ public class UserServiceDefault implements UserService{
 	public void removeBankAccount(String user, String bankAccount) {
 		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(bankAccount));
 	}
+	
+	@Autowired
+	public void setUserDao(UserDaoDefault userDao) {
+		this.userDao = userDao;
+	}
+	
+	@Autowired
+	public void setBankAccountDao(BankAccountDaoDefault bankAccountDao) {
+		this.bankAccountDao = bankAccountDao;
+	}
+	
+	@Autowired
+	public void setAccessDao(AccessDaoDefault accessDao) {
+		this.accessDao = accessDao;
+	}
+	
+	
 
 }

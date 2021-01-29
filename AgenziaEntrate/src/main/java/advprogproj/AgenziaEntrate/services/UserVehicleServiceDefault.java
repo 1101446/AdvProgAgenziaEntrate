@@ -3,6 +3,7 @@ package advprogproj.AgenziaEntrate.services;
 import java.util.Date;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,4 +43,21 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 		this.vehicleDao.removeUserVehicle(userVehicle.getVehicle(), userVehicle);
 		this.userVehicleDao.delete(userVehicle);
 	}
+	
+	@Autowired
+	public void setUserVehicleDao(UserVehicleDaoDefault userVehicleDao) {
+		this.userVehicleDao = userVehicleDao;
+	}
+	
+	@Autowired
+	public void setUserDao(UserDaoDefault userDao) {
+		this.userDao = userDao;
+	}
+	
+	@Autowired
+	public void setVehicleDao(VehicleDaoDefault vehicleDao) {
+		this.vehicleDao = vehicleDao;
+	}
+	
+	
 }

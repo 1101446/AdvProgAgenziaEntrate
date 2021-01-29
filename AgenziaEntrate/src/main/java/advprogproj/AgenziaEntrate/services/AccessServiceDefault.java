@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,4 +32,10 @@ public class AccessServiceDefault implements AccessService{
 	public void delete(Access access) {
 		this.accessDao.delete(access);
 	}
+	
+	@Autowired
+	public void setAccessDao(AccessDaoDefault accessDao) {
+		this.accessDao = accessDao;
+	}
+
 }
