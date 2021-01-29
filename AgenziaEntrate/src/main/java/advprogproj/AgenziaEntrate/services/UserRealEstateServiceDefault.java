@@ -31,14 +31,17 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 	
 	@Transactional
 	public UserRealEstate update(UserRealEstate userRealEstate) {
-		
+		return this.userRealEstateDao.update(userRealEstate);
 	}
 	
 	@Transactional
 	public void delete(UserRealEstate userRealEstate) {
-
+		this.userRealEstateDao.delete(userRealEstate);
+		this.userDao.removeUserRealEstate(userRealEstate.getUser(), userRealEstate);
+		this.realEstateDao.removeUserRealEstate(userRealEstate.getRealEstate(), userRealEstate);
 	}
+	
 	public Set<UserRealEstate> getUserRealEstate(RealEstate realEstate){
-		
+		return this.getUserRealEstate(realEstate);
 	}
 }

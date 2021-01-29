@@ -8,7 +8,9 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface BankAccountService {
 	
-	public BankAccount findById(String bankAccount);
+	public BankAccount findBankAccount(String bankAccount);
+	
+	public User findUser(String user);
 	
 	public BankAccount create(String IBAN, String bankName, Date billDate, long balance);
 	

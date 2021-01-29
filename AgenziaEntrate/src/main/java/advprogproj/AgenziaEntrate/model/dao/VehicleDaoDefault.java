@@ -40,6 +40,13 @@ public class VehicleDaoDefault extends DefaultDao implements VehicleDao{
 		this.getSession().delete(vehicle);
 	}
 	
+	public void addUserVehicle(Vehicle vehicle, UserVehicle userVehicle) {
+		vehicle.addOwner(userVehicle);
+	}
+	
+	public void removeUserVehicle(Vehicle vehicle, UserVehicle userVehicle) {
+		vehicle.removeOwner(userVehicle);
+	}
 	
 	public Set<UserVehicle> getUserVehicles(Vehicle vehicle) {
 		Query q = this.getSession().createQuery("from UserVehicle a JOIN FETCH a.vehicle WHERE a.vehicle = :vehicle", UserVehicle.class);

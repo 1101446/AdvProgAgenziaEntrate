@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
@@ -26,8 +27,18 @@ public class UserServiceDefault implements UserService{
 	private AccessDaoDefault accessDao;
 	
 	@Transactional
-	public User findById(String user) {
+	public User findUser(String user) {
 		return this.userDao.findById(user);
+	}
+	
+	@Transactional
+	public BankAccount findBankAccount(String bankAccount) {
+		return this.bankAccountDao.findById(bankAccount);
+	}
+	
+	@Transactional
+	public Access findAccess(long id) {
+		return this.accessDao.findById(id);
 	}
 	
 	@Transactional
@@ -37,7 +48,7 @@ public class UserServiceDefault implements UserService{
 	
 	@Transactional
 	public User update(String user){
-		return this.update(this.findById(user));
+		return this.update(this.findUser(user));
 	}
 	
 	@Transactional
@@ -48,18 +59,17 @@ public class UserServiceDefault implements UserService{
 	@Transactional
 	public void delete(String user, String bankAccount) {
 		this.removeBankAccount(user, bankAccount);		
-		this.userDao.delete(this.findById(user));
+		this.userDao.delete(this.findUser(user));
 	}
 	
 	@Transactional
 	public void addBankAccount(String user, String bankAccount) {
-		this.userDao.addBankAccount(this.findById(user), this.bankAccountDao.findById(bankAccount));
+		this.userDao.addBankAccount(this.findUser(user), this.findBankAccount(bankAccount));
 	}
 	
 	@Transactional
 	public void removeBankAccount(String user, String bankAccount) {
-		this.userDao.removeBankAccount(this.findById(user), this.bankAccountDao.findById(bankAccount));
+		this.userDao.removeBankAccount(this.findUser(user), this.findBankAccount(bankAccount));
 	}
 
-	
 }
