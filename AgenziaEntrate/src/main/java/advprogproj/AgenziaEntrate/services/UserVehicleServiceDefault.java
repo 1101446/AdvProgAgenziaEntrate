@@ -18,6 +18,7 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	private UserDaoDefault userDao;
 	private VehicleDaoDefault vehicleDao;
 	
+	@Transactional
 	public UserVehicle findUserVehicle(String user, long vehicle, Date date) {
 		return this.userVehicleDao.findById(this.userDao.findById(user), this.vehicleDao.findById(vehicle), date);
 	}
