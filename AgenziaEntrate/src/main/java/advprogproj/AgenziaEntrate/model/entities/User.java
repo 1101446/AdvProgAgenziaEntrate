@@ -26,7 +26,7 @@ public class User implements Serializable{
     private String email;
     private String password;
     private boolean handicap;
-    
+    private float ISEE;
     private Access access;
     
     private Set<BankAccount> bankAccounts = new HashSet<BankAccount>();
@@ -98,6 +98,15 @@ public class User implements Serializable{
 		this.handicap = handicap;
 	}
 	
+	@Column(name = "ISEE")
+	public float getISEE() {
+		return ISEE;
+	}
+
+	public void setISEE(float iSEE) {
+		ISEE = iSEE;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "ID_ACCESS")
 	public Access getAccess() {
