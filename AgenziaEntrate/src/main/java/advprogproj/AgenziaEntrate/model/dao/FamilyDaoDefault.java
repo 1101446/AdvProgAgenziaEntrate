@@ -4,10 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.User;
 

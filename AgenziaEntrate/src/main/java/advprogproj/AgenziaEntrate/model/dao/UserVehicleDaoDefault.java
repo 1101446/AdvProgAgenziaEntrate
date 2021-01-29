@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Query;
 
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.User;

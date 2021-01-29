@@ -2,7 +2,6 @@ package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.Date;
 
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 

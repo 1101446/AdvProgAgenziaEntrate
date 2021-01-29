@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
-import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
 @Repository("bankAccountDao")
 public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
