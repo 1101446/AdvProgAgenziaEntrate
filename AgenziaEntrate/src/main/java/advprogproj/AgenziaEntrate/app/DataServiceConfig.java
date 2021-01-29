@@ -47,7 +47,7 @@ public class DataServiceConfig {
 
 			DriverManagerDataSource ds = new DriverManagerDataSource();
 			ds.setDriverClassName(com.mysql.cj.jdbc.Driver.class.getName());
-			ds.setUrl("jdbc:mysql://localhost:3306/singerDB?createDatabaseIfNotExist=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false");
+			ds.setUrl("jdbc:mysql://localhost:3306/agenziaentrate?createDatabaseIfNotExist=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false");
 			ds.setUsername("root");
 			ds.setPassword("p@ssw0rd");
 			return ds;
