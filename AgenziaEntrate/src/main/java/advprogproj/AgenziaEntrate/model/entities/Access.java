@@ -1,5 +1,7 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "access")
-public class Access
-{
+public class Access implements Serializable{
     private long id;
     private String roleName;
     private int priority;

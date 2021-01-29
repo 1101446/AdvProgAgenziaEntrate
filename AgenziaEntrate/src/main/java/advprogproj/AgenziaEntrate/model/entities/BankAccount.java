@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,8 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "bank_account")
-public class BankAccount {
-	
+public class BankAccount implements Serializable{
 	private String IBAN;
 	private String bankName;
 	private Date billDate;

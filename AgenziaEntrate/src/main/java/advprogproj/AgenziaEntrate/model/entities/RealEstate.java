@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,8 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "real_estate")
-public class RealEstate {
-	
+public class RealEstate implements Serializable{
 	private long id;
 	private String address;
 	private String country;

@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_vehicle")
-public class UserVehicle {
+public class UserVehicle implements Serializable{
 	private User user;
 	private Vehicle vehicle;
 	private Date endOfYear;

@@ -32,7 +32,11 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	public User findById(String id) {
 		return getSession().find(User.class, id);
 	}
-
+	
+	public User findByEmail(String email) {
+		return getSession().get(User.class, email);
+	}
+	
 	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access) {
 		User user = new User();
 		user.setCf(cf);

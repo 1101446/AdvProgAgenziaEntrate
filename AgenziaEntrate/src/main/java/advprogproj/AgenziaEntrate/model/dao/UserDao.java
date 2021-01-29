@@ -23,6 +23,8 @@ public interface UserDao {
 	
 	User findById(String id);
 	
+	User findByEmail(String email);
+	
 	User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access);
 	
 	User update(User user);

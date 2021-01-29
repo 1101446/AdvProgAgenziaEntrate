@@ -2,7 +2,12 @@ package advprogproj.AgenziaEntrate.services;
 
 import java.util.Date;
 import org.hibernate.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +18,25 @@ import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 
 @Service("userService")
-public class UserServiceDefault implements UserService{
+public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	private UserDaoDefault userDao;
 	private BankAccountDaoDefault bankAccountDao;
 	private AccessDaoDefault accessDao;
+	
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+		User user = userDao.findByEmail(email);
+		UserBuilder builder = null;
+		if(user != null) {
+			builder = org.springframework.security.core.userdetails.User.withUsername(email);
+			builder.disabled(false);
+			builder.password(user.getPassword());
+			String role = user.getAccess().getRoleName();
+			builder.roles(role);
+		}else
+			throw new UsernameNotFoundException("user not found");
+		return builder.build();
+	} 
 	
 	@Transactional
 	public User findUser(String user) {
@@ -69,7 +88,4 @@ public class UserServiceDefault implements UserService{
 	public void setAccessDao(AccessDaoDefault accessDao) {
 		this.accessDao = accessDao;
 	}
-	
-	
-
 }
