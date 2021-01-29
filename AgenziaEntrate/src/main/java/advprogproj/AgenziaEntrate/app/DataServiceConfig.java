@@ -49,13 +49,13 @@ public class DataServiceConfig {
 			ds.setDriverClassName(com.mysql.cj.jdbc.Driver.class.getName());
 			ds.setUrl("jdbc:mysql://localhost:3306/agenziaentrate?createDatabaseIfNotExist=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false");
 			ds.setUsername("root");
-			ds.setPassword("p@ssw0rd");
+			ds.setPassword("");
 			return ds;
 
 		} catch (Exception e) {
 			logger.error("DataSource bean cannot be created!!", e);
 			logger.error("DataSource bean cannot be created!!", e);
-
+			logger.error("DataSource bean cannot be created!!", e);
 			return null;
 		}
 	}

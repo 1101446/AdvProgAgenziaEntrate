@@ -69,8 +69,8 @@ public class LoadDataTest {
 				//instrumentDao.create("v-1", "Stradivari", "violin");
 				//instrumentDao.create("k-1", "Moog", "keyboard");
 	
-	
-				Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
+				session.getTransaction().commit();
+				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
 				Singer mj = singerDao.create("Michael", "Jackson", null);
 							
 				albumDao.create("Wish you where here", rw);
@@ -201,7 +201,8 @@ public class LoadDataTest {
 				
 				userDao.update(u1);
 				userDao.update(u2);
-				session.getTransaction().commit();
+				session.getTransaction().commit();*/
+				System.out.println("HALLO");
 			}catch (Exception e) {
 		//		logger.error("Eccezione: " + e.getMessage());
 				e.printStackTrace(System.err);
