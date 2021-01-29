@@ -1,19 +1,12 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import advprogproj.AgenziaEntrate.model.entities.Access;
-import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
@@ -29,16 +22,6 @@ public class UserServiceDefault implements UserService{
 	@Transactional
 	public User findUser(String user) {
 		return this.userDao.findById(user);
-	}
-	
-	@Transactional
-	public BankAccount findBankAccount(String bankAccount) {
-		return this.bankAccountDao.findById(bankAccount);
-	}
-	
-	@Transactional
-	public Access findAccess(long id) {
-		return this.accessDao.findById(id);
 	}
 	
 	@Transactional
@@ -64,12 +47,12 @@ public class UserServiceDefault implements UserService{
 	
 	@Transactional
 	public void addBankAccount(String user, String bankAccount) {
-		this.userDao.addBankAccount(this.findUser(user), this.findBankAccount(bankAccount));
+		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(bankAccount));
 	}
 	
 	@Transactional
 	public void removeBankAccount(String user, String bankAccount) {
-		this.userDao.removeBankAccount(this.findUser(user), this.findBankAccount(bankAccount));
+		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(bankAccount));
 	}
 
 }

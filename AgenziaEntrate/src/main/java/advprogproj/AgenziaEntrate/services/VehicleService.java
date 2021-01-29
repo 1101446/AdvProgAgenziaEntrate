@@ -9,10 +9,12 @@ import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
 public interface VehicleService {
 	
+	public Vehicle findVehicle(long id);
+	
 	public Vehicle create(String brand, String model, String vehicleRegistration);
 	
 	public Vehicle update(Vehicle vehicle);
 	
-	public void delete(Vehicle vehicle);
+	public void delete(long vehicle);
 	
 }

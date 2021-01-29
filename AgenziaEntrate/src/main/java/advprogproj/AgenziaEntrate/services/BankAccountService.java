@@ -2,15 +2,11 @@ package advprogproj.AgenziaEntrate.services;
 
 import java.util.Date;
 
-import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
-import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface BankAccountService {
 	
 	public BankAccount findBankAccount(String bankAccount);
-	
-	public User findUser(String user);
 	
 	public BankAccount create(String IBAN, String bankName, Date billDate, long balance);
 	

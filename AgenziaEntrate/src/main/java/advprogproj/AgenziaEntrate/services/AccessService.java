@@ -4,7 +4,7 @@ import advprogproj.AgenziaEntrate.model.entities.Access;
 
 public interface AccessService {
 	
-	public Access findById(long id);
+	public Access findAccess(long id);
 	
 	public Access create(String roleName, int priority, String description);
 	

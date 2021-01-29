@@ -11,7 +11,7 @@ public class AccessServiceDefault implements AccessService{
 	
 	private AccessDaoDefault accessDao;
 	
-	public Access findById(long id) {
+	public Access findAccess(long id) {
 		return this.accessDao.findById(id);
 	}
 	

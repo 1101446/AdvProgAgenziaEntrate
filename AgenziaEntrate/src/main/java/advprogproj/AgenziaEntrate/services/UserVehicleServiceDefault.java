@@ -13,11 +13,12 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 @Service("userVehicle")
 public class UserVehicleServiceDefault implements UserVehicleService{
+	
 	private UserVehicleDaoDefault userVehicleDao;
 	private UserDaoDefault userDao;
 	private VehicleDaoDefault vehicleDao;
 	
-	public UserVehicle findById(String user, long vehicle, Date date) {
+	public UserVehicle findUserVehicle(String user, long vehicle, Date date) {
 		return this.userVehicleDao.findById(this.userDao.findById(user), this.vehicleDao.findById(vehicle), date);
 	}
 	

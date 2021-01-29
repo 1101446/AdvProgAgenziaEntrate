@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
-import advprogproj.AgenziaEntrate.model.entities.User;
 
 @Service("bankAccount")
 public class BankAccountServiceDefault implements BankAccountService{
@@ -22,18 +21,13 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Transactional
-	public User findUser(String user) {
-		return this.userDao.findById(user);
-	}
-	
-	@Transactional
 	public BankAccount create(String IBAN, String bankName, Date billDate, long balance) {
 		return this.bankAccountDao.create(IBAN, bankName, billDate, balance);
 	}
 	
 	@Transactional
 	public BankAccount update(String bankAccount) {
-		return this.update(bankAccountDao.findById(bankAccount));
+		return this.update(this.findBankAccount(bankAccount));
 		
 	}
 	
@@ -45,18 +39,18 @@ public class BankAccountServiceDefault implements BankAccountService{
 	
 	@Transactional
 	public void delete(String bankAccount, String user) {
-		this.bankAccountDao.delete(this.bankAccountDao.findById(bankAccount));
+		this.bankAccountDao.delete(this.findBankAccount(bankAccount));
 		this.removeOwner(user, bankAccount);
 	}
 	
 	@Transactional
 	public void addOwner(String user, String bankAccount) {
-		this.bankAccountDao.addOwner(this.findUser(user), this.findBankAccount(bankAccount));
+		this.bankAccountDao.addOwner(this.userDao.findById(user), this.findBankAccount(bankAccount));
 	}
 	
 	@Transactional
 	public void removeOwner(String user, String bankAccount) {
-		this.bankAccountDao.removeOwner(this.findUser(user), this.findBankAccount(bankAccount));
+		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findBankAccount(bankAccount));
 	}
 	
 }

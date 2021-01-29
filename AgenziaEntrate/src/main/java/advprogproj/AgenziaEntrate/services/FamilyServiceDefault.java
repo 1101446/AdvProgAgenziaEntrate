@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.FamilyDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.Family;
-import advprogproj.AgenziaEntrate.model.entities.User;
 
 @Service("family")
 public class FamilyServiceDefault implements FamilyService{
@@ -21,18 +20,8 @@ public class FamilyServiceDefault implements FamilyService{
 	}
 	
 	@Transactional
-	public User findUser(String user) {
-		return this.userDao.findById(user);
-	}
-	
-	@Transactional
 	public Family create(long id, String user, String hierarchy, String houseHolder) {
 		return this.familyDao.create(id, this.userDao.findById(user), hierarchy, houseHolder);
-	}
-	
-	@Transactional
-	public Family update(long id, String user) {
-		return this.update(this.findFamily(id, user));
 	}
 	
 	@Transactional

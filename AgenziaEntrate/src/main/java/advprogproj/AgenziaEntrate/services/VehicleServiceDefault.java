@@ -3,8 +3,6 @@ package advprogproj.AgenziaEntrate.services;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +16,11 @@ public class VehicleServiceDefault implements VehicleService{
 	private VehicleDaoDefault vehicleDao;
 	
 	@Transactional
+	public Vehicle findVehicle(long id) {
+		return this.vehicleDao.findById(id);
+	}
+	
+	@Transactional
 	public Vehicle create(String brand, String model, String vehicleRegistration) {
 		return this.vehicleDao.create(brand, model, vehicleRegistration);
 	}
@@ -28,8 +31,8 @@ public class VehicleServiceDefault implements VehicleService{
 	}
 	
 	@Transactional
-	public void delete(Vehicle vehicle) {
-		this.vehicleDao.delete(vehicle);
+	public void delete(long vehicle) {
+		this.vehicleDao.delete(this.findVehicle(vehicle));
 	}
 	
 }
