@@ -2,6 +2,8 @@ package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -18,8 +20,11 @@ public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 				getResultList();
 	}
 	
-	public Family findById(String user) {
-		return this.getSession().find(Family.class, user);
+	public Family findById(long id, String user) {
+		Query q = this.getSession().createQuery("from Family a join fetch a.user "
+				+ "WHERE a.id = :id AND a.user= :user",Family.class);
+		return (Family)q.setParameter("id", id).
+				setParameter("user", user).getResultList();
 	}
 	
 	public Family create(long id, User user, String hierarchy, String houseHolder) {

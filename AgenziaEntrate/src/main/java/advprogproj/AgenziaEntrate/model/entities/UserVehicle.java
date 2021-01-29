@@ -30,7 +30,7 @@ public class UserVehicle {
 	}
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "ID_VEHICLE")
 	public Vehicle getVehicle() {
 		return vehicle;

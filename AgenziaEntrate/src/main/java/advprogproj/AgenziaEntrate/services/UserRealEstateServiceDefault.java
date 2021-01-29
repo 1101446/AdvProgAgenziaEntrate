@@ -22,10 +22,25 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 	private RealEstateDaoDefault realEstateDao;
 	
 	@Transactional
+	public UserRealEstate findById(String user, long realEstate, Date date) {
+		return this.userRealEstateDao.findById(this.findUser(user), this.findRealEstate(realEstate), date);
+	}
+	
+	@Transactional
+	public User findUser(String user) {
+		return this.userDao.findById(user);
+	}
+	
+	@Transactional
+	public RealEstate findRealEstate(long realEstate) {
+		return this.realEstateDao.findById(realEstate);
+	}
+	
+	@Transactional
 	public UserRealEstate create(String user, long realEstate, Date endOfYear, long price) {
 		UserRealEstate ure = this.userRealEstateDao.create(this.userDao.findById(user), this.realEstateDao.findById(realEstate), endOfYear, price);
-		this.userDao.addUserRealEstate(this.userDao.findById(user), ure);
-		this.realEstateDao.addUserRealEstate(this.realEstateDao.findById(realEstate), ure);
+		this.userDao.addUserRealEstate(this.findUser(user), ure);
+		this.realEstateDao.addUserRealEstate(this.findRealEstate(realEstate), ure);
 		return ure;
 	}
 	

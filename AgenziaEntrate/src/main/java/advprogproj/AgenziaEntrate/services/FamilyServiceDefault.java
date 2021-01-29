@@ -16,8 +16,13 @@ public class FamilyServiceDefault implements FamilyService{
 	private UserDaoDefault userDao;
 	
 	@Transactional
-	public Family findById(String user) {
-		return this.familyDao.findById(user);
+	public Family findFamily(long id, String user) {
+		return this.familyDao.findById(id, user);
+	}
+	
+	@Transactional
+	public User findUser(String user) {
+		return this.userDao.findById(user);
 	}
 	
 	@Transactional
@@ -26,8 +31,8 @@ public class FamilyServiceDefault implements FamilyService{
 	}
 	
 	@Transactional
-	public Family update(String user) {
-		return this.update(this.findById(user));
+	public Family update(long id, String user) {
+		return this.update(this.findFamily(id, user));
 	}
 	
 	@Transactional

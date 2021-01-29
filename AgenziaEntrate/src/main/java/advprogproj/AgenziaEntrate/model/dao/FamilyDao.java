@@ -14,7 +14,7 @@ public interface FamilyDao {
 	
 	List<Family> findAll();
 	
-	Family findById(String user);
+	Family findById(long id, String user);
 	
 	Family create(long id, User user, String hierarchy, String houseHolder);
 	

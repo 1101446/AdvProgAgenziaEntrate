@@ -11,6 +11,8 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 public interface UserVehicleDao {
 	Session getSession();
 	
+	UserVehicle findById(User user, Vehicle vehicle, Date date);
+	
 	public void setSession(Session session);
 	
 	UserVehicle create(User user, Vehicle vehicle, Date endOfYear, long price);

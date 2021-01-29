@@ -10,7 +10,9 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 public interface UserVehicleService {
 	
-	public UserVehicle create(String user, int vehicle, Date endOfYear, long price);
+	public UserVehicle findById(String user, long vehicle, Date date); 
+	
+	public UserVehicle create(String user, long vehicle, Date endOfYear, long price);
 	
 	public UserVehicle update(UserVehicle userVehicle);
 	

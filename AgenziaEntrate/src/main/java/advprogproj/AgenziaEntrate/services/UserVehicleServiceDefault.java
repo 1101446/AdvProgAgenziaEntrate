@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
-import advprogproj.AgenziaEntrate.model.entities.User;
-import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 @Service("userVehicle")
@@ -19,8 +17,12 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	private UserDaoDefault userDao;
 	private VehicleDaoDefault vehicleDao;
 	
+	public UserVehicle findById(String user, long vehicle, Date date) {
+		return this.userVehicleDao.findById(this.userDao.findById(user), this.vehicleDao.findById(vehicle), date);
+	}
+	
 	@Transactional
-	public UserVehicle create(String user, int vehicle, Date endOfYear, long price) {
+	public UserVehicle create(String user, long vehicle, Date endOfYear, long price) {
 		UserVehicle uv = this.userVehicleDao.create(this.userDao.findById(user), this.vehicleDao.findById(vehicle), endOfYear, price);
 		this.userDao.addUserVehicle(this.userDao.findById(user), uv);
 		this.vehicleDao.addUserVehicle(this.vehicleDao.findById(vehicle), uv);

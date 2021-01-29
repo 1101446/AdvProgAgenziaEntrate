@@ -2,6 +2,8 @@ package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.Date;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +13,14 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 @Repository("userVehicleDao")
 public class UserVehicleDaoDefault extends DefaultDao implements UserVehicleDao{
+	
+	public UserVehicle findById(User user, Vehicle vehicle, Date date) {
+		Query q = this.getSession().createQuery("from UserVehicle a join fetch a.user join fetch a.vehicle "
+				+ "WHERE a.user = :user AND a.userVehicle = :userVehicle AND a.endOfYear = :date", UserVehicle.class);
+		return (UserVehicle) q.setParameter("user", user).
+				setParameter("realEstate", vehicle).
+				setParameter("date", date).getResultList();
+	}
 	
 	public UserVehicle create(User user, Vehicle vehicle, Date endOfYear, long price) {
 		UserVehicle userVehicle = new UserVehicle();

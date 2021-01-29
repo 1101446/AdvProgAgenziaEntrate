@@ -111,7 +111,7 @@ public class User
 		this.access = access;
 	}
 	
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(
 			name= "user_bank_account",
 			joinColumns = @JoinColumn(name = "ID_USER"),

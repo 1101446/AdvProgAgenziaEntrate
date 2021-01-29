@@ -56,17 +56,17 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	}
 	
 	public Set<BankAccount> getBankAccounts(User user) {
-		Query q = this.getSession().createQuery("from BankAccount a JOIN FETCH a.owner WHERE a.owner = :user", BankAccount.class);
+		Query q = this.getSession().createQuery("from BankAccount a join fetch a.owner WHERE a.owner = :user", BankAccount.class);
 		return new HashSet<BankAccount>(q.setParameter("user", user).getResultList());
 	}
 	
 	public Set<UserVehicle> getUserVehicles(User user) {
-		Query q = this.getSession().createQuery("from UserVehicle a JOIN FETCH a.user WHERE a.user = :user", UserVehicle.class);
+		Query q = this.getSession().createQuery("from UserVehicle a join fetch a.user WHERE a.user = :user", UserVehicle.class);
 		return new HashSet<UserVehicle>(q.setParameter("user", user).getResultList());
 	}
 	
 	public Set<UserRealEstate> getUserRealEstate(User user) {
-		Query q = this.getSession().createQuery("from UserRealEstate a JOIN FETCH a.user WHERE a.user = :user", UserRealEstate.class);
+		Query q = this.getSession().createQuery("from UserRealEstate a join fetch a.user WHERE a.user = :user", UserRealEstate.class);
 		return new HashSet<UserRealEstate>(q.setParameter("user", user).getResultList());
 	}
 	

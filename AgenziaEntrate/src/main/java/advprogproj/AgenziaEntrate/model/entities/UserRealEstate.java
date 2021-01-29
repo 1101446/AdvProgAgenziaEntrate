@@ -31,7 +31,7 @@ public class UserRealEstate {
 	}
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "ID_REAL_ESTATE")
 	public RealEstate getRealEstate() {
 		return realEstate;
