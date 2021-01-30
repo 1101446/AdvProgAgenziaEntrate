@@ -1,16 +1,14 @@
 package advprogproj.AgenziaEntrate.services;
 
-import java.util.Date;
-
-import org.hibernate.Session;
+import java.time.LocalDate;
 
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 public interface UserVehicleService {
 	
-	public UserVehicle findUserVehicle(String user, long vehicle, Date date); 
+	public UserVehicle findUserVehicle(String user, long vehicle, LocalDate date); 
 	
-	public UserVehicle create(String user, long vehicle, Date endOfYear, long price);
+	public UserVehicle create(String user, long vehicle, LocalDate endOfYear, long price);
 	
 	public UserVehicle update(UserVehicle userVehicle);
 	

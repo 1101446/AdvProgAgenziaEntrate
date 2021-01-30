@@ -1,7 +1,7 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class UserVehicle implements Serializable{
 	private User user;
 	private Vehicle vehicle;
-	private Date endOfYear;
+	private LocalDate endOfYear;
 	private long price;
 	
 	@Id
@@ -43,11 +43,11 @@ public class UserVehicle implements Serializable{
 	
 	@Id
 	@Column
-	public Date getEndOfYear() {
-		return endOfYear;
+	public LocalDate getEndOfYear() {
+		return this.endOfYear;
 	}
 	
-	public void setEndOfYear(Date endOfYear) {
+	public void setEndOfYear(LocalDate endOfYear) {
 		this.endOfYear = endOfYear;
 	}
 	

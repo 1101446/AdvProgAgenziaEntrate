@@ -1,6 +1,6 @@
 package advprogproj.AgenziaEntrate.services;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,12 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 	private RealEstateDaoDefault realEstateDao;
 	
 	@Transactional
-	public UserRealEstate findUserRealEstate(String user, long realEstate, Date date) {
+	public UserRealEstate findUserRealEstate(String user, long realEstate, LocalDate date) {
 		return this.userRealEstateDao.findById(this.userDao.findById(user), this.realEstateDao.findById(realEstate), date);
 	}
 	
 	@Transactional
-	public UserRealEstate create(String user, long realEstate, Date endOfYear, long price) {
+	public UserRealEstate create(String user, long realEstate, LocalDate endOfYear, long price) {
 		UserRealEstate ure = this.userRealEstateDao.create(this.userDao.findById(user), this.realEstateDao.findById(realEstate), endOfYear, price);
 		this.userDao.addUserRealEstate(this.userDao.findById(user), ure);
 		this.realEstateDao.addUserRealEstate(this.realEstateDao.findById(realEstate), ure);

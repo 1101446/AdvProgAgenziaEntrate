@@ -22,7 +22,7 @@ public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 		Query q = this.getSession().createQuery("from Family a join fetch a.user "
 				+ "WHERE a.id = :id AND a.user= :user",Family.class);
 		return (Family)q.setParameter("id", id).
-				setParameter("user", user).getResultList();
+				setParameter("user", user).getSingleResult();
 	}
 	
 	public Family create(long id, User user, String hierarchy, String houseHolder) {

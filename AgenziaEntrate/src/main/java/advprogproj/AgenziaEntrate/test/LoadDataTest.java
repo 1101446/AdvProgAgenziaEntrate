@@ -13,6 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import advprogproj.AgenziaEntrate.app.DataServiceConfig;
 import advprogproj.AgenziaEntrate.model.dao.DefaultDao;
+import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDao;
@@ -26,6 +27,7 @@ import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.Access;
+import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
@@ -110,6 +112,39 @@ public class LoadDataTest {
 				userDao.create("JOPFRT45A58L667X", "Pino", "Insegna", LocalDate.of(1975, 5, 22), "insegna.p@gmailcom", userDao.encryptPassword("cane"), false, piAccess);
 				
 				session.getTransaction().commit();
+				User mario = userDao.findByEmail("mariorossi@gmail.com");
+				User paolo = userDao.findByEmail("p.bianchi@yahoo.com");
+				
+				BankAccount bankAccount1 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2018);
+				BankAccount bankAccount2 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2019);
+				BankAccount bankAccount3 = bankAccountDao.findById("IT05G0003430005200000000999", billDate2018);
+				BankAccount bankAccount4 = bankAccountDao.findById("IT05G0003430005200000000999", billDate2019);
+				
+				userDao.addBankAccount(mario, bankAccount1);
+				userDao.addBankAccount(mario, bankAccount2);
+				bankAccountDao.addOwner(paolo, bankAccount3);
+				bankAccountDao.addOwner(paolo, bankAccount4);
+				bankAccountDao.addOwner(paolo, bankAccount2);
+				
+				assert mario.getBankAccounts().size() == 0;
+				assert paolo.getBankAccounts().size() == 0;
+				
+				assert bankAccount2.getOwner().size() ==0;
+				assert bankAccount1.getOwner().size() ==0;
+				assert bankAccount3.getOwner().size() ==0;
+				assert bankAccount4.getOwner().size() ==0;
+				
+				// refresh per ricaricare
+				session.refresh(mario);
+				session.refresh(paolo);
+				
+				assert mario.getBankAccounts().size() == 0;
+				assert paolo.getBankAccounts().size() == 0;
+				
+				assert bankAccount2.getOwner().size() ==0;
+				assert bankAccount1.getOwner().size() ==0;
+				assert bankAccount3.getOwner().size() ==0;
+				assert bankAccount4.getOwner().size() ==0;
 				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
 				Singer mj = singerDao.create("Michael", "Jackson", null);
 							

@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.time.LocalDate;
 import java.util.Date;
 import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
@@ -11,7 +12,7 @@ public interface UserRealEstateDao {
 	
 	public void setSession(Session session);
 	
-	UserRealEstate create(User user, RealEstate realEstate, Date endOfYear,long price);
+	UserRealEstate create(User user, RealEstate realEstate, LocalDate endOfYear,long price);
 	
 	UserRealEstate update(UserRealEstate userRealEstate);
 	

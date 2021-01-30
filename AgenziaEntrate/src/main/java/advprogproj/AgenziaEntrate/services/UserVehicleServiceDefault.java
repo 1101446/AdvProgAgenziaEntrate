@@ -1,8 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +19,12 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	private VehicleDaoDefault vehicleDao;
 	
 	@Transactional
-	public UserVehicle findUserVehicle(String user, long vehicle, Date date) {
+	public UserVehicle findUserVehicle(String user, long vehicle, LocalDate date) {
 		return this.userVehicleDao.findById(this.userDao.findById(user), this.vehicleDao.findById(vehicle), date);
 	}
 	
 	@Transactional
-	public UserVehicle create(String user, long vehicle, Date endOfYear, long price) {
+	public UserVehicle create(String user, long vehicle, LocalDate endOfYear, long price) {
 		UserVehicle uv = this.userVehicleDao.create(this.userDao.findById(user), this.vehicleDao.findById(vehicle), endOfYear, price);
 		this.userDao.addUserVehicle(this.userDao.findById(user), uv);
 		this.vehicleDao.addUserVehicle(this.vehicleDao.findById(vehicle), uv);
