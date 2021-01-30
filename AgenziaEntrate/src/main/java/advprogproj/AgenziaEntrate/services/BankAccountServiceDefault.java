@@ -17,8 +17,8 @@ public class BankAccountServiceDefault implements BankAccountService{
 	private UserDaoDefault userDao;
 	
 	@Transactional
-	public BankAccount findBankAccount(String bankAccount) {
-		return this.bankAccountDao.findById(bankAccount);
+	public BankAccount findBankAccount(String bankAccount, Date billDate) {
+		return this.bankAccountDao.findById(bankAccount, billDate);
 	}
 	
 	@Transactional
@@ -27,8 +27,8 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Transactional
-	public BankAccount update(String bankAccount) {
-		return this.update(this.findBankAccount(bankAccount));
+	public BankAccount update(String IBAN, Date billDate) {
+		return this.update(this.findBankAccount(IBAN, billDate));
 		
 	}
 	
@@ -39,19 +39,19 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Transactional
-	public void delete(String bankAccount, String user) {
-		this.bankAccountDao.delete(this.findBankAccount(bankAccount));
-		this.removeOwner(user, bankAccount);
+	public void delete(String IBAN, Date billDate, String user) {
+		this.bankAccountDao.delete(this.findBankAccount(IBAN, billDate));
+		this.removeOwner(user, IBAN, billDate);
 	}
 	
 	@Transactional
-	public void addOwner(String user, String bankAccount) {
-		this.bankAccountDao.addOwner(this.userDao.findById(user), this.findBankAccount(bankAccount));
+	public void addOwner(String user, String IBAN, Date billDate) {
+		this.bankAccountDao.addOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
 	}
 	
 	@Transactional
-	public void removeOwner(String user, String bankAccount) {
-		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findBankAccount(bankAccount));
+	public void removeOwner(String user, String IBAN, Date billDate) {
+		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
 	}
 	
 	@Autowired
@@ -63,6 +63,5 @@ public class BankAccountServiceDefault implements BankAccountService{
 	public void setUserDao(UserDaoDefault userDao) {
 		this.userDao = userDao;
 	}
-	
 	
 }

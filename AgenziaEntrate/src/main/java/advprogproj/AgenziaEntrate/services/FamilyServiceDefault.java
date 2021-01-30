@@ -26,13 +26,13 @@ public class FamilyServiceDefault implements FamilyService{
 	}
 	
 	@Transactional
-	public Family update(Family family) {
-		return this.familyDao.update(family);
+	public Family update(long id, String user) {
+		return this.findFamily(id, user);
 	}
 	
 	@Transactional
-	public void delete(Family family) {
-		this.familyDao.delete(family);
+	public void delete(long id, String user) {
+		this.findFamily(id, user);
 	}
 	
 	@Autowired
