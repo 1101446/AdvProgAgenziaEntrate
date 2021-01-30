@@ -57,19 +57,19 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	}
 	
 	@Transactional
-	public void delete(String user, String bankAccount) {
-		this.removeBankAccount(user, bankAccount);		
+	public void delete(String user, String bankAccount, Date billDate) {
+		this.removeBankAccount(user, bankAccount, billDate);		
 		this.userDao.delete(this.findUser(user));
 	}
 	
 	@Transactional
-	public void addBankAccount(String user, String bankAccount) {
-		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(bankAccount));
+	public void addBankAccount(String user, String IBAN, Date billDate) {
+		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
 	}
 	
 	@Transactional
-	public void removeBankAccount(String user, String bankAccount) {
-		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(bankAccount));
+	public void removeBankAccount(String user, String IBAN, Date billDate) {
+		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
 	}
 	
 	@Autowired

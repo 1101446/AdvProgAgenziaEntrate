@@ -14,9 +14,9 @@ public interface UserService {
 	
 	public User update(User user);
 	
-	public void delete(String user, String bankAccount);
+	public void delete(String user, String bankAccount, Date billDate);
 	
-	public void addBankAccount(String user, String bankAccount);
+	public void addBankAccount(String user, String bankAccount, Date billDate);
 	
-	public void removeBankAccount(String user, String bankAccount);
+	public void removeBankAccount(String user, String bankAccount, Date billDate);
 }
