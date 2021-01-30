@@ -17,7 +17,7 @@ public interface BankAccountDao {
 	
 	BankAccount findById(String IBAN, Date billDate);
 	
-	Set<BankAccount> findByIBAN(String IBAN, Date billDate);
+	Set<BankAccount> findByIBAN(String IBAN);
 	
 	BankAccount create(String IBAN, String bankName, Date billDate, long balance);
 	
