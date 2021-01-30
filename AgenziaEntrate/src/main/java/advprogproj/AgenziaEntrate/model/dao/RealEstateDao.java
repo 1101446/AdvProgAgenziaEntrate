@@ -15,7 +15,7 @@ public interface RealEstateDao {
 	
 	RealEstate findById(long id);
 	
-	RealEstate create(String address, String Country, long CAP);
+	RealEstate create(String address, String Country, int CAP);
 	
 	RealEstate update(RealEstate realEstate);
 	

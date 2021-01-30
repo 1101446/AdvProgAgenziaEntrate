@@ -8,7 +8,7 @@ public interface RealEstateService {
 
 	public RealEstate findRealEstate(long id);
 	
-	public RealEstate create(String address, String Country, long CAP);
+	public RealEstate create(String address, String Country, int CAP);
 	
 	public RealEstate update(RealEstate realEstate);
 	

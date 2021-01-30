@@ -26,7 +26,7 @@ public class BankAccount implements Serializable{
 	public String getIBAN() {
 		return IBAN;
 	}
-	
+
 	public void setIBAN(String iBAN) {
 		IBAN = iBAN;
 	}
@@ -40,6 +40,7 @@ public class BankAccount implements Serializable{
 		this.bankName = bankName;
 	}
 	
+	@Id
 	@Column(name = "BILL_DATE")
 	public Date getBillDate() {
 		return billDate;

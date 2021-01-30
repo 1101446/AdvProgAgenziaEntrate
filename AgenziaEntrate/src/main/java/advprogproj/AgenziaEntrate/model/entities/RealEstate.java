@@ -18,7 +18,7 @@ public class RealEstate implements Serializable{
 	private long id;
 	private String address;
 	private String country;
-	private long CAP;
+	private int CAP;
 	
 	private Set<UserRealEstate> owner = new HashSet<UserRealEstate>();
 	
@@ -52,10 +52,11 @@ public class RealEstate implements Serializable{
 	}
 	
 	@Column(name = "CAP")
-	public long getCAP() {
-		return CAP;
+	public int getCAP() {
+		return this.CAP;
 	}
-	public void setCAP(long CAP) {
+	
+	public void setCAP(int CAP) {
 		this.CAP = CAP;
 	}
 	

@@ -22,10 +22,10 @@ public class RealEstateDaoDefault extends DefaultDao implements RealEstateDao {
 		return this.getSession().createQuery("from RealEstate a", RealEstate.class).getResultList();
 	}
 	
-	public RealEstate create(String address, String Country, long CAP) {
+	public RealEstate create(String address, String country, int CAP) {
 		RealEstate realEstate = new RealEstate();
 		realEstate.setAddress(address);
-		realEstate.setCountry(Country);
+		realEstate.setCountry(country);
 		realEstate.setCAP(CAP);
 		this.getSession().save(realEstate);
 		return realEstate;

@@ -19,8 +19,15 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 		return this.getSession().createQuery("from BankAccount a", BankAccount.class).getResultList();
 	}
 	
-	public BankAccount findById(String IBAN) {
-		return this.getSession().find(BankAccount.class, IBAN);
+	public BankAccount findById(String IBAN, Date billDate) {
+		Query q = this.getSession().createQuery("from BankAccount a WHERE a.IBAN = :IBAN AND a.billDate = :Date", BankAccount.class);
+		return (BankAccount)q.setParameter("IBAN", IBAN).setParameter("billDate", billDate).getResultList();
+		
+	}
+	
+	public Set<BankAccount> findByIBAN(String IBAN) {
+		Query q = this.getSession().createQuery("from BankAccount a WHERE a.IBAN = :IBAN", BankAccount.class);
+		return new HashSet<BankAccount>(q.setParameter("IBAN", IBAN).getResultList());
 	}
 	
 	public BankAccount create(String IBAN, String bankName, Date billDate, long balance) {

@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.test;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,11 +66,40 @@ public class LoadDataTest {
 				accessDao.create("EnteBCC", 3, "Ente Banca di Credito Cooperativo");
 				accessDao.create("EntePosteItaliane", 3, "Ente Poste Italiane");
 				accessDao.create("Cittadino", 4, "Cittadino");
-				//instrumentDao.create("g-1", "Stratocaster", "guitar");
-				//instrumentDao.create("v-1", "Stradivari", "violin");
-				//instrumentDao.create("k-1", "Moog", "keyboard");
-	
+				
 				session.getTransaction().commit();
+				
+				session.beginTransaction();
+				
+				vehicleDao.create("Fiat","Panda","AA000AA");
+				vehicleDao.create("Audi","A3","AA001AA");
+				vehicleDao.create("Alfa Romeo","Brera","AA002AA");
+				vehicleDao.create("Yamaha","GTX950","AA003AA");
+				vehicleDao.create("Enterprise","3080Ti","AA004AA");
+	
+				realEstateDao.create("Via Roma, 99 Ancona","Italia",60080);
+				realEstateDao.create("Via X Settembre, 38 Macerata","Italia",61001);
+				realEstateDao.create("Via Flaminia, 101 Urbino","Italia",60180);
+				realEstateDao.create("Via Roma, 99 Roma","Italia",60000);
+				realEstateDao.create("Via II Dicembre, 1 Milano","Italia",60025);
+				
+				Date billDate2015 = new Date(31-12-2015);
+				Date billDate2016 = new Date(31-12-2016);
+				Date billDate2017 = new Date(31-12-2017);
+				Date billDate2018 = new Date(31-12-2018);
+				Date billDate2019 = new Date(31-12-2019);
+				
+				bankAccountDao.create("IT01A0000000000000000000000","BCC Roma",billDate2018,15000);
+				bankAccountDao.create("IT01A0000000000000000000000","BCC Roma",billDate2019,12500);
+				bankAccountDao.create("IT10B0003330002200000000444","Intesa San Paolo Milano",billDate2015,30000);
+				bankAccountDao.create("IT10B0003330002200000000444","Intesa San Paolo Milano",billDate2016,40000);
+				bankAccountDao.create("IT10B0003330002200000000444","Intesa San Paolo Milano",billDate2017,20000);
+				bankAccountDao.create("IT05G0003430005200000000999","Monte dei Paschi Siena",billDate2017,10000);
+				bankAccountDao.create("IT05G0003430005200000000999","Monte dei Paschi Siena",billDate2018,20500);
+				bankAccountDao.create("IT05G0003430005200000000999","Monte dei Paschi Siena",billDate2019,15000);
+				
+				session.getTransaction().commit();
+				
 				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
 				Singer mj = singerDao.create("Michael", "Jackson", null);
 							

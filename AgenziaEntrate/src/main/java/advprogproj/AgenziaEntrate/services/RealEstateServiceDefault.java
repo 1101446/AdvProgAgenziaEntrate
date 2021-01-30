@@ -18,7 +18,7 @@ public class RealEstateServiceDefault implements RealEstateService {
 	}
 	
 	@Transactional
-	public RealEstate create(String address, String Country, long CAP) {
+	public RealEstate create(String address, String Country, int CAP) {
 		return this.realEstateDao.create(address, Country, CAP);
 	}
 	
