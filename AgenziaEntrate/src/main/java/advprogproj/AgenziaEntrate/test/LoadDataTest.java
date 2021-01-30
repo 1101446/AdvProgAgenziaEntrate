@@ -115,6 +115,9 @@ public class LoadDataTest {
 				User mario = userDao.findByEmail("mariorossi@gmail.com");
 				User paolo = userDao.findByEmail("p.bianchi@yahoo.com");
 				
+				System.out.println(mario.getCf());
+				System.out.println(paolo.getCf());
+				
 				BankAccount bankAccount1 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2018);
 				BankAccount bankAccount2 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2019);
 				BankAccount bankAccount3 = bankAccountDao.findById("IT05G0003430005200000000999", billDate2018);

@@ -1,14 +1,12 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Query;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -35,7 +33,8 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	}
 	
 	public User findByEmail(String email) {
-		return getSession().get(User.class, email);
+		Query q = this.getSession().createQuery("from User a WHERE a.email = :email", User.class);
+		return (User)q.setParameter("email", email).getSingleResult();
 	}
 	
 	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, Access access) {

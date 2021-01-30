@@ -1,7 +1,6 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.time.LocalDate;
-import java.util.Date;
 import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;

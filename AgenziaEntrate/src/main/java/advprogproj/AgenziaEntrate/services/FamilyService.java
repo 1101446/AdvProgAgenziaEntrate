@@ -1,6 +1,5 @@
 package advprogproj.AgenziaEntrate.services;
 
-import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.Family;
 
 public interface FamilyService {

@@ -1,7 +1,5 @@
 package advprogproj.AgenziaEntrate.services;
 
-import org.hibernate.Session;
-
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 
 public interface RealEstateService {
