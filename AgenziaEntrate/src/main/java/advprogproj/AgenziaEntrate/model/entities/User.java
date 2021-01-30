@@ -43,7 +43,7 @@ public class User implements Serializable{
 		this.cf = cf;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -52,7 +52,7 @@ public class User implements Serializable{
 		this.firstName = firstName;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public String getSecondName() {
 		return secondName;
 	}
@@ -70,7 +70,7 @@ public class User implements Serializable{
 		this.birthD = birthD;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -79,7 +79,7 @@ public class User implements Serializable{
 		this.email = email;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -88,7 +88,7 @@ public class User implements Serializable{
 		this.password = password;
 	}
 	
-	@Column
+	@Column()
 	public boolean isHandicap() {
 		return handicap;
 	}

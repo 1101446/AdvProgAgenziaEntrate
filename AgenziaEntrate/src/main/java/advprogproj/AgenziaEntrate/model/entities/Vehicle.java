@@ -33,7 +33,7 @@ public class Vehicle implements Serializable{
 		this.id = id;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public String getBrand() {
 		return brand;
 	}
@@ -42,7 +42,7 @@ public class Vehicle implements Serializable{
 		this.brand = brand;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public String getModel() {
 		return model;
 	}
@@ -51,7 +51,7 @@ public class Vehicle implements Serializable{
 		this.model = model;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public String getVehicleRegistration() {
 		return vehicleRegistration;
 	}

@@ -50,7 +50,7 @@ public class UserRealEstate implements Serializable{
 		this.endOfYear = endOfYear;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public long getPrice() {
 		return price;
 	}

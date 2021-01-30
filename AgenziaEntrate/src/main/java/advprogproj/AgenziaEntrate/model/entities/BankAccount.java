@@ -32,7 +32,7 @@ public class BankAccount implements Serializable{
 		IBAN = iBAN;
 	}
 	
-	@Column(name = "BANK_NAME")
+	@Column(name = "BANK_NAME", nullable = false)
 	public String getBankName() {
 		return bankName;
 	}
@@ -51,7 +51,7 @@ public class BankAccount implements Serializable{
 		this.billDate = billDate;
 	}
 	
-	@Column(name = "BALANCE")
+	@Column(name = "BALANCE", nullable = false)
 	public long getBalance() {
 		return balance;
 	}

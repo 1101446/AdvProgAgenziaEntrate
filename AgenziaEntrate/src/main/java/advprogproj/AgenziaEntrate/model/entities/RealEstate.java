@@ -33,7 +33,7 @@ public class RealEstate implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name = "ADDRESS")
+	@Column(name = "ADDRESS", nullable = false)
 	public String getAddress() {
 		return this.address;
 	}
@@ -42,7 +42,7 @@ public class RealEstate implements Serializable{
 		this.address = address;
 	}
 	
-	@Column(name = "COUNTRY")
+	@Column(name = "COUNTRY", nullable = false)
 	public String getCountry() {
 		return this.country;
 	}
@@ -51,7 +51,7 @@ public class RealEstate implements Serializable{
 		this.country = country;
 	}
 	
-	@Column(name = "CAP")
+	@Column(name = "CAP", nullable = false)
 	public int getCAP() {
 		return this.CAP;
 	}

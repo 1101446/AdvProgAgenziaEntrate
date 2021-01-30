@@ -25,6 +25,7 @@ import advprogproj.AgenziaEntrate.model.dao.AccessDao;
 import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
+import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
@@ -61,11 +62,11 @@ public class LoadDataTest {
 				
 				session.beginTransaction();
 				
-				accessDao.create("Admin", 1, "Amministratore");
-				accessDao.create("EnteAgenziaEntrate", 2, "Ente Agenzia Entrate");
-				accessDao.create("EnteBCC", 3, "Ente Banca di Credito Cooperativo");
-				accessDao.create("EntePosteItaliane", 3, "Ente Poste Italiane");
-				accessDao.create("Cittadino", 4, "Cittadino");
+				Access adminAccess = accessDao.create("Admin", 1, "Amministratore");
+				Access aeAccess = accessDao.create("EnteAgenziaEntrate", 2, "Ente Agenzia Entrate");
+				Access bccAccess = accessDao.create("EnteBCC", 3, "Ente Banca di Credito Cooperativo");
+				Access piAccess = accessDao.create("EntePosteItaliane", 3, "Ente Poste Italiane");
+				Access userAccess = accessDao.create("Cittadino", 4, "Cittadino");
 				
 				session.getTransaction().commit();
 				
@@ -88,6 +89,7 @@ public class LoadDataTest {
 				LocalDate billDate2017 = LocalDate.of(2017,12,31);
 				LocalDate billDate2018 = LocalDate.of(2018,12,31);
 				LocalDate billDate2019 = LocalDate.of(2019,12,31);
+				
 				bankAccountDao.create("IT01A0000000000000000000000","BCC Roma",billDate2018,15000);
 				bankAccountDao.create("IT01A0000000000000000000000","BCC Roma",billDate2019,12500);
 				bankAccountDao.create("IT10B0003330002200000000444","Intesa San Paolo Milano",billDate2015,30000);
@@ -99,6 +101,15 @@ public class LoadDataTest {
 				
 				session.getTransaction().commit();
 				
+				session.beginTransaction();
+
+				userDao.create("AAABBB20A78L700X", "Mario", "Rossi", LocalDate.of(1970, 5, 22), "mariorossi@libero.it", userDao.encryptPassword("mario"), false, userAccess);
+				userDao.create("ABABAB78B14T880I", "Mario", "Rossi", LocalDate.of(1980, 3, 20), "mario.rossi@gmail.com", userDao.encryptPassword("giovanni"), false, adminAccess);
+				userDao.create("CGGCGC80A72L598X", "Giovanni", "Belardi", LocalDate.of(1950, 5, 22), "giovannibelardi@hotmail.it", userDao.encryptPassword("paolo"), false, aeAccess);
+				userDao.create("REERTY79A92L354X", "Paolo", "Bianchi", LocalDate.of(1960, 5, 22), "p.bianchi@yahoo.com", userDao.encryptPassword("gatto"), true, userAccess);
+				userDao.create("JOPFRT45A58L667X", "Pino", "Insegna", LocalDate.of(1975, 5, 22), "insegna.p@gmailcom", userDao.encryptPassword("cane"), false, piAccess);
+				
+				session.getTransaction().commit();
 				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
 				Singer mj = singerDao.create("Michael", "Jackson", null);
 							

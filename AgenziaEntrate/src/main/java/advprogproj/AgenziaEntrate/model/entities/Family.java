@@ -38,7 +38,7 @@ public class Family implements Serializable{
 		this.user = user;
 	}
 
-	@Column(name = "HIERARCHY")
+	@Column(name = "HIERARCHY", nullable = false)
 	public String getHierarchy() {
 		return hierarchy;
 	}
@@ -47,7 +47,7 @@ public class Family implements Serializable{
 		this.hierarchy = hierarchy;
 	}
 	
-	@Column(name = "HOUSE_HOLDER")
+	@Column(name = "HOUSE_HOLDER", nullable = false)
 	public String getHouseHolder() {
 		return houseHolder;
 	}

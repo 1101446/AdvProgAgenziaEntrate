@@ -41,6 +41,7 @@ public class UserVehicle implements Serializable{
 		this.vehicle = vehicle;
 	}
 	
+	@Id
 	@Column
 	public Date getEndOfYear() {
 		return endOfYear;
@@ -50,7 +51,7 @@ public class UserVehicle implements Serializable{
 		this.endOfYear = endOfYear;
 	}
 	
-	@Column
+	@Column(nullable = false)
 	public long getPrice() {
 		return price;
 	}

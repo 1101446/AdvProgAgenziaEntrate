@@ -28,7 +28,7 @@ public class Access implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name = "ROLE")
+	@Column(name = "ROLE", nullable = false)
 	public String getRoleName() {
 		return roleName;
 	}
@@ -37,7 +37,7 @@ public class Access implements Serializable{
 		this.roleName = roleName;
 	}
 	
-	@Column(name = "PRIORITY")
+	@Column(name = "PRIORITY", nullable = false)
 	public int getPriority() {
 		return priority;
 	}
