@@ -83,12 +83,11 @@ public class LoadDataTest {
 				realEstateDao.create("Via Roma, 99 Roma","Italia",60000);
 				realEstateDao.create("Via II Dicembre, 1 Milano","Italia",60025);
 				
-				Date billDate2015 = new Date(31-12-2015);
-				Date billDate2016 = new Date(31-12-2016);
-				Date billDate2017 = new Date(31-12-2017);
-				Date billDate2018 = new Date(31-12-2018);
-				Date billDate2019 = new Date(31-12-2019);
-				
+				LocalDate billDate2015 = LocalDate.of(2015,12,31);
+				LocalDate billDate2016 = LocalDate.of(2016,12,31);
+				LocalDate billDate2017 = LocalDate.of(2017,12,31);
+				LocalDate billDate2018 = LocalDate.of(2018,12,31);
+				LocalDate billDate2019 = LocalDate.of(2019,12,31);
 				bankAccountDao.create("IT01A0000000000000000000000","BCC Roma",billDate2018,15000);
 				bankAccountDao.create("IT01A0000000000000000000000","BCC Roma",billDate2019,12500);
 				bankAccountDao.create("IT10B0003330002200000000444","Intesa San Paolo Milano",billDate2015,30000);

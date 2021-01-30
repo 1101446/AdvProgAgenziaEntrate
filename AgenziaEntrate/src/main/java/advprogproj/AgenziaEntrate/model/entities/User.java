@@ -1,7 +1,7 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +22,7 @@ public class User implements Serializable{
     private String cf;
     private String firstName;
     private String secondName;
-    private Date birthD;
+    private LocalDate birthD;
     private String email;
     private String password;
     private boolean handicap;
@@ -62,11 +62,11 @@ public class User implements Serializable{
 	}
 	
 	@Column( name = "BIRTH_DATE")
-	public Date getBirthD() {
-		return birthD;
+	public LocalDate getBirthD() {
+		return this.birthD;
 	}
 	
-	public void setBirthD(Date birthD) {
+	public void setBirthD(LocalDate birthD) {
 		this.birthD = birthD;
 	}
 	
@@ -111,7 +111,7 @@ public class User implements Serializable{
 	@JoinTable(
 			name= "user_bank_account",
 			joinColumns = @JoinColumn(name = "ID_USER"),
-			inverseJoinColumns = @JoinColumn(name = "ID_BANK_ACCOUNT")
+			inverseJoinColumns = {@JoinColumn(name = "ID_BANK_ACCOUNT"),@JoinColumn(name = "BILL_DATE")}
 			)
 	public Set<BankAccount> getBankAccounts() {
 		return bankAccounts;

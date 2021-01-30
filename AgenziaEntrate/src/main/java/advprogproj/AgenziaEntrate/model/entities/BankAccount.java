@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.model.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 public class BankAccount implements Serializable{
 	private String IBAN;
 	private String bankName;
-	private Date billDate;
+	private LocalDate billDate;
 	private long balance;
 	
 	private Set<User> owners = new HashSet<User>();
@@ -42,11 +43,11 @@ public class BankAccount implements Serializable{
 	
 	@Id
 	@Column(name = "BILL_DATE")
-	public Date getBillDate() {
-		return billDate;
+	public LocalDate getBillDate() {
+		return this.billDate;
 	}
 	
-	public void setBillDate(Date billDate) {
+	public void setBillDate(LocalDate billDate) {
 		this.billDate = billDate;
 	}
 	

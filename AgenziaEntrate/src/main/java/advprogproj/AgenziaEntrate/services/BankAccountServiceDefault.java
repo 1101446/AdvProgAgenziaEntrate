@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.Session;
@@ -17,17 +18,17 @@ public class BankAccountServiceDefault implements BankAccountService{
 	private UserDaoDefault userDao;
 	
 	@Transactional
-	public BankAccount findBankAccount(String bankAccount, Date billDate) {
+	public BankAccount findBankAccount(String bankAccount, LocalDate billDate) {
 		return this.bankAccountDao.findById(bankAccount, billDate);
 	}
 	
 	@Transactional
-	public BankAccount create(String IBAN, String bankName, Date billDate, long balance) {
+	public BankAccount create(String IBAN, String bankName, LocalDate billDate, long balance) {
 		return this.bankAccountDao.create(IBAN, bankName, billDate, balance);
 	}
 	
 	@Transactional
-	public BankAccount update(String IBAN, Date billDate) {
+	public BankAccount update(String IBAN, LocalDate billDate) {
 		return this.update(this.findBankAccount(IBAN, billDate));
 		
 	}
@@ -39,18 +40,18 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Transactional
-	public void delete(String IBAN, Date billDate, String user) {
+	public void delete(String IBAN, LocalDate billDate, String user) {
 		this.bankAccountDao.delete(this.findBankAccount(IBAN, billDate));
 		this.removeOwner(user, IBAN, billDate);
 	}
 	
 	@Transactional
-	public void addOwner(String user, String IBAN, Date billDate) {
+	public void addOwner(String user, String IBAN, LocalDate billDate) {
 		this.bankAccountDao.addOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
 	}
 	
 	@Transactional
-	public void removeOwner(String user, String IBAN, Date billDate) {
+	public void removeOwner(String user, String IBAN, LocalDate billDate) {
 		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
 	}
 	

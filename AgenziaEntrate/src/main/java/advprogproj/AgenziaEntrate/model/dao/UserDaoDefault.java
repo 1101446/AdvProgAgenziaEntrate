@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -37,7 +38,7 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 		return getSession().get(User.class, email);
 	}
 	
-	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access) {
+	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, Access access) {
 		User user = new User();
 		user.setCf(cf);
 		user.setFirstName(firstName);

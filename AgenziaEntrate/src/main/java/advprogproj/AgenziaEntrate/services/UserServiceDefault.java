@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	}
 	
 	@Transactional
-	public User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, long access) {
+	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, long access) {
 		return this.userDao.create(cf, firstName, secondName, birthDate, email, password, handicap, this.accessDao.findById(access));
 	}
 	
@@ -57,18 +58,18 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	}
 	
 	@Transactional
-	public void delete(String user, String bankAccount, Date billDate) {
+	public void delete(String user, String bankAccount, LocalDate billDate) {
 		this.removeBankAccount(user, bankAccount, billDate);		
 		this.userDao.delete(this.findUser(user));
 	}
 	
 	@Transactional
-	public void addBankAccount(String user, String IBAN, Date billDate) {
+	public void addBankAccount(String user, String IBAN, LocalDate billDate) {
 		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
 	}
 	
 	@Transactional
-	public void removeBankAccount(String user, String IBAN, Date billDate) {
+	public void removeBankAccount(String user, String IBAN, LocalDate billDate) {
 		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
 	}
 	

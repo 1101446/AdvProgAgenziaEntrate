@@ -1,6 +1,6 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -15,11 +15,11 @@ public interface BankAccountDao {
 	
 	List<BankAccount> findAll();
 	
-	BankAccount findById(String IBAN, Date billDate);
+	BankAccount findById(String IBAN, LocalDate billDate);
 	
 	Set<BankAccount> findByIBAN(String IBAN);
 	
-	BankAccount create(String IBAN, String bankName, Date billDate, long balance);
+	BankAccount create(String IBAN, String bankName, LocalDate billDate, long balance);
 	
 	BankAccount update(BankAccount bankAccount);
 	

@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,7 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 		return this.getSession().createQuery("from BankAccount a", BankAccount.class).getResultList();
 	}
 	
-	public BankAccount findById(String IBAN, Date billDate) {
+	public BankAccount findById(String IBAN, LocalDate billDate) {
 		Query q = this.getSession().createQuery("from BankAccount a WHERE a.IBAN = :IBAN AND a.billDate = :Date", BankAccount.class);
 		return (BankAccount)q.setParameter("IBAN", IBAN).setParameter("billDate", billDate).getResultList();
 	}
@@ -29,7 +30,7 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 		return new HashSet<BankAccount>(q.setParameter("IBAN", IBAN).getResultList());
 	}
 	
-	public BankAccount create(String IBAN, String bankName, Date billDate, long balance) {
+	public BankAccount create(String IBAN, String bankName, LocalDate billDate, long balance) {
 		BankAccount bankAccount= new BankAccount();
 		bankAccount.setIBAN(IBAN);
 		bankAccount.setBankName(bankName);

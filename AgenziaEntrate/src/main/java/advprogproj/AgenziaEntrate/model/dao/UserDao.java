@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +26,7 @@ public interface UserDao {
 	
 	User findByEmail(String email);
 	
-	User create(String cf, String firstName, String secondName, Date birthDate, String email, String password, boolean handicap, Access access);
+	User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, Access access);
 	
 	User update(User user);
 	
