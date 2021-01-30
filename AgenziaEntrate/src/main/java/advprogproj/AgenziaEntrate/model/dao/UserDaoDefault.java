@@ -69,7 +69,7 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 		return new HashSet<UserVehicle>(q.setParameter("user", user).getResultList());
 	}
 	
-	public Set<UserRealEstate> getUserRealEstate(User user) {
+	public Set<UserRealEstate> getUserRealEstates(User user) {
 		Query q = this.getSession().createQuery("from UserRealEstate a join fetch a.user WHERE a.user = :user", UserRealEstate.class);
 		return new HashSet<UserRealEstate>(q.setParameter("user", user).getResultList());
 	}

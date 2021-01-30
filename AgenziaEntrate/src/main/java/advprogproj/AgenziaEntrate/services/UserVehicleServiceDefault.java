@@ -25,10 +25,7 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	
 	@Transactional
 	public UserVehicle create(String user, long vehicle, LocalDate endOfYear, long price) {
-		UserVehicle uv = this.userVehicleDao.create(this.userDao.findById(user), this.vehicleDao.findById(vehicle), endOfYear, price);
-		this.userDao.addUserVehicle(this.userDao.findById(user), uv);
-		this.vehicleDao.addUserVehicle(this.vehicleDao.findById(vehicle), uv);
-		return uv;
+		return this.userVehicleDao.create(this.userDao.findById(user), this.vehicleDao.findById(vehicle), endOfYear, price);
 	}
 	
 	@Transactional
@@ -38,8 +35,6 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	
 	@Transactional
 	public void delete(UserVehicle userVehicle) {
-		this.userDao.removeUserVehicle(userVehicle.getUser(), userVehicle);
-		this.vehicleDao.removeUserVehicle(userVehicle.getVehicle(), userVehicle);
 		this.userVehicleDao.delete(userVehicle);
 	}
 	

@@ -25,10 +25,7 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 	
 	@Transactional
 	public UserRealEstate create(String user, long realEstate, LocalDate endOfYear, long price) {
-		UserRealEstate ure = this.userRealEstateDao.create(this.userDao.findById(user), this.realEstateDao.findById(realEstate), endOfYear, price);
-		this.userDao.addUserRealEstate(this.userDao.findById(user), ure);
-		this.realEstateDao.addUserRealEstate(this.realEstateDao.findById(realEstate), ure);
-		return ure;
+		return this.userRealEstateDao.create(this.userDao.findById(user), this.realEstateDao.findById(realEstate), endOfYear, price);
 	}
 	
 	@Transactional
@@ -39,8 +36,6 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 	@Transactional
 	public void delete(UserRealEstate userRealEstate) {
 		this.userRealEstateDao.delete(userRealEstate);
-		this.userDao.removeUserRealEstate(userRealEstate.getUser(), userRealEstate);
-		this.realEstateDao.removeUserRealEstate(userRealEstate.getRealEstate(), userRealEstate);
 	}
 	
 	@Autowired

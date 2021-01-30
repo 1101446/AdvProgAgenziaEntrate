@@ -27,6 +27,8 @@ public class UserRealEstateDaoDefault extends DefaultDao implements UserRealEsta
 		userRealEstate.setEndOfYear(endOfYear);
 		userRealEstate.setPrice(price);
 		this.getSession().save(userRealEstate);
+		user.addUserRealEstate(userRealEstate);
+		realEstate.addOwner(userRealEstate);
 		return userRealEstate;
 	}
 	

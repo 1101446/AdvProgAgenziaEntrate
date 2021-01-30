@@ -14,6 +14,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import advprogproj.AgenziaEntrate.app.DataServiceConfig;
 import advprogproj.AgenziaEntrate.model.dao.DefaultDao;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
+import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
+import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDao;
@@ -28,6 +31,7 @@ import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
@@ -74,15 +78,15 @@ public class LoadDataTest {
 				
 				session.beginTransaction();
 				
-				vehicleDao.create("Fiat","Panda","AA000AA");
-				vehicleDao.create("Audi","A3","AA001AA");
-				vehicleDao.create("Alfa Romeo","Brera","AA002AA");
+				Vehicle veicoloMario = vehicleDao.create("Fiat","Panda","AA000AA");
+				Vehicle veicoloPaolo = vehicleDao.create("Audi","A3","AA001AA");
+				Vehicle veicoloMarioPaolo = vehicleDao.create("Alfa Romeo","Brera","AA002AA");
 				vehicleDao.create("Yamaha","GTX950","AA003AA");
 				vehicleDao.create("Enterprise","3080Ti","AA004AA");
 	
-				realEstateDao.create("Via Roma, 99 Ancona","Italia",60080);
-				realEstateDao.create("Via X Settembre, 38 Macerata","Italia",61001);
-				realEstateDao.create("Via Flaminia, 101 Urbino","Italia",60180);
+				RealEstate casaRossi = realEstateDao.create("Via Roma, 99 Ancona","Italia",60080);
+				RealEstate casaBianchi = realEstateDao.create("Via X Settembre, 38 Macerata","Italia",61001);
+				RealEstate casaRossiBianchi = realEstateDao.create("Via Flaminia, 101 Urbino","Italia",60180);
 				realEstateDao.create("Via Roma, 99 Roma","Italia",60000);
 				realEstateDao.create("Via II Dicembre, 1 Milano","Italia",60025);
 				
@@ -150,7 +154,71 @@ public class LoadDataTest {
 				
 				session.getTransaction().commit();
 				
-
+				session.beginTransaction();
+				
+				UserRealEstate marioCasaRossi = userRealEstateDao.create(mario, casaRossi, billDate2019, 14000);
+				UserRealEstate paoloCasaBianchi = userRealEstateDao.create(paolo, casaBianchi, billDate2019, 20000);
+				UserRealEstate marioCasaRossiBianchi = userRealEstateDao.create(mario, casaRossiBianchi, billDate2019, 15000);
+				UserRealEstate paoloCasaRossiBianchi = userRealEstateDao.create(paolo, casaRossiBianchi, billDate2019, 15000);
+				
+				assert (mario.getUserRealEstates().contains(marioCasaRossi));
+				assert (paolo.getUserRealEstates().contains(paoloCasaBianchi));
+				assert (mario.getUserRealEstates().contains(marioCasaRossiBianchi));
+				assert (paolo.getUserRealEstates().contains(paoloCasaRossiBianchi));
+				
+				assert (casaRossi.getOwner().contains(marioCasaRossi));
+				assert (casaBianchi.getOwner().contains(paoloCasaBianchi));
+				assert (casaRossiBianchi.getOwner().contains(marioCasaRossiBianchi));
+				assert (casaRossiBianchi.getOwner().contains(paoloCasaRossiBianchi));
+				
+				userDao.update(mario);
+				userDao.update(paolo);
+				
+				realEstateDao.update(casaRossi);
+				realEstateDao.update(casaBianchi);
+				realEstateDao.update(casaRossiBianchi);
+				
+				session.getTransaction().commit();
+				
+				session.beginTransaction();
+				
+				UserVehicle marioVeicoloMario = userVehicleDao.create(mario, veicoloMario, billDate2019, 5000);
+				UserVehicle paoloVeicoloPaolo = userVehicleDao.create(paolo, veicoloPaolo, billDate2019, 10000);
+				UserVehicle marioVeicoloMarioPaolo = userVehicleDao.create(mario, veicoloMarioPaolo, billDate2018, 7000);
+				UserVehicle paoloVeicoloMarioPaolo = userVehicleDao.create(paolo, veicoloMarioPaolo, billDate2018, 7000);
+				
+				assert (mario.getUserVehicles().contains(marioVeicoloMario));
+				assert (paolo.getUserVehicles().contains(paoloVeicoloPaolo));
+				assert (mario.getUserVehicles().contains(marioVeicoloMarioPaolo));
+				assert (paolo.getUserVehicles().contains(paoloVeicoloMarioPaolo));
+				
+				assert (veicoloMario.getOwner().contains(marioVeicoloMario));
+				assert (veicoloPaolo.getOwner().contains(paoloVeicoloPaolo));
+				assert (veicoloMarioPaolo.getOwner().contains(marioVeicoloMarioPaolo));
+				assert (veicoloMarioPaolo.getOwner().contains(paoloVeicoloMarioPaolo));
+				
+				userDao.update(mario);
+				userDao.update(paolo);
+				
+				vehicleDao.update(veicoloMario);
+				vehicleDao.update(veicoloPaolo);
+				vehicleDao.update(veicoloMarioPaolo);
+				
+				session.getTransaction().commit();
+				
+				/* session.beginTransaction();
+				
+				userDao.getBankAccounts(mario).clear();
+				userDao.getUserRealEstates(mario).clear();
+				userDao.getUserVehicles(mario).clear();
+				bankAccountDao.get
+				// rimuovi tutte le entita` collegate a quella da eliminare
+				mj.getInstruments().clear();
+				for (Album a : mj.getAlbums()) {
+					albumDao.delete(a);
+				}
+				mj.getAlbums().clear();
+				mj = singerDao.update(mj);
 				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
 				Singer mj = singerDao.create("Michael", "Jackson", null);
 							

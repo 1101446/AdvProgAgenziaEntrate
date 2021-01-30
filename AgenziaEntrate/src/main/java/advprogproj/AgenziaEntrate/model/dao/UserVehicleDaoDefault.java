@@ -28,6 +28,8 @@ public class UserVehicleDaoDefault extends DefaultDao implements UserVehicleDao{
 		userVehicle.setEndOfYear(endOfYear);
 		userVehicle.setPrice(price);
 		this.getSession().save(userVehicle);
+		user.addUserVehicle(userVehicle);
+		vehicle.addOwner(userVehicle);
 		return userVehicle;
 	}
 	

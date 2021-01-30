@@ -33,7 +33,7 @@ public interface UserDao {
 	
 	Set<UserVehicle> getUserVehicles(User user);
 	
-	Set<UserRealEstate> getUserRealEstate(User user);
+	Set<UserRealEstate> getUserRealEstates(User user);
 	
 	void addBankAccount(User user, BankAccount bankAccount);
 	
