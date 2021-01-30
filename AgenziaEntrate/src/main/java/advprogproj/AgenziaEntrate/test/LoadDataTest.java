@@ -125,30 +125,31 @@ public class LoadDataTest {
 				
 				userDao.addBankAccount(mario, bankAccount1);
 				userDao.addBankAccount(mario, bankAccount2);
+				userDao.update(mario);
+				
+				assert(mario.getBankAccounts().contains(bankAccount1));
+				assert(mario.getBankAccounts().contains(bankAccount2));
+				
+				session.getTransaction().commit();
+				
+				session.beginTransaction();
+				
+				bankAccountDao.addOwner(paolo, bankAccount2);
 				bankAccountDao.addOwner(paolo, bankAccount3);
 				bankAccountDao.addOwner(paolo, bankAccount4);
-				bankAccountDao.addOwner(paolo, bankAccount2);
 				
-				assert mario.getBankAccounts().size() == 0;
-				assert paolo.getBankAccounts().size() == 0;
+				bankAccountDao.update(bankAccount2);
+				bankAccountDao.update(bankAccount3);
+				bankAccountDao.update(bankAccount4);
 				
-				assert bankAccount2.getOwner().size() == 0;
-				assert bankAccount1.getOwner().size() == 0;
-				assert bankAccount3.getOwner().size() == 0;
-				assert bankAccount4.getOwner().size() == 0;
+				assert (bankAccount1.getOwner().contains(mario));
+				assert (bankAccount2.getOwner().contains(paolo));
+				assert (bankAccount2.getOwner().contains(mario));
+				assert (bankAccount3.getOwner().contains(paolo));
+				assert (bankAccount4.getOwner().contains(paolo));
 				
-				// refresh per ricaricare
-				session.refresh(mario);
-				session.refresh(paolo);
-				
-				assert mario.getBankAccounts().size() == 2;
-				assert paolo.getBankAccounts().size() == 3;
-				
-				assert bankAccount2.getOwner().size() == 2;
-				assert bankAccount1.getOwner().size() == 1;
-				assert bankAccount3.getOwner().size() == 1;
-				assert bankAccount4.getOwner().size() == 1;
 				session.getTransaction().commit();
+				
 
 				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
 				Singer mj = singerDao.create("Michael", "Jackson", null);
@@ -176,27 +177,6 @@ public class LoadDataTest {
 				Instrument i2 = instrumentDao.findByName("Moog");
 				Instrument i3 = instrumentDao.findByName("Stradivari");
 							
-				session.getTransaction().commit();
-				
-				session.beginTransaction();
-	
-				rw.addInstrument(i1);
-				rw = singerDao.update(rw);
-	
-				assert(rw.getInstruments().contains(i1));
-				assert(i1.getSingers().contains(rw));
-				
-				session.getTransaction().commit();
-				
-				session.beginTransaction();
-	
-				
-				rw.addInstrument(i2);
-				rw = singerDao.update(rw);
-				
-				assert rw.getInstruments().contains(i2);
-				assert i2.getSingers().contains(rw);
-				
 				session.getTransaction().commit();
 	
 				session.beginTransaction();
