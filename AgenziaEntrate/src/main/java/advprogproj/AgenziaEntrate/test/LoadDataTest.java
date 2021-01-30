@@ -112,11 +112,11 @@ public class LoadDataTest {
 				userDao.create("JOPFRT45A58L667X", "Pino", "Insegna", LocalDate.of(1975, 5, 22), "insegna.p@gmailcom", userDao.encryptPassword("cane"), false, piAccess);
 				
 				session.getTransaction().commit();
-				User mario = userDao.findByEmail("mariorossi@gmail.com");
-				User paolo = userDao.findByEmail("p.bianchi@yahoo.com");
 				
-				System.out.println(mario.getCf());
-				System.out.println(paolo.getCf());
+				session.beginTransaction();
+				
+				User mario = userDao.findByEmail("mariorossi@libero.it");
+				User paolo = userDao.findByEmail("p.bianchi@yahoo.com");
 				
 				BankAccount bankAccount1 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2018);
 				BankAccount bankAccount2 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2019);
@@ -132,22 +132,24 @@ public class LoadDataTest {
 				assert mario.getBankAccounts().size() == 0;
 				assert paolo.getBankAccounts().size() == 0;
 				
-				assert bankAccount2.getOwner().size() ==0;
-				assert bankAccount1.getOwner().size() ==0;
-				assert bankAccount3.getOwner().size() ==0;
-				assert bankAccount4.getOwner().size() ==0;
+				assert bankAccount2.getOwner().size() == 0;
+				assert bankAccount1.getOwner().size() == 0;
+				assert bankAccount3.getOwner().size() == 0;
+				assert bankAccount4.getOwner().size() == 0;
 				
 				// refresh per ricaricare
 				session.refresh(mario);
 				session.refresh(paolo);
 				
-				assert mario.getBankAccounts().size() == 0;
-				assert paolo.getBankAccounts().size() == 0;
+				assert mario.getBankAccounts().size() == 2;
+				assert paolo.getBankAccounts().size() == 3;
 				
-				assert bankAccount2.getOwner().size() ==0;
-				assert bankAccount1.getOwner().size() ==0;
-				assert bankAccount3.getOwner().size() ==0;
-				assert bankAccount4.getOwner().size() ==0;
+				assert bankAccount2.getOwner().size() == 2;
+				assert bankAccount1.getOwner().size() == 1;
+				assert bankAccount3.getOwner().size() == 1;
+				assert bankAccount4.getOwner().size() == 1;
+				session.getTransaction().commit();
+
 				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
 				Singer mj = singerDao.create("Michael", "Jackson", null);
 							
