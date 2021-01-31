@@ -24,7 +24,7 @@ public class BankAccount implements Serializable{
 	@Id
 	@Column(name = "ID_BANK_ACCOUNT")
 	public String getIBAN() {
-		return IBAN;
+		return this.IBAN;
 	}
 
 	public void setIBAN(String iBAN) {
