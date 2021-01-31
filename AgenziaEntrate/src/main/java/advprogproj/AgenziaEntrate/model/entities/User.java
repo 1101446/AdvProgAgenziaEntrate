@@ -30,6 +30,7 @@ public class User implements Serializable{
     private Access access;
     
     private Set<BankAccount> bankAccounts = new HashSet<BankAccount>();
+    private Set<ISEE> associatedISEEs = new HashSet<ISEE>();
     
     private Set<UserVehicle> userVehicles = new HashSet<UserVehicle>();
     private Set<UserRealEstate> userRealEstates = new HashSet<UserRealEstate>();
@@ -71,7 +72,7 @@ public class User implements Serializable{
 		this.birthD = birthD;
 	}
 	
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -125,6 +126,25 @@ public class User implements Serializable{
 
 	public void setBankAccounts(Set<BankAccount> bankAccounts) {
 		this.bankAccounts = bankAccounts;
+	}
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.PERSIST
+    })
+	@JoinTable(
+			name= "user_isee",
+			joinColumns = @JoinColumn(name = "ID_USER"),
+			inverseJoinColumns = @JoinColumn(name = "ID_ISEE")
+			)
+	public Set<ISEE> getAssociatedISEEs() {
+		return associatedISEEs;
+	}
+
+	public void setAssociatedISEEs(Set<ISEE> associatedISEEs) {
+		this.associatedISEEs = associatedISEEs;
 	}
 
 	@OneToMany(mappedBy = "user")
