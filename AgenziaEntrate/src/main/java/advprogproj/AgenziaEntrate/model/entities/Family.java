@@ -55,5 +55,4 @@ public class Family implements Serializable{
 	public void setHouseHolder(String houseHolder) {
 		this.houseHolder = houseHolder;
 	}
-	
 }

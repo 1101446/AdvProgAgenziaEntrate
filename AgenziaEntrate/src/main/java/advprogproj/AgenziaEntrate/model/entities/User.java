@@ -140,7 +140,7 @@ public class User implements Serializable{
 			inverseJoinColumns = @JoinColumn(name = "ID_ISEE")
 			)
 	public Set<ISEE> getAssociatedISEEs() {
-		return associatedISEEs;
+		return this.associatedISEEs;
 	}
 
 	public void setAssociatedISEEs(Set<ISEE> associatedISEEs) {
@@ -158,7 +158,7 @@ public class User implements Serializable{
 	
 	@OneToMany(mappedBy = "user")
 	public Set<UserRealEstate> getUserRealEstates() {
-		return userRealEstates;
+		return this.userRealEstates;
 	}
 
 	public void setUserRealEstates(Set<UserRealEstate> userRealEstates) {
