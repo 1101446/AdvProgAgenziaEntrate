@@ -28,12 +28,12 @@ public class BankAccount implements Serializable{
 	}
 
 	public void setIBAN(String iBAN) {
-		IBAN = iBAN;
+		this.IBAN = iBAN;
 	}
 	
 	@Column(name = "BANK_NAME", nullable = false)
 	public String getBankName() {
-		return bankName;
+		return this.bankName;
 	}
 	
 	public void setBankName(String bankName) {
@@ -52,7 +52,7 @@ public class BankAccount implements Serializable{
 	
 	@Column(name = "BALANCE", nullable = false)
 	public long getBalance() {
-		return balance;
+		return this.balance;
 	}
 	
 	public void setBalance(long balance) {

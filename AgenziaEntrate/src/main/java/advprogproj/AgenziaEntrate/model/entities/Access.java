@@ -21,7 +21,7 @@ public class Access implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_ACCESS")
     public long getId() {
-		return id;
+		return this.id;
 	}
     
 	public void setId(long id) {
@@ -30,7 +30,7 @@ public class Access implements Serializable{
 	
 	@Column(name = "ROLE", nullable = false)
 	public String getRoleName() {
-		return roleName;
+		return this.roleName;
 	}
 	
 	public void setRoleName(String roleName) {
@@ -39,7 +39,7 @@ public class Access implements Serializable{
 	
 	@Column(name = "PRIORITY", nullable = false)
 	public int getPriority() {
-		return priority;
+		return this.priority;
 	}
 	
 	public void setPriority(int priority) {
@@ -48,7 +48,7 @@ public class Access implements Serializable{
 	
 	@Column
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 	
 	public void setDescription(String description) {
