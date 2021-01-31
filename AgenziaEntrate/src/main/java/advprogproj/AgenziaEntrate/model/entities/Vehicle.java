@@ -65,7 +65,7 @@ public class Vehicle implements Serializable{
 		return this.owners;
 	}
 
-	public void setOwner(Set<UserVehicle> owners) {
+	public void setOwners(Set<UserVehicle> owners) {
 		this.owners = owners;
 	}
 	

@@ -6,10 +6,13 @@ import java.util.Set;
 
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
 
-public class ISEEDaoDefault extends DefaultDao implements ISEEDao{
+@Repository("ISEEDao")
+public class ISEEDaoDefault extends DefaultDao implements ISEEDao {
 
 	@Override
 	public List<ISEE> findAll() {

@@ -60,11 +60,11 @@ public class BankAccount implements Serializable{
 	}
 	
 	@ManyToMany(mappedBy = "bankAccounts")
-	public Set<User> getOwner() {
+	public Set<User> getOwners() {
 		return this.owners;
 	}
 
-	public void setOwner(Set<User> owners) {
+	public void setOwners(Set<User> owners) {
 		this.owners = owners;
 	}
 	

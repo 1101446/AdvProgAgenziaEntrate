@@ -25,12 +25,14 @@ import advprogproj.AgenziaEntrate.model.dao.RealEstateDao;
 import advprogproj.AgenziaEntrate.model.dao.RealEstateDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.FamilyDao;
 import advprogproj.AgenziaEntrate.model.dao.FamilyDaoDefault;
+import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.AccessDao;
 import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDaoDefault;
@@ -52,6 +54,7 @@ public class LoadDataTest {
 			FamilyDao familyDao = ctx.getBean(FamilyDao.class);
 			UserRealEstateDao userRealEstateDao = ctx.getBean(UserRealEstateDao.class);
 			UserVehicleDao userVehicleDao = ctx.getBean(UserVehicleDao.class);
+			ISEEDao iseeDao = ctx.getBean(ISEEDao.class);
 			
 			try (Session session = sf.openSession()) {
 				
@@ -63,6 +66,7 @@ public class LoadDataTest {
 				familyDao.setSession(session);
 				userRealEstateDao.setSession(session);
 				userVehicleDao.setSession(session);
+				iseeDao.setSession(session);
 				
 				// Popolazione database
 				
@@ -74,8 +78,7 @@ public class LoadDataTest {
 				Access piAccess = accessDao.create("EntePosteItaliane", 3, "Ente Poste Italiane");
 				Access userAccess = accessDao.create("Cittadino", 4, "Cittadino");
 				
-				session.getTransaction().commit();
-				
+				session.getTransaction().commit();		
 				session.beginTransaction();
 				
 				Vehicle veicoloMario = vehicleDao.create("Fiat","Panda","AA000AA");
@@ -106,7 +109,6 @@ public class LoadDataTest {
 				bankAccountDao.create("IT05G0003430005200000000999","Monte dei Paschi Siena",billDate2019,15000);
 				
 				session.getTransaction().commit();
-				
 				session.beginTransaction();
 
 				userDao.create("AAABBB20A78L700X", "Mario", "Rossi", LocalDate.of(1970, 5, 22), "mariorossi@libero.it", userDao.encryptPassword("mario"), false, userAccess);
@@ -116,8 +118,8 @@ public class LoadDataTest {
 				userDao.create("JOPFRT45A58L667X", "Pino", "Insegna", LocalDate.of(1975, 5, 22), "insegna.p@gmailcom", userDao.encryptPassword("cane"), false, piAccess);
 				userDao.create("MRCRSS10L79M480X", "Marco", "Rossi", LocalDate.of(2010, 4, 29), "marco.rossi@gmailcom", userDao.encryptPassword("marco"), false, userAccess);
 				userDao.create("LCBNCH05E11L344Y", "Luca", "Bianchi", LocalDate.of(2005, 8, 22), "l.bianchi@yahoo.com", userDao.encryptPassword("luca"), true, userAccess);
-				session.getTransaction().commit();
 				
+				session.getTransaction().commit();
 				session.beginTransaction();
 				
 				User mario = userDao.findByEmail("mariorossi@libero.it");
@@ -137,8 +139,7 @@ public class LoadDataTest {
 				assert(mario.getBankAccounts().contains(bankAccount1));
 				assert(mario.getBankAccounts().contains(bankAccount2));
 				
-				session.getTransaction().commit();
-				
+				session.getTransaction().commit();		
 				session.beginTransaction();
 				
 				bankAccountDao.addOwner(paolo, bankAccount2);
@@ -149,14 +150,13 @@ public class LoadDataTest {
 				bankAccountDao.update(bankAccount3);
 				bankAccountDao.update(bankAccount4);
 				
-				assert (bankAccount1.getOwner().contains(mario));
-				assert (bankAccount2.getOwner().contains(paolo));
-				assert (bankAccount2.getOwner().contains(mario));
-				assert (bankAccount3.getOwner().contains(paolo));
-				assert (bankAccount4.getOwner().contains(paolo));
+				assert (bankAccount1.getOwners().contains(mario));
+				assert (bankAccount2.getOwners().contains(paolo));
+				assert (bankAccount2.getOwners().contains(mario));
+				assert (bankAccount3.getOwners().contains(paolo));
+				assert (bankAccount4.getOwners().contains(paolo));
 				
-				session.getTransaction().commit();
-				
+				session.getTransaction().commit();			
 				session.beginTransaction();
 				
 				UserRealEstate marioCasaRossi = userRealEstateDao.create(mario, casaRossi, billDate2019, 14000);
@@ -169,10 +169,10 @@ public class LoadDataTest {
 				assert (mario.getUserRealEstates().contains(marioCasaRossiBianchi));
 				assert (paolo.getUserRealEstates().contains(paoloCasaRossiBianchi));
 				
-				assert (casaRossi.getOwner().contains(marioCasaRossi));
-				assert (casaBianchi.getOwner().contains(paoloCasaBianchi));
-				assert (casaRossiBianchi.getOwner().contains(marioCasaRossiBianchi));
-				assert (casaRossiBianchi.getOwner().contains(paoloCasaRossiBianchi));
+				assert (casaRossi.getOwners().contains(marioCasaRossi));
+				assert (casaBianchi.getOwners().contains(paoloCasaBianchi));
+				assert (casaRossiBianchi.getOwners().contains(marioCasaRossiBianchi));
+				assert (casaRossiBianchi.getOwners().contains(paoloCasaRossiBianchi));
 				
 				userDao.update(mario);
 				userDao.update(paolo);
@@ -181,8 +181,7 @@ public class LoadDataTest {
 				realEstateDao.update(casaBianchi);
 				realEstateDao.update(casaRossiBianchi);
 				
-				session.getTransaction().commit();
-				
+				session.getTransaction().commit();	
 				session.beginTransaction();
 				
 				UserVehicle marioVeicoloMario = userVehicleDao.create(mario, veicoloMario, billDate2019, 5000);
@@ -195,10 +194,10 @@ public class LoadDataTest {
 				assert (mario.getUserVehicles().contains(marioVeicoloMarioPaolo));
 				assert (paolo.getUserVehicles().contains(paoloVeicoloMarioPaolo));
 				
-				assert (veicoloMario.getOwner().contains(marioVeicoloMario));
-				assert (veicoloPaolo.getOwner().contains(paoloVeicoloPaolo));
-				assert (veicoloMarioPaolo.getOwner().contains(marioVeicoloMarioPaolo));
-				assert (veicoloMarioPaolo.getOwner().contains(paoloVeicoloMarioPaolo));
+				assert (veicoloMario.getOwners().contains(marioVeicoloMario));
+				assert (veicoloPaolo.getOwners().contains(paoloVeicoloPaolo));
+				assert (veicoloMarioPaolo.getOwners().contains(marioVeicoloMarioPaolo));
+				assert (veicoloMarioPaolo.getOwners().contains(paoloVeicoloMarioPaolo));
 				
 				userDao.update(mario);
 				userDao.update(paolo);
@@ -208,7 +207,6 @@ public class LoadDataTest {
 				vehicleDao.update(veicoloMarioPaolo);
 				
 				session.getTransaction().commit();
-				
 				session.beginTransaction();
 				
 				familyDao.create(1, mario, "Padre", "Mario Rossi");
@@ -217,9 +215,31 @@ public class LoadDataTest {
 				familyDao.create(1, luca, "Figlio", "Paolo Bianchi");
 				
 				session.getTransaction().commit();
-				/* session.beginTransaction();
+				session.beginTransaction();
 				
-				userDao.getBankAccounts(mario).clear();
+				ISEE iseeMario2018 = iseeDao.create(2018, 22000);
+				ISEE iseePaolo2018 = iseeDao.create(2018, 30000);
+				
+				userDao.addAssociatedISEE(mario, iseeMario2018);
+				userDao.addAssociatedISEE(marco, iseeMario2018);
+				userDao.addAssociatedISEE(paolo, iseePaolo2018);
+				userDao.addAssociatedISEE(luca, iseePaolo2018);
+				
+				userDao.update(mario);
+				
+				session.getTransaction().commit();
+				session.beginTransaction();
+				
+				ISEE iseeMario2019 = iseeDao.create(2019, 22000);
+				ISEE iseePaolo2019 = iseeDao.create(2019, 30000);
+				
+				userDao.addAssociatedISEE(mario, iseeMario2019);
+				userDao.addAssociatedISEE(marco, iseeMario2019);
+				userDao.addAssociatedISEE(paolo, iseePaolo2019);
+				userDao.addAssociatedISEE(luca, iseePaolo2019);
+				
+				session.getTransaction().commit();
+				/*userDao.getBankAccounts(mario).clear();
 				userDao.getUserRealEstates(mario).clear();
 				userDao.getUserVehicles(mario).clear();
 				bankAccountDao.get

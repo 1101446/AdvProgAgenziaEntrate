@@ -167,12 +167,12 @@ public class User implements Serializable{
 	
 	public void addBankAccount(BankAccount bankAccount) {
 		this.bankAccounts.add(bankAccount);
-		bankAccount.getOwner().add(this);
+		bankAccount.getOwners().add(this);
 	}
 	
 	public void removeBankAccount(BankAccount bankAccount) {
 		this.bankAccounts.remove(bankAccount);
-		bankAccount.getOwner().remove(this);
+		bankAccount.getOwners().remove(this);
 	}
 	
 	public void addAssociatedISEE(ISEE isee) {
@@ -192,6 +192,7 @@ public class User implements Serializable{
 	public void removeUserVehicle(UserVehicle userVehicle) {
 		this.userVehicles.remove(userVehicle);
 	}
+	
 	public void addUserRealEstate(UserRealEstate userRealEstate) {
 		this.userRealEstates.add(userRealEstate);
 	}
