@@ -23,7 +23,7 @@ public class UserRealEstate implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_USER")
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 	
 	public void setUser(User user) {
@@ -34,7 +34,7 @@ public class UserRealEstate implements Serializable{
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "ID_REAL_ESTATE")
 	public RealEstate getRealEstate() {
-		return realEstate;
+		return this.realEstate;
 	}
 	
 	public void setRealEstate(RealEstate realEstate) {
@@ -52,7 +52,7 @@ public class UserRealEstate implements Serializable{
 	
 	@Column(nullable = false)
 	public long getPrice() {
-		return price;
+		return this.price;
 	}
 	
 	public void setPrice(long price) {

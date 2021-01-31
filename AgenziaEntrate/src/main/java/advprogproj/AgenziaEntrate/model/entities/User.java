@@ -149,7 +149,7 @@ public class User implements Serializable{
 
 	@OneToMany(mappedBy = "user")
 	public Set<UserVehicle> getUserVehicles() {
-		return userVehicles;
+		return this.userVehicles;
 	}
 
 	public void setUserVehicles(Set<UserVehicle> userVehicles) {

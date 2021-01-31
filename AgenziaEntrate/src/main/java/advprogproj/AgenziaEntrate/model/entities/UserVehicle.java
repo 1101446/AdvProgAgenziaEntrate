@@ -23,7 +23,7 @@ public class UserVehicle implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_USER")
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 	
 	public void setUser(User user) {
@@ -34,7 +34,7 @@ public class UserVehicle implements Serializable{
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "ID_VEHICLE")
 	public Vehicle getVehicle() {
-		return vehicle;
+		return this.vehicle;
 	}
 
 	public void setVehicle(Vehicle vehicle) {
@@ -53,7 +53,7 @@ public class UserVehicle implements Serializable{
 	
 	@Column(nullable = false)
 	public long getPrice() {
-		return price;
+		return this.price;
 	}
 	
 	public void setPrice(long price) {

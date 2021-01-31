@@ -20,13 +20,13 @@ public class Vehicle implements Serializable{
 	private String model;
 	private String vehicleRegistration;
 	
-	private Set<UserVehicle> owner = new HashSet<UserVehicle>();
+	private Set<UserVehicle> owners = new HashSet<UserVehicle>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_VEHICLE")
 	public long getId() {
-		return id;
+		return this.id;
 	}
 	
 	public void setId(long id) {
@@ -35,7 +35,7 @@ public class Vehicle implements Serializable{
 	
 	@Column(nullable = false)
 	public String getBrand() {
-		return brand;
+		return this.brand;
 	}
 	
 	public void setBrand(String brand) {
@@ -44,7 +44,7 @@ public class Vehicle implements Serializable{
 	
 	@Column(nullable = false)
 	public String getModel() {
-		return model;
+		return this.model;
 	}
 	
 	public void setModel(String model) {
@@ -53,7 +53,7 @@ public class Vehicle implements Serializable{
 	
 	@Column(nullable = false)
 	public String getVehicleRegistration() {
-		return vehicleRegistration;
+		return this.vehicleRegistration;
 	}
 	
 	public void setVehicleRegistration(String vehicleRegistration) {
@@ -61,20 +61,20 @@ public class Vehicle implements Serializable{
 	}
 	
 	@OneToMany(mappedBy = "vehicle")
-	public Set<UserVehicle> getOwner() {
-		return owner;
+	public Set<UserVehicle> getOwners() {
+		return this.owners;
 	}
 
-	public void setOwner(Set<UserVehicle> owner) {
-		this.owner = owner;
+	public void setOwner(Set<UserVehicle> owners) {
+		this.owners = owners;
 	}
 	
 	public void addOwner(UserVehicle userVehicle) {
-		this.owner.add(userVehicle);
+		this.owners.add(userVehicle);
 	}
 	
 	public void removeOwner(UserVehicle userVehicle) {
-		this.owner.remove(userVehicle);
+		this.owners.remove(userVehicle);
 	}
 	
 }

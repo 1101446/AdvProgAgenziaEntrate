@@ -25,7 +25,7 @@ public class ISEE {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_ISEE")
 	public long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(long id) {
@@ -43,7 +43,7 @@ public class ISEE {
 	
 	@Column
 	public int getValueOfISEE() {
-		return valueOfISEE;
+		return this.valueOfISEE;
 	}
 
 	public void setValueOfISEE(int valueOfISEE) {

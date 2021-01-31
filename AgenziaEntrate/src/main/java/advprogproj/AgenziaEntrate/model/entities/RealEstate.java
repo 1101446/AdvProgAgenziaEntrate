@@ -20,13 +20,13 @@ public class RealEstate implements Serializable{
 	private String country;
 	private int CAP;
 	
-	private Set<UserRealEstate> owner = new HashSet<UserRealEstate>();
+	private Set<UserRealEstate> owners = new HashSet<UserRealEstate>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_REAL_ESTATE")
 	public long getId() {
-		return id;
+		return this.id;
 	}
 	
 	public void setId(long id) {
@@ -61,20 +61,20 @@ public class RealEstate implements Serializable{
 	}
 	
 	@OneToMany(mappedBy = "realEstate")
-	public Set<UserRealEstate> getOwner() {
-		return owner;
+	public Set<UserRealEstate> getOwners() {
+		return this.owners;
 	}
 
-	public void setOwner(Set<UserRealEstate> owner) {
-		this.owner = owner;
+	public void setOwners(Set<UserRealEstate> owners) {
+		this.owners = owners;
 	}
 	
 	public void addOwner(UserRealEstate userRealEstate) {
-		this.owner.add(userRealEstate);
+		this.owners.add(userRealEstate);
 	}
 	
 	public void removeOwner(UserRealEstate userRealEstate) {
-		this.owner.remove(userRealEstate);
+		this.owners.remove(userRealEstate);
 	}
 	
 	public void addUserRealEstate(UserRealEstate userRealEstate) {
