@@ -11,10 +11,11 @@ public interface UserRealEstateDao {
 	
 	public void setSession(Session session);
 	
+	UserRealEstate findById(User user, RealEstate realEstate, LocalDate date);
+	
 	UserRealEstate create(User user, RealEstate realEstate, LocalDate endOfYear,long price);
 	
 	UserRealEstate update(UserRealEstate userRealEstate);
 	
 	void delete(UserRealEstate userRealEstate);
-	
 }

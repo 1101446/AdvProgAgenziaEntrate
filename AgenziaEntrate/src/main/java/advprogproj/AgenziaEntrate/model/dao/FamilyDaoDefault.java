@@ -12,12 +12,14 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 @Repository("familyDao")
 public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 	
+	@Override
 	public List<Family> findAll(){
 		return this.getSession().
 				createQuery("from Family a", Family.class).
 				getResultList();
 	}
 	
+	@Override
 	public Family findById(long id, String user) {
 		Query q = this.getSession().createQuery("from Family a join fetch a.user "
 				+ "WHERE a.id = :id AND a.user= :user",Family.class);
@@ -25,6 +27,7 @@ public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 				setParameter("user", user).getSingleResult();
 	}
 	
+	@Override
 	public Family create(long id, User user, String hierarchy, String houseHolder) {
 		Family family = new Family();
 		family.setId(id);
@@ -35,10 +38,12 @@ public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 		return family;
 	}
 	
+	@Override
 	public Family update(Family family) {
 		return (Family)this.getSession().merge(family);
 	}
 	
+	@Override
 	public void delete(Family family) {
 		this.getSession().delete(family);
 	}

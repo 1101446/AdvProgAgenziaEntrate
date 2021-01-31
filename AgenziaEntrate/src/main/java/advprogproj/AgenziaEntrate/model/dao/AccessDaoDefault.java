@@ -7,10 +7,12 @@ import advprogproj.AgenziaEntrate.model.entities.Access;
 @Repository("accessDao")
 public class AccessDaoDefault extends DefaultDao implements AccessDao{
 	
+	@Override
 	public Access findById(long id) {
 		return this.getSession().find(Access.class, id);
 	}
 	
+	@Override
 	public Access create(String roleName, int priority, String description) {
 		Access access = new Access();
 		access.setRoleName(roleName);
@@ -20,10 +22,12 @@ public class AccessDaoDefault extends DefaultDao implements AccessDao{
 		return access;
 	}
 	
+	@Override
 	public Access update(Access access) {
 		return (Access)this.getSession().merge(access);
 	}
 	
+	@Override
 	public void delete(Access access) {
 		this.getSession().delete(access);
 	}

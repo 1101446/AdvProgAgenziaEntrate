@@ -175,6 +175,16 @@ public class User implements Serializable{
 		bankAccount.getOwner().remove(this);
 	}
 	
+	public void addAssociatedISEE(ISEE isee) {
+		this.associatedISEEs.add(isee);
+		isee.getAssociatedUsers().add(this);
+	}
+	
+	public void removeAssociatedISEE(ISEE isee) {
+		this.associatedISEEs.remove(isee);
+		isee.getAssociatedUsers().remove(this);
+	}
+	
 	public void addUserVehicle(UserVehicle userVehicle) {
 		this.userVehicles.add(userVehicle);
 	}

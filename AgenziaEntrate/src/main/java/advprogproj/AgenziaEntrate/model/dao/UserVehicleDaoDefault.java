@@ -13,6 +13,7 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 @Repository("userVehicleDao")
 public class UserVehicleDaoDefault extends DefaultDao implements UserVehicleDao{
 	
+	@Override
 	public UserVehicle findById(User user, Vehicle vehicle, LocalDate date) {
 		Query q = this.getSession().createQuery("from UserVehicle a join fetch a.user join fetch a.vehicle "
 				+ "WHERE a.user = :user AND a.userVehicle = :userVehicle AND a.endOfYear = :date", UserVehicle.class);
@@ -21,6 +22,7 @@ public class UserVehicleDaoDefault extends DefaultDao implements UserVehicleDao{
 				setParameter("date", date).getSingleResult();
 	}
 	
+	@Override
 	public UserVehicle create(User user, Vehicle vehicle, LocalDate endOfYear, long price) {
 		UserVehicle userVehicle = new UserVehicle();
 		userVehicle.setUser(user);
@@ -33,11 +35,13 @@ public class UserVehicleDaoDefault extends DefaultDao implements UserVehicleDao{
 		return userVehicle;
 	}
 	
+	@Override
 	public UserVehicle update(UserVehicle userVehicle) {
 		return (UserVehicle)this.getSession().merge(userVehicle);
 	}
 	
+	@Override
 	public void delete(UserVehicle userVehicle) {
 		this.getSession().delete(userVehicle);
-	}
+	}	
 }

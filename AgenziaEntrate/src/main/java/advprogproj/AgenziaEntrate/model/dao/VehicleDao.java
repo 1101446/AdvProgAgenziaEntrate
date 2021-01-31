@@ -28,5 +28,4 @@ public interface VehicleDao {
 	public void removeUserVehicle(Vehicle vehicle, UserVehicle userVehicle);
 	
 	public Set<UserVehicle> getUserVehicles(Vehicle vehicle);
-
 }

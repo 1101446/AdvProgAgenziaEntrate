@@ -12,6 +12,7 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 @Repository("userRealEstateDao")
 public class UserRealEstateDaoDefault extends DefaultDao implements UserRealEstateDao{
 	
+	@Override
 	public UserRealEstate findById(User user, RealEstate realEstate, LocalDate date) {
 		Query q = this.getSession().createQuery("from UserRealEstate a join fetch a.user join fetch a.realEstate"
 				+ "WHERE a.user = :user AND a.realEstate = :realEstate AND a.endOfYear = :date", UserRealEstate.class);
@@ -20,6 +21,7 @@ public class UserRealEstateDaoDefault extends DefaultDao implements UserRealEsta
 				setParameter("date", date).getSingleResult();
 	}
 	
+	@Override
 	public UserRealEstate create(User user, RealEstate realEstate, LocalDate endOfYear, long price) {
 		UserRealEstate userRealEstate = new UserRealEstate();
 		userRealEstate.setUser(user);
@@ -32,10 +34,12 @@ public class UserRealEstateDaoDefault extends DefaultDao implements UserRealEsta
 		return userRealEstate;
 	}
 	
+	@Override
 	public UserRealEstate update(UserRealEstate userRealEstate) {
 		return (UserRealEstate)this.getSession().merge(userRealEstate);
 	}
 	
+	@Override
 	public void delete(UserRealEstate userRealEstate) {
 		this.getSession().delete(userRealEstate);
 	}

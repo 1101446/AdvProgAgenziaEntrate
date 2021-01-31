@@ -55,5 +55,4 @@ public class ISEE {
 	public void setAssociatedUsers(Set<User> associatedUsers) {
 		this.associatedUsers = associatedUsers;
 	}
-	
 }

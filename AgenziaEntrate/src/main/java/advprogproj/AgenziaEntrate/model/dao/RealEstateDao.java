@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
@@ -21,8 +22,9 @@ public interface RealEstateDao {
 	
 	void delete(RealEstate realEstate);
 	
+	Set<UserRealEstate> getUserRealEstate(RealEstate realEstate);
+	
 	public void addUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate);
 	
 	public void removeUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate);
-	
 }

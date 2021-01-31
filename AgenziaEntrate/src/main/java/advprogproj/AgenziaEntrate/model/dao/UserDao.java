@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
@@ -31,6 +32,8 @@ public interface UserDao {
 	
 	Set<BankAccount> getBankAccounts(User user);
 	
+	Set<ISEE> getAssociatedISEEs(User user);
+	
 	Set<UserVehicle> getUserVehicles(User user);
 	
 	Set<UserRealEstate> getUserRealEstates(User user);
@@ -38,6 +41,10 @@ public interface UserDao {
 	void addBankAccount(User user, BankAccount bankAccount);
 	
 	void removeBankAccount(User user, BankAccount bankAccount);
+	
+	public void addAssociatedISEE(User user, ISEE isee);
+	
+	public void removeAssociatedISEE(User user, ISEE isee);
 	
 	public void addUserVehicle(User user, UserVehicle userVehicle);
 	
