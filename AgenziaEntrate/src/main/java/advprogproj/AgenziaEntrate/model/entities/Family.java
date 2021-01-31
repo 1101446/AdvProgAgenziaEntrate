@@ -20,7 +20,7 @@ public class Family implements Serializable{
 	@Id
 	@Column(name = "ID_FAMILY")
 	public long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(long id) {
@@ -31,7 +31,7 @@ public class Family implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "ID_USER")
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 	
 	public void setUser(User user) {
@@ -40,7 +40,7 @@ public class Family implements Serializable{
 
 	@Column(name = "HIERARCHY", nullable = false)
 	public String getHierarchy() {
-		return hierarchy;
+		return this.hierarchy;
 	}
 
 	public void setHierarchy(String hierarchy) {
@@ -49,7 +49,7 @@ public class Family implements Serializable{
 	
 	@Column(name = "HOUSE_HOLDER", nullable = false)
 	public String getHouseHolder() {
-		return houseHolder;
+		return this.houseHolder;
 	}
 
 	public void setHouseHolder(String houseHolder) {
