@@ -38,7 +38,7 @@ public class User implements Serializable{
     @Id
     @Column(name = "ID_USER")
     public String getCf() {
-		return cf;
+		return this.cf;
 	}
 	
 	public void setCf(String cf) {
@@ -47,7 +47,7 @@ public class User implements Serializable{
 	
 	@Column(nullable = false)
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 	
 	public void setFirstName(String firstName) {
@@ -56,7 +56,7 @@ public class User implements Serializable{
 	
 	@Column(nullable = false)
 	public String getSecondName() {
-		return secondName;
+		return this.secondName;
 	}
 	
 	public void setSecondName(String secondName) {
@@ -74,7 +74,7 @@ public class User implements Serializable{
 	
 	@Column(unique = true, nullable = false)
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 	
 	public void setEmail(String email) {
@@ -83,7 +83,7 @@ public class User implements Serializable{
 	
 	@Column(nullable = false)
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 	
 	public void setPassword(String password) {
@@ -92,7 +92,7 @@ public class User implements Serializable{
 	
 	@Column()
 	public boolean isHandicap() {
-		return handicap;
+		return this.handicap;
 	}
 	
 	public void setHandicap(boolean handicap) {
@@ -102,7 +102,7 @@ public class User implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "ID_ACCESS")
 	public Access getAccess() {
-		return access;
+		return this.access;
 	}
 
 	public void setAccess(Access access) {
@@ -121,7 +121,7 @@ public class User implements Serializable{
 			inverseJoinColumns = {@JoinColumn(name = "ID_BANK_ACCOUNT"),@JoinColumn(name = "BILL_DATE")}
 			)
 	public Set<BankAccount> getBankAccounts() {
-		return bankAccounts;
+		return this.bankAccounts;
 	}
 
 	public void setBankAccounts(Set<BankAccount> bankAccounts) {
