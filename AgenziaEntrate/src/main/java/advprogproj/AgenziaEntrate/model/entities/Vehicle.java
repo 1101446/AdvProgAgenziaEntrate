@@ -76,5 +76,4 @@ public class Vehicle implements Serializable{
 	public void removeOwner(UserVehicle userVehicle) {
 		this.owners.remove(userVehicle);
 	}
-	
 }

@@ -77,5 +77,4 @@ public class BankAccount implements Serializable{
 		this.owners.remove(user);
 		user.getBankAccounts().remove(this);
 	}
-		
 }
