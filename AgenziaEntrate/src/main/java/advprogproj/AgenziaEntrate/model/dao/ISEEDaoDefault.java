@@ -22,9 +22,8 @@ public class ISEEDaoDefault extends DefaultDao implements ISEEDao{
 	}
 
 	@Override
-	public ISEE create(long id, int yearOfValidity, int valueOfISEE) {
+	public ISEE create(int yearOfValidity, int valueOfISEE) {
 		ISEE isee = new ISEE();
-		isee.setId(id);
 		isee.setYearOfValidity(yearOfValidity);
 		isee.setValueOfISEE(valueOfISEE);
 		this.getSession().save(isee);

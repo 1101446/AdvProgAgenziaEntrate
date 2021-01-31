@@ -19,7 +19,7 @@ public interface ISEEDao {
 	
 	ISEE findById(long id);
 	
-	ISEE create(long id, int yearOfValidity , int valueOfISEE);
+	ISEE create(int yearOfValidity , int valueOfISEE);
 	
 	ISEE update(ISEE isee);
 	
