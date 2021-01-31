@@ -225,7 +225,22 @@ public class LoadDataTest {
 				userDao.addAssociatedISEE(paolo, iseePaolo2018);
 				userDao.addAssociatedISEE(luca, iseePaolo2018);
 				
+				assert (mario.getAssociatedISEEs().contains(iseeMario2018));
+				assert (marco.getAssociatedISEEs().contains(iseeMario2018));
+				
+				assert (paolo.getAssociatedISEEs().contains(iseePaolo2018));
+				assert (luca.getAssociatedISEEs().contains(iseePaolo2018));
+				
+				assert (iseeMario2018.getAssociatedUsers().contains(mario));
+				assert (iseeMario2018.getAssociatedUsers().contains(marco));
+				
+				assert (iseePaolo2018.getAssociatedUsers().contains(paolo));
+				assert (iseePaolo2018.getAssociatedUsers().contains(luca));
+				
 				userDao.update(mario);
+				userDao.update(marco);
+				userDao.update(paolo);
+				userDao.update(luca);
 				
 				session.getTransaction().commit();
 				session.beginTransaction();
@@ -237,6 +252,23 @@ public class LoadDataTest {
 				userDao.addAssociatedISEE(marco, iseeMario2019);
 				userDao.addAssociatedISEE(paolo, iseePaolo2019);
 				userDao.addAssociatedISEE(luca, iseePaolo2019);
+				
+				assert (mario.getAssociatedISEEs().contains(iseeMario2019));
+				assert (marco.getAssociatedISEEs().contains(iseeMario2019));
+				
+				assert (paolo.getAssociatedISEEs().contains(iseePaolo2019));
+				assert (luca.getAssociatedISEEs().contains(iseePaolo2019));
+				
+				assert (iseeMario2019.getAssociatedUsers().contains(mario));
+				assert (iseeMario2019.getAssociatedUsers().contains(marco));
+				
+				assert (iseePaolo2019.getAssociatedUsers().contains(paolo));
+				assert (iseePaolo2019.getAssociatedUsers().contains(luca));
+				
+				userDao.update(mario);
+				userDao.update(marco);
+				userDao.update(paolo);
+				userDao.update(luca);
 				
 				session.getTransaction().commit();
 				/*userDao.getBankAccounts(mario).clear();
