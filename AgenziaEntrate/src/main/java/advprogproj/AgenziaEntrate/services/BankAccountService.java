@@ -1,10 +1,13 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 
 public interface BankAccountService {
+	
+	public List<BankAccount> findAllBankAccounts();
 	
 	public BankAccount findBankAccount(String bankAccount, LocalDate billDate);
 	

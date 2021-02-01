@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,11 @@ public class BankAccountServiceDefault implements BankAccountService{
 	
 	private BankAccountDaoDefault bankAccountDao;
 	private UserDaoDefault userDao;
+	
+	@Transactional
+	public List<BankAccount> findAllBankAccounts() {
+		return this.bankAccountDao.findAll();
+	}
 	
 	@Transactional
 	public BankAccount findBankAccount(String bankAccount, LocalDate billDate) {
