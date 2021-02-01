@@ -33,28 +33,31 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
-import it.univpm.advprog.singers.test.DataServiceConfigTest;
-import it.univpm.advprog.singers.utils.LocalDateAttributeConverter;
-import it.univpm.advprog.singers.utils.LocalDateToDateConverter;
-import it.univpm.advprog.singers.utils.StringToLocalDateConverter;
+import advprogproj.AgenziaEntrate.test.DataServiceConfigTest;
+import advprogproj.AgenziaEntrate.utils.LocalDateAttributeConverter;
+import advprogproj.AgenziaEntrate.utils.LocalDateToDateConverter;
+import advprogproj.AgenziaEntrate.utils.StringToLocalDateConverter;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "it.univpm.advprog.singers" },
-	excludeFilters  = {@ComponentScan.Filter(
+@ComponentScan(basePackages = { "advprogproj.AgenziaEntrate" },
+	//excludeFilters é un filtro di esclusione per non caricare Bean già caricate precedentemente 
+	//in questo caso da DataServiceConfigTest senza di esso WebConfig ricarica tutte le Bean di 
+	//DataServiceConfig caricate da DataServiceConfigTest causando un conflitto di Bean caricate 2 volte
+	excludeFilters  = {@ComponentScan.Filter( 
 		type = FilterType.ASSIGNABLE_TYPE, classes = {DataServiceConfigTest.class})})
 public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	public String appName() {
-		return "Singers App";
+		return "Calcolo ISEE";
 	}
 		
 	//Declare our static resources. I added cache to the java config but it's not required.
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/")
-				.setCachePeriod(31556926);
+		.setCachePeriod(31556926);
 		registry.addResourceHandler("/media/**").addResourceLocations("/WEB-INF/media/")
 		.setCachePeriod(31556926);
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/js/")
@@ -160,7 +163,6 @@ public class WebConfig implements WebMvcConfigurer {
 		cookieLocaleResolver.setCookieName("locale");
 		return cookieLocaleResolver;
 	}
-
 
 	@Bean
 	CookieThemeResolver themeResolver() {

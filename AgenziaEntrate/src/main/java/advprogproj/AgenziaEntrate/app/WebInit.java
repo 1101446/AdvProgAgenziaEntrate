@@ -8,7 +8,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-//import advprogproj.AgenziaEntrate.security.WebSecurityConfig;
+import advprogproj.AgenziaEntrate.security.WebSecurityConfig;
 
 public class WebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 

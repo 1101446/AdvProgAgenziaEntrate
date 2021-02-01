@@ -93,9 +93,9 @@ public class DataServiceConfig {
 		sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource);
 		sessionFactoryBean.setPackagesToScan("advprogproj.AgenziaEntrate.model");
-			sessionFactoryBean.setHibernateProperties(hibernateProperties);
-			sessionFactoryBean.afterPropertiesSet();
-			return sessionFactoryBean.getObject();
+		sessionFactoryBean.setHibernateProperties(hibernateProperties);
+		sessionFactoryBean.afterPropertiesSet();
+		return sessionFactoryBean.getObject();
 	}
 
 	@Bean
