@@ -50,8 +50,8 @@ public class InstitutionController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@ModelAttribute("newBankAccount") BankAccount newBankAccount, BindingResult br, 
-					   @ModelAttribute("userIds") List<User> userIds) {
+	public String save(@ModelAttribute("newBankAccount") BankAccount newBankAccount, 
+					   @ModelAttribute("userIds") List<User> userIds, BindingResult br) {
 		this.bankAccountService.update(newBankAccount);
 		if(userIds.size() > 0) {
 			for(User user : userIds) {
