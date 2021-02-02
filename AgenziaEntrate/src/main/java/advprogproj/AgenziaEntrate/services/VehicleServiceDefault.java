@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 public class VehicleServiceDefault implements VehicleService{
 	
 	private VehicleDaoDefault vehicleDao;
+	
+	@Transactional
+	public List<Vehicle> findAllVehicles() {
+		return this.vehicleDao.findAll();
+	}
 	
 	@Transactional
 	public Vehicle findVehicle(long id) {

@@ -1,13 +1,12 @@
 package advprogproj.AgenziaEntrate.services;
 
-import java.util.Set;
+import java.util.List;
 
-import org.hibernate.Session;
-
-import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
 public interface VehicleService {
+	
+	public List<Vehicle> findAllVehicles();
 	
 	public Vehicle findVehicle(long id);
 	
