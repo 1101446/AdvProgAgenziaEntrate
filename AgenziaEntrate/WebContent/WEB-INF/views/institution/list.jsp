@@ -40,3 +40,4 @@ Elenco conti correnti: ${numInstruments}.
 </table>
 <hr/>
 <a href="<c:url value="/institution/add" />">Aggiungi conto corrente</a>
+<!-- Chiedere come implemetare parte della form per inserire utenti -->
