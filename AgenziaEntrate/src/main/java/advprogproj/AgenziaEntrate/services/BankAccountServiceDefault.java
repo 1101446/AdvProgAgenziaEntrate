@@ -22,8 +22,8 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Transactional
-	public BankAccount findBankAccount(String bankAccount, LocalDate billDate) {
-		return this.bankAccountDao.findById(bankAccount, billDate);
+	public BankAccount findBankAccount(String bankAccount, String billDate) {
+		return this.bankAccountDao.findById(bankAccount, LocalDate.parse(billDate));
 	}
 	
 	@Transactional
@@ -32,7 +32,7 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Transactional
-	public BankAccount update(String IBAN, LocalDate billDate) {
+	public BankAccount update(String IBAN, String billDate) {
 		return this.update(this.findBankAccount(IBAN, billDate));
 		
 	}
@@ -44,18 +44,18 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Transactional
-	public void delete(String IBAN, LocalDate billDate, String user) {
+	public void delete(String IBAN, String billDate, String user) {
 		this.bankAccountDao.delete(this.findBankAccount(IBAN, billDate));
 		this.removeOwner(user, IBAN, billDate);
 	}
 	
 	@Transactional
-	public void addOwner(String user, String IBAN, LocalDate billDate) {
+	public void addOwner(String user, String IBAN, String billDate) {
 		this.bankAccountDao.addOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
 	}
 	
 	@Transactional
-	public void removeOwner(String user, String IBAN, LocalDate billDate) {
+	public void removeOwner(String user, String IBAN, String billDate) {
 		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
 	}
 	

@@ -9,17 +9,17 @@ public interface BankAccountService {
 	
 	public List<BankAccount> findAllBankAccounts();
 	
-	public BankAccount findBankAccount(String bankAccount, LocalDate billDate);
+	public BankAccount findBankAccount(String bankAccount, String billDate);
 	
 	public BankAccount create(String IBAN, String bankName, LocalDate billDate, long balance);
 
-	public BankAccount update(String IBAN, LocalDate billDate);
+	public BankAccount update(String IBAN, String billDate);
 	
 	public BankAccount update(BankAccount bankAccount);
 
-	public void delete(String IBAN, LocalDate billDate, String user);
+	public void delete(String IBAN, String billDate, String user);
 	
-	public void addOwner(String user, String IBAN, LocalDate billDate) ;
+	public void addOwner(String user, String IBAN, String billDate) ;
 	
-	public void removeOwner(String user, String IBAN, LocalDate billDate);
+	public void removeOwner(String user, String IBAN, String billDate);
 }

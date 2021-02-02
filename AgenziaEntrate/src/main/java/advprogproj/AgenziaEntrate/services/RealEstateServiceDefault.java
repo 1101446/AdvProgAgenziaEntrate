@@ -1,5 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,11 @@ import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 public class RealEstateServiceDefault implements RealEstateService {
 	
 	private RealEstateDaoDefault realEstateDao;
+	
+	@Transactional
+	public List<RealEstate> findAllRealEstates() {
+		return this.realEstateDao.findAll();
+	}
 	
 	@Transactional
 	public RealEstate findRealEstate(long id) {

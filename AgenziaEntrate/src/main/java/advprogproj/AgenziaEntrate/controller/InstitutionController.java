@@ -1,7 +1,7 @@
 package advprogproj.AgenziaEntrate.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.services.BankAccountService;
+import advprogproj.AgenziaEntrate.services.UserService;
 import ch.qos.logback.classic.Logger;
 
 @RequestMapping("/institution")
@@ -25,6 +28,7 @@ import ch.qos.logback.classic.Logger;
 public class InstitutionController {
 	private final Logger logger = (Logger) LoggerFactory.getLogger(InstitutionController.class);
 	private BankAccountService bankAccountService;
+	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model inModel) {
@@ -46,34 +50,103 @@ public class InstitutionController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@ModelAttribute("newSinger") BankAccount newBankAccount, BindingResult br) {
+	public String save(@ModelAttribute("newBankAccount") BankAccount newBankAccount, BindingResult br, 
+					   @ModelAttribute("userIds") List<User> userIds) {
 		this.bankAccountService.update(newBankAccount);
-		
+		if(userIds.size() > 0) {
+			for(User user : userIds) {
+				this.bankAccountService.addOwner(user.getCf(), newBankAccount.getIBAN(), newBankAccount.getBillDate().toString());
+				this.userService.update(user);
+			}
+			this.bankAccountService.update(newBankAccount);
+		}
 		return "redirect:/institution/list";
 	}
 	
 	@GetMapping(value = "/add")
 	public String add(Model inModel) {
+		List<User> users = this.userService.findAllUsers();
 		inModel.addAttribute("newBankAccount", new BankAccount());
+		inModel.addAttribute("users", users);
 		return "institution/list";
 	}
 	
-	@GetMapping(value = "/{bankAccountId}/edit")
+	@GetMapping(value = "/{bankAccountId}/{billDate}/edit")
 	public String edit(@PathVariable("bankAccountId") String bankAccountId, 
-					   @PathVariable("billDate") LocalDate billDate, Model inModel) {
+					   @PathVariable("billDate") String billDate, Model inModel) {
 		BankAccount bk = this.bankAccountService.findBankAccount(bankAccountId, billDate);
 		inModel.addAttribute("newBankAccount", bk);
 		return "institution/form";
 	}
 	
-	@GetMapping(value = "/{singerId}/delete/")
-	public String delete(@PathVariable("bankAccountId") String bankAccountId, @PathVariable("billDate") LocalDate billDate, @PathVariable("userId") String userId) {
+	@GetMapping(value = "/{bankAccountId}/{billDate}/delete/")
+	public String delete(@PathVariable("bankAccountId") String bankAccountId, 
+						 @PathVariable("billDate") String billDate, 
+						 @PathVariable("userId") String userId) {
 		this.bankAccountService.delete(bankAccountId, billDate, userId);
 		return "redirect:/institution/list/";
+	}
+	
+	@GetMapping(value = "/{bankAccountId}/{billDate}/user/{userId}/unlink/" )
+	public String unlinkInstrument(
+			@RequestParam(value = "next", required=false) String next, 
+			@PathVariable("bankAccountId") String bankAccountId, 
+			@PathVariable("billDate") String billDate,
+			@PathVariable("userId") String userId)
+	{
+		this.bankAccountService.removeOwner(bankAccountId, billDate, userId);
+		
+		// NB: sotto e` molto importante la barra (/) prima di singers/list, perche` la struttura del redirect
+		// dev'essere:
+		// redirect:<URL>
+		// e /singers/list e` appunta una URL della nostra applicazione. Nella maggior parte degli altri controller, 
+		// invece, si ritornava 'singers/list' che era un *nome di vista*, non una URL (!!!)
+		
+		if (next == null || next.length() == 0) {
+			next = "/institution/list";
+		}
+		
+		return "redirect:" + next;
+	}
+	
+	@GetMapping("/link/choose")
+	public String link(Model uiModel) {
+		uiModel.addAttribute("singers", this.bankAccountService.findAllBankAccounts());
+		uiModel.addAttribute("instruments", this.userService.findAllUsers());
+		
+		return "institution/link_choose";
+	}
+	
+	// handle requests like this:
+	//
+	// http://localhost/.../link/?singer=123&instrument=456&next=/instruments/list
+	//
+	@PostMapping("/link")
+	public String link(
+			@RequestParam(value="next", required=false) String next,
+			@RequestParam(value="user") String userId,
+			@RequestParam(value="bankAccount") String bankAccountId, 
+			@RequestParam(value="billDate")String billDate){
+		User u = this.userService.findUser(userId);
+		BankAccount b = this.bankAccountService.findBankAccount(bankAccountId, billDate);
+		this.bankAccountService.addOwner(userId, bankAccountId, billDate);
+		this.userService.addBankAccount(userId, bankAccountId, billDate);
+		this.bankAccountService.update(b);
+		this.userService.update(u);
+		if (next == null || next.length() == 0) {
+			next = "/institution/list";
+		}
+		
+		return "redirect:" + next;
 	}
 	
 	@Autowired
 	public void setBankAccountService(BankAccountService bankAccountService) {
 		this.bankAccountService = bankAccountService;
+	}
+	
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

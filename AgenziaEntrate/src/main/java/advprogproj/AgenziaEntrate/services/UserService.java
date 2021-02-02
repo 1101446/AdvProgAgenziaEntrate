@@ -1,10 +1,13 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface UserService {
+	
+	public List<User> findAllUsers();
 	
 	public User findUser(String user);
 	
@@ -14,9 +17,9 @@ public interface UserService {
 	
 	public User update(User user);
 	
-	public void delete(String user, String bankAccount, LocalDate billDate);
+	public void delete(String user, String bankAccount, String billDate);
 	
-	public void addBankAccount(String user, String bankAccount, LocalDate billDate);
+	public void addBankAccount(String user, String bankAccount, String billDate);
 	
-	public void removeBankAccount(String user, String bankAccount, LocalDate billDate);
+	public void removeBankAccount(String user, String bankAccount, String billDate);
 }
