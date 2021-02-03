@@ -380,7 +380,6 @@ public class LoadDataTest {
 				}
 				System.out.println("HALLO");
 			}catch (Exception e) {
-		//		logger.error("Eccezione: " + e.getMessage());
 				e.printStackTrace(System.err);
 			}
 //	logger.info("Esco ...");
