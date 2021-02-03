@@ -378,58 +378,6 @@ public class LoadDataTest {
 										   " Capo famiglia: " + f.getHouseHolder());
 					}
 				}
-				/*
-				List<Singer> all = singerDao.findAll();
-				
-				System.out.println("Number of singers: " + all.size());
-				for (Singer s : all) {
-					System.out.println(" - " + s.getFullName() + " : " + s.getBirthDate());
-					
-					Set<Album> albums = singerDao.getAlbums(s);
-					System.out.println("Number of albums: " + albums.size());
-					for (Album a : albums) {
-						System.out.println("  - " + a.getTitle());					
-					}
-				}
-				
-				List<Instrument> allInstruments = instrumentDao.findAll();
-				System.out.println("Number of instruments: " + allInstruments.size());
-				for (Instrument i : allInstruments) {
-					System.out.println(" - " + i.getFamily() + " : " + i.getName());
-					Set<Singer> singers = i.getSingers();
-					
-					if (singers == null) {
-						singers = new HashSet<Singer>();
-					}
-					
-					System.out.println("Number of singers: " + singers.size());
-					for (Singer s : singers) {
-						System.out.println("  - " + s.getFullName());
-					}
-				}
-				
-				session.getTransaction().commit();
-				
-				// phase 3 : create user
-				session.beginTransaction();
-				
-				Role r1 = roleDao.create("USER");
-				Role r2 = roleDao.create("ADMIN");
-				
-				session.getTransaction().commit();
-				
-				session.beginTransaction();
-				
-				User u1 = userDao.create("user1", userDao.encryptPassword("user1"), true);				
-				u1.addRole(r1);
-				
-				User u2 = userDao.create("user2", userDao.encryptPassword("user2"), true);
-				u2.addRole(r1);
-				u2.addRole(r2);
-				
-				userDao.update(u1);
-				userDao.update(u2);
-				session.getTransaction().commit();*/
 				System.out.println("HALLO");
 			}catch (Exception e) {
 		//		logger.error("Eccezione: " + e.getMessage());
