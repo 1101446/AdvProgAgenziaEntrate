@@ -145,7 +145,8 @@ public class WebConfig implements WebMvcConfigurer {
 		return interceptor;
 	}
 
-	@Bean ResourceBundleThemeSource themeSource() {
+	@Bean 
+	ResourceBundleThemeSource themeSource() {
 		return new ResourceBundleThemeSource();
 	}
 
@@ -195,7 +196,7 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addViewController("/login").setViewName("login");
 
 //        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		registry.addRedirectViewController("/", "/user/login");
+		registry.addRedirectViewController("/", "/home/");
 		//registry.addRedirectViewController("/singers/", "/singers/list/");
 
 	}

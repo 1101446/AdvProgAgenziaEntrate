@@ -28,7 +28,7 @@ Elenco conti correnti: ${numInstruments}.
 			<td>${ba.balance}</td>
 			<td>
 				<ul>
-					<c:forEach owner="${ba.owner}" var="o">
+					<c:forEach items="${ba.owner}" var="o">
 						<li>${o.firstName} ${o.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${o.cf}/unlink/" />?next=/institution/list/">-/-</a>]</li>
 					</c:forEach>
 				</ul>

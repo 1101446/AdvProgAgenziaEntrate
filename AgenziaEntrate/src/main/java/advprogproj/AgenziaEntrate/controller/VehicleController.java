@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,20 +22,20 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.services.UserVehicleService;
 import advprogproj.AgenziaEntrate.services.VehicleService;
 import advprogproj.AgenziaEntrate.services.UserService;
-import ch.qos.logback.classic.Logger;
+//import ch.qos.logback.classic.Logger;
 
 @RequestMapping("/vehicles")
 @Controller
 public class VehicleController {
 	
-	private final Logger logger = (Logger) LoggerFactory.getLogger(VehicleController.class);
+	//private final Logger logger = (Logger) LoggerFactory.getLogger(VehicleController.class);
 	private VehicleService vehicleService;
 	private UserVehicleService userVehicleService;
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model inModel) {
-		logger.info("Listing Vehicles");
+		//logger.info("Listing Vehicles");
 		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 		int numVehicles = -1;
 		
@@ -43,7 +43,7 @@ public class VehicleController {
 			allVehicles = this.vehicleService.findAllVehicles();
 			numVehicles = allVehicles.size();
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+		//	logger.error(e.getMessage());
 		}
 		
 		inModel.addAttribute("vehicles", allVehicles);

@@ -3,7 +3,7 @@ package advprogproj.AgenziaEntrate.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +20,12 @@ import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.services.BankAccountService;
 import advprogproj.AgenziaEntrate.services.UserService;
-import ch.qos.logback.classic.Logger;
+//import ch.qos.logback.classic.Logger;
 
 @RequestMapping("/institution")
 @Controller
 public class BankAccountController {
-	private final Logger logger = (Logger) LoggerFactory.getLogger(BankAccountController.class);
+	//private final Logger logger = (Logger) LoggerFactory.getLogger(BankAccountController.class);
 	private BankAccountService bankAccountService;
 	private UserService userService;
 	
@@ -39,7 +39,7 @@ public class BankAccountController {
 			allBankAccounts = this.bankAccountService.findAllBankAccounts();
 			numBankAccounts = allBankAccounts.size();
 		}catch(Exception e) {
-			logger.error(e.getMessage());
+			//logger.error(e.getMessage());
 		}
 		
 		inModel.addAttribute("bankAccounts", allBankAccounts);
