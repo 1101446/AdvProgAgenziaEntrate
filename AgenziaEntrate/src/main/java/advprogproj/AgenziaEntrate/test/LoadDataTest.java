@@ -1,8 +1,6 @@
 package advprogproj.AgenziaEntrate.test;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,33 +10,24 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import advprogproj.AgenziaEntrate.app.DataServiceConfig;
-import advprogproj.AgenziaEntrate.model.dao.DefaultDao;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
-import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDao;
-import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.RealEstateDao;
-import advprogproj.AgenziaEntrate.model.dao.RealEstateDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.FamilyDao;
-import advprogproj.AgenziaEntrate.model.dao.FamilyDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.AccessDao;
-import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
-import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
-import advprogproj.AgenziaEntrate.model.dao.UserVehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
-import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDaoDefault;
 
 public class LoadDataTest {
 	public static void main(String ... args) {
