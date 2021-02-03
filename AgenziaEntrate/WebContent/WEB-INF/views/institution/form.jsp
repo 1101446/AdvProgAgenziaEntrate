@@ -26,8 +26,13 @@
                     <td><form:input path="balance"/></td>
                 </tr>
 				<tr>
+					<td><form:label path="user_id"/></td>
+					<td><form:select path="user_id"/></td>
+				</tr>
+				<tr>
 					<td><form:hidden path="IBAN" /></td>
 				</tr>
+				
                 <tr>
                     <td><input type="submit" value="Submit"/></td>
                 </tr>
