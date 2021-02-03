@@ -26,7 +26,6 @@ import ch.qos.logback.classic.Logger;
 
 @RequestMapping("/vehicles")
 @Controller
-//Portate il pesce nel frigo a nonna.class
 public class VehicleController {
 	
 	private final Logger logger = (Logger) LoggerFactory.getLogger(InstitutionController.class);

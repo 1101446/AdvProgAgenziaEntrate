@@ -31,13 +31,13 @@ public class Family implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "ID_USER")
 	public User getUser() {
-		return this.user;
+		return user;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
 	@Column(name = "HIERARCHY", nullable = false)
 	public String getHierarchy() {
 		return this.hierarchy;

@@ -28,6 +28,7 @@ public class User implements Serializable{
     private String password;
     private boolean handicap;
     private Access access;
+    private Family family;
     
     private Set<BankAccount> bankAccounts = new HashSet<BankAccount>();
     private Set<ISEE> associatedISEEs = new HashSet<ISEE>();
@@ -90,7 +91,7 @@ public class User implements Serializable{
 		this.password = password;
 	}
 	
-	@Column()
+	@Column(name = "HANDICAP")
 	public boolean isHandicap() {
 		return this.handicap;
 	}
@@ -107,6 +108,15 @@ public class User implements Serializable{
 
 	public void setAccess(Access access) {
 		this.access = access;
+	}
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	public Family getFamily() {
+		return this.family;
+	}
+
+	public void setFamily(Family family) {
+		this.family = family;
 	}
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {
