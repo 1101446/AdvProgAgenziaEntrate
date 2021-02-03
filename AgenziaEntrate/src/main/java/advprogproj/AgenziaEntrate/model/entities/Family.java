@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.model.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,10 +29,10 @@ public class Family implements Serializable{
 	}
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_USER")
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
 	public void setUser(User user) {

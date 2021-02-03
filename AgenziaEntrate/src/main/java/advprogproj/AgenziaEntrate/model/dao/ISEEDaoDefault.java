@@ -55,7 +55,7 @@ public class ISEEDaoDefault extends DefaultDao implements ISEEDao {
 
 	@Override
 	public Set<User> getAssociatedUsers(ISEE isee) {
-		Query q = this.getSession().createQuery("from User a JOIN FETCH a.associatedISEEs WHERE a.associatedISEEs = :isee", User.class);
+		Query q = this.getSession().createQuery("from User a JOIN FETCH a.associatedISEEs i WHERE i = :isee", User.class);
 		return new HashSet<User>(q.setParameter("associatedISEEs", isee).getResultList());
 	}
 }

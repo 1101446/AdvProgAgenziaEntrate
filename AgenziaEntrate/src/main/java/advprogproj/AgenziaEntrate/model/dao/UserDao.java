@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
@@ -29,6 +30,8 @@ public interface UserDao {
 	User update(User user);
 	
 	void delete(User user);
+	
+	public Set<Family> getFamilies(User user);
 	
 	Set<BankAccount> getBankAccounts(User user);
 	

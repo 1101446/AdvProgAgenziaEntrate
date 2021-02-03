@@ -32,6 +32,7 @@ import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDaoDefault;
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
@@ -271,75 +272,76 @@ public class LoadDataTest {
 				userDao.update(luca);
 				
 				session.getTransaction().commit();
-				/*userDao.getBankAccounts(mario).clear();
-				userDao.getUserRealEstates(mario).clear();
-				userDao.getUserVehicles(mario).clear();
-				bankAccountDao.get
-				// rimuovi tutte le entita` collegate a quella da eliminare
-				mj.getInstruments().clear();
-				for (Album a : mj.getAlbums()) {
-					albumDao.delete(a);
+				session.beginTransaction();
+				//rimuovo solo i riferimenti alel altre entità, i conti correnti verrano poi intestati a
+				//un altro utente
+				for(BankAccount a : mario.getBankAccounts()) {
+					a.getOwners().removeIf(u -> u == mario);
 				}
-				mj.getAlbums().clear();
-				mj = singerDao.update(mj);
-				/*Singer rw = singerDao.create("Roger", "Waters", LocalDate.of(1963, 9, 6));
-				Singer mj = singerDao.create("Michael", "Jackson", null);
-							
-				albumDao.create("Wish you where here", rw);
 				
-				albumDao.create("Thriller", mj);
-				
-				assert mj.getAlbums().size() == 0;
-				assert rw.getAlbums().size() == 0;
-				
-				// fai refresh per ricaricare
-				session.refresh(mj);
-				session.refresh(rw);
-				
-				assert mj.getAlbums().size() == 1;
-				assert rw.getAlbums().size() == 1;
-				
-				Album tdb = albumDao.create("The division bell", rw);
-				tdb.setSinger(rw);
-				albumDao.update(tdb);
-				
-			
-				Instrument i1 = instrumentDao.findByName("Stratocaster");
-				Instrument i2 = instrumentDao.findByName("Moog");
-				Instrument i3 = instrumentDao.findByName("Stradivari");
-							
-				session.getTransaction().commit();
-	
-				session.beginTransaction();
-	
-				mj.addInstrument(i2);
-				mj.addInstrument(i3);
-				mj = singerDao.update(mj);
-				
-				assert mj.getInstruments().contains(i2) == true;
-				assert mj.getInstruments().contains(i3) == true;
-				assert i2.getSingers().contains(mj);
-				assert i3.getSingers().contains(mj);
-				
-				session.getTransaction().commit();
-				
-				session.beginTransaction();
-	
-				// rimuovi tutte le entita` collegate a quella da eliminare
-				mj.getInstruments().clear();
-				for (Album a : mj.getAlbums()) {
-					albumDao.delete(a);
+				for(ISEE i : mario.getAssociatedISEEs()) {
+					i.getAssociatedUsers().removeIf(u -> u == mario);
 				}
-				mj.getAlbums().clear();
-				mj = singerDao.update(mj);
-	
-				// elimina l'entita`
-				singerDao.delete(mj);
-	
-				session.getTransaction().commit();
 				
+				for(UserRealEstate ure : mario.getUserRealEstates()) {
+					ure.getRealEstate().removeOwner(ure);
+					userRealEstateDao.delete(ure);
+				}
+				
+				for(UserVehicle uv : mario.getUserVehicles()) {
+					uv.getVehicle().removeOwner(uv);
+					userVehicleDao.delete(uv);
+				}
+				mario.getBankAccounts().clear();
+				mario.getAssociatedISEEs().clear();
+				mario.getUserRealEstates().clear();
+				mario.getUserVehicles().clear();
+
+				for(Family f : userDao.getFamilies(mario)) {
+					familyDao.delete(f);
+				}
+				
+				assert mario.getBankAccounts().size() == 0;
+				assert mario.getAssociatedISEEs().size() == 0;
+				assert mario.getUserRealEstates().size() == 0;
+				assert mario.getUserVehicles().size() == 0;
+				
+				userDao.delete(mario);
+				
+				session.getTransaction().commit();
 				session.beginTransaction();
-	
+				
+				for(UserRealEstate ure : casaRossiBianchi.getOwners()) {
+					ure.getUser().removeUserRealEstate(ure);
+					userRealEstateDao.delete(ure);
+				}
+				
+				realEstateDao.delete(casaRossiBianchi);
+				
+				for(UserVehicle uv : veicoloMarioPaolo.getOwners()) {
+					uv.getUser().removeUserVehicle(uv);
+					userVehicleDao.delete(uv);
+				}
+				
+				vehicleDao.delete(veicoloMarioPaolo);
+				
+				session.getTransaction().commit();
+				session.beginTransaction();
+				
+				for(User u : bankAccount2.getOwners()) {
+					u.getBankAccounts().removeIf(b -> b == bankAccount2);
+				}
+				
+				bankAccountDao.delete(bankAccount2);
+				
+				for(User u : iseeMario2019.getAssociatedUsers()) {
+					u.getAssociatedISEEs().removeIf(i -> i == iseeMario2019);
+				}
+				
+				iseeDao.delete(iseeMario2019);
+				
+				session.getTransaction().commit();
+				/*bankAccountDao.get
 				// phase 2 : navigate data in the database
 				
 				List<Singer> all = singerDao.findAll();

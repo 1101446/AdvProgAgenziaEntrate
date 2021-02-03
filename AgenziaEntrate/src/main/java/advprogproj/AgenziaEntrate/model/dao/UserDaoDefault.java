@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
@@ -67,14 +68,20 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	}
 	
 	@Override
+	public Set<Family> getFamilies(User user) {
+		Query q = this.getSession().createQuery("from Family a join fetch a.user WHERE a.user = :user", Family.class);
+		return new HashSet<Family>(q.setParameter("user", user).getResultList());
+	}
+	
+	@Override
 	public Set<BankAccount> getBankAccounts(User user) {
-		Query q = this.getSession().createQuery("from BankAccount a join fetch a.owners WHERE a.owners = :user", BankAccount.class);
+		Query q = this.getSession().createQuery("from BankAccount a join fetch a.owners u WHERE u = :user", BankAccount.class);
 		return new HashSet<BankAccount>(q.setParameter("user", user).getResultList());
 	}
 	
 	@Override
 	public Set<ISEE> getAssociatedISEEs(User user) {
-		Query q = this.getSession().createQuery("from ISEE a join fetch a.associatedUsers WHERE a.associatedUsers = :user", ISEE.class);
+		Query q = this.getSession().createQuery("from ISEE a join fetch a.associatedUsers u WHERE u = :user", ISEE.class);
 		return new HashSet<ISEE>(q.setParameter("user", user).getResultList());
 	}
 	
