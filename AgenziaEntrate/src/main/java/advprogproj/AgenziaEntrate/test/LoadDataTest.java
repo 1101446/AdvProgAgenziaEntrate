@@ -341,9 +341,44 @@ public class LoadDataTest {
 				iseeDao.delete(iseeMario2019);
 				
 				session.getTransaction().commit();
-				/*bankAccountDao.get
 				// phase 2 : navigate data in the database
 				
+				List<User> allUser = userDao.findAll();
+				System.out.println("Numero utenti: " + allUser.size());
+				for (User u : allUser) {
+					System.out.println(u.getFirstName() + " " + u.getSecondName() + ":" + u.getBirthD());
+					
+					Set<BankAccount> bankAccounts = userDao.getBankAccounts(u);
+					System.out.println("Conti correnti: " + bankAccounts.size());
+					for (BankAccount bk : bankAccounts) {
+						System.out.println("- " + bk.getBankName()+ ": " 
+										   + bk.getIBAN() + " Data Saldo:" + bk.getBillDate() + " Saldo:"
+										   + bk.getBalance());					
+					}
+					Set<UserRealEstate> realEstates = userDao.getUserRealEstates(u);
+					System.out.println("Immobili: " + realEstates.size());
+					for (UserRealEstate ure : realEstates) {
+						System.out.println("- " + ure.getRealEstate().getAddress() + " " 
+										   + ure.getRealEstate().getCAP() + " " + ure.getRealEstate().getCountry()
+										   + " " + ure.getEndOfYear() + " " + ure.getPrice());					
+					}
+					
+					Set<UserVehicle> vehicles = userDao.getUserVehicles(u);
+					System.out.println("Veicoli: " + vehicles.size());
+					for (UserVehicle uv : vehicles) {
+						System.out.println("- " + uv.getVehicle().getBrand() + " " + uv.getVehicle().getModel()
+										   + " " + uv.getVehicle().getVehicleRegistration() + " "
+										   + uv.getEndOfYear() + " " + uv.getPrice());					
+					}
+					
+					Set<Family> families = userDao.getFamilies(u);
+					System.out.println("Famiglie: " + families.size());
+					for (Family f : families) {
+						System.out.println("- Gerarchia: " + f.getHierarchy() + 
+										   " Capo famiglia: " + f.getHouseHolder());
+					}
+				}
+				/*
 				List<Singer> all = singerDao.findAll();
 				
 				System.out.println("Number of singers: " + all.size());
