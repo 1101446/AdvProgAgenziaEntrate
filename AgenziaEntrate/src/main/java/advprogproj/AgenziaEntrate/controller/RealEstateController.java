@@ -28,7 +28,7 @@ import ch.qos.logback.classic.Logger;
 @Controller
 public class RealEstateController {
 	
-	private final Logger logger = (Logger) LoggerFactory.getLogger(InstitutionController.class);
+	private final Logger logger = (Logger) LoggerFactory.getLogger(RealEstateController.class);
 	private RealEstateService realEstateService;
 	private UserRealEstateService userRealEstateService;
 	private UserService userService;

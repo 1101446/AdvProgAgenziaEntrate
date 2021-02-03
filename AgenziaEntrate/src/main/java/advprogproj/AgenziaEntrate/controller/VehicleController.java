@@ -28,7 +28,7 @@ import ch.qos.logback.classic.Logger;
 @Controller
 public class VehicleController {
 	
-	private final Logger logger = (Logger) LoggerFactory.getLogger(InstitutionController.class);
+	private final Logger logger = (Logger) LoggerFactory.getLogger(VehicleController.class);
 	private VehicleService vehicleService;
 	private UserVehicleService userVehicleService;
 	private UserService userService;
