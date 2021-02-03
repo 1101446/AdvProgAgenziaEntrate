@@ -32,7 +32,7 @@ public class WebInit extends AbstractAnnotationConfigDispatcherServletInitialize
 	@Override
 	protected String[] getServletMappings() {
 		// as the <servlet-mapping>...</servlet-mapping> element in web.xml
-		return new String[] { "/agenzia-delle-entrate" };
+		return new String[] { "/AgenziaEntrate" };
 	}
 
 	@Override

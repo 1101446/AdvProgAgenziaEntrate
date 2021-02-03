@@ -24,14 +24,14 @@ import ch.qos.logback.classic.Logger;
 
 @RequestMapping("/institution")
 @Controller
-public class InstitutionController {
-	private final Logger logger = (Logger) LoggerFactory.getLogger(InstitutionController.class);
+public class BankAccountController {
+	private final Logger logger = (Logger) LoggerFactory.getLogger(BankAccountController.class);
 	private BankAccountService bankAccountService;
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model inModel) {
-		logger.info("Listing BankAccounts");
+		//logger.info("Listing BankAccounts");
 		List<BankAccount> allBankAccounts = new ArrayList<BankAccount>();
 		int numBankAccounts = -1;
 		
