@@ -50,7 +50,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	public String appName() {
-		return "Calcolo ISEE";
+		return "AgenziaEntrate";
 	}
 		
 	//Declare our static resources. I added cache to the java config but it's not required.
@@ -197,7 +197,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 //        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		registry.addRedirectViewController("/", "/home/");
-		//registry.addRedirectViewController("/singers/", "/singers/list/");
+		registry.addRedirectViewController("/institution/", "/institution/list/");
 
 	}
 }
