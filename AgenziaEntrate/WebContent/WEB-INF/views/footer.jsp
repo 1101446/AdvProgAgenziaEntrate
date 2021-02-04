@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
-<p>Adesso sono le: ${serverTime}.</p>
-<ul>
-	<li>login: <a href="<c:url value="/user/login/" />">Login</a>
-	<li>Registrazione: <a href="<c:url value="/user/login/" />">registrati</a> 
-</ul>
+<hr/>
+	<sec:authorize access="hasRole('ADMIN')" var="isAdmin" />
+	<sec:authorize access="hasRole('USER')" var="isUser" />
+	<sec:authorize access="isAuthenticated()" var="isAuth" />
+	
+	<a href="<c:url value="/" />">Home</a> 
+	<- <a href="<c:url value="/singers/list" />">Cantanti</a> 
+	- <a href="/album/list">Album</a> 
+	
+	<c:if test="${isAdmin}">- <a href="<c:url value="/user/list" />">Utenti</a></c:if> 
+	
+	<c:if test="${isAuth}"> - <a href="<c:url value="/logout" />">Logout</a></c:if> 
+	
+	<c:if test="${! isAuth}">- <a href="<c:url value="/login" />">Login</a></c:if>

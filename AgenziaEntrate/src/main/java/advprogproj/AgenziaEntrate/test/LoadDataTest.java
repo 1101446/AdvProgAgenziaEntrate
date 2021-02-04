@@ -367,7 +367,6 @@ public class LoadDataTest {
 										   " Capo famiglia: " + f.getHouseHolder());
 					}
 				}
-				System.out.println("HALLO");
 			}catch (Exception e) {
 				e.printStackTrace(System.err);
 			}

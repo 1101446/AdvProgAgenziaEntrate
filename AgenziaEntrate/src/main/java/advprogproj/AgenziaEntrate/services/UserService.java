@@ -3,6 +3,8 @@ package advprogproj.AgenziaEntrate.services;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface UserService {
@@ -22,4 +24,8 @@ public interface UserService {
 	public void addBankAccount(String user, String bankAccount, String billDate);
 	
 	public void removeBankAccount(String user, String bankAccount, String billDate);
+	
+	public void addISEE(String user, long isee, String billDate);
+
+	public void removeISEE(String user, long isee);
 }

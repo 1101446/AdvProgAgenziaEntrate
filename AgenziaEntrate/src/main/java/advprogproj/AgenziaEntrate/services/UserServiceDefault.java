@@ -14,14 +14,18 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
+import advprogproj.AgenziaEntrate.model.dao.ISEEDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 
 @Service("userService")
 public class UserServiceDefault implements UserService, UserDetailsService{
 	
+	@Autowired
 	private UserDaoDefault userDao;
+	
 	private BankAccountDaoDefault bankAccountDao;
 	private AccessDaoDefault accessDao;
+	private ISEEDaoDefault iseeDao;
 	
 	@Transactional
 	public List<User> findAllUsers() {
@@ -38,7 +42,7 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 			String role = user.getAccess().getRoleName();
 			builder.roles(role);
 		}else
-			throw new UsernameNotFoundException("user not found");
+			throw new UsernameNotFoundException("User not found");
 		return builder.build();
 	} 
 	
@@ -78,6 +82,16 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, LocalDate.parse(billDate)));
 	}
 	
+	@Transactional
+	public void addISEE(String user, long isee, String billDate) {
+		this.userDao.addAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
+	}
+	
+	@Transactional
+	public void removeISEE(String user, long isee) {
+		this.userDao.removeAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
+	}
+	
 	@Autowired
 	public void setUserDao(UserDaoDefault userDao) {
 		this.userDao = userDao;
@@ -91,5 +105,10 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	@Autowired
 	public void setAccessDao(AccessDaoDefault accessDao) {
 		this.accessDao = accessDao;
+	}
+	
+	@Autowired
+	public void setISEEDao(ISEEDaoDefault iseeDao) {
+		this.iseeDao = iseeDao;
 	}
 }
