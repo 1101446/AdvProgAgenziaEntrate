@@ -52,7 +52,7 @@ public class VehicleController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@ModelAttribute("newVehicle") Vehicle newVehicle, 
+	public String save(@ModelAttribute("vehicle") Vehicle newVehicle, 
 			   		   @ModelAttribute("userVehicle") UserVehicle uv, BindingResult br) {
 		this.vehicleService.update(newVehicle);
 		if(uv != null) {
@@ -66,7 +66,7 @@ public class VehicleController {
 	@GetMapping(value = "/add")
 	public String add(Model inModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("newVehicle", new Vehicle());
+		inModel.addAttribute("vehicle", new Vehicle());
 		inModel.addAttribute("users", users);
 		inModel.addAttribute("userVehicle", new UserVehicle());
 		return "vehicles/list";
@@ -75,7 +75,7 @@ public class VehicleController {
 	@GetMapping(value = "/{vehicleId}/edit")
 	public String edit(@PathVariable("vehicleId") long vehicleId, Model inModel) {
 		Vehicle ve = this.vehicleService.findVehicle(vehicleId);
-		inModel.addAttribute("newRealEstate", ve);
+		inModel.addAttribute("vehicle", ve);
 		return "vehicles/form";
 	}
 	

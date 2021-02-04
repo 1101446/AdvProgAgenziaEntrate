@@ -52,7 +52,7 @@ public class RealEstateController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@ModelAttribute("newRealEstate") RealEstate newRealEstate, 
+	public String save(@ModelAttribute("realEstate") RealEstate newRealEstate, 
 			   		   @ModelAttribute("userRealEstate") UserRealEstate ure, BindingResult br) {
 		this.realEstateService.update(newRealEstate);
 		if(ure != null) {
@@ -66,7 +66,7 @@ public class RealEstateController {
 	@GetMapping(value = "/add")
 	public String add(Model inModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("newRealEstate", new RealEstate());
+		inModel.addAttribute("realEstate", new RealEstate());
 		inModel.addAttribute("users", users);
 		inModel.addAttribute("userRealEstate", new UserRealEstate());
 		return "realestates/list";
@@ -75,7 +75,7 @@ public class RealEstateController {
 	@GetMapping(value = "/{realEstateId}/edit")
 	public String edit(@PathVariable("realEstateId") long realEstateId, Model inModel) {
 		RealEstate re = this.realEstateService.findRealEstate(realEstateId);
-		inModel.addAttribute("newRealEstate", re);
+		inModel.addAttribute("realEstate", re);
 		return "realestates/form";
 	}
 	
