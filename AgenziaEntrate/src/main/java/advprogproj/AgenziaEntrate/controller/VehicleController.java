@@ -54,14 +54,11 @@ public class VehicleController {
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("newVehicle") Vehicle newVehicle, 
-			   		   @ModelAttribute("userIds") List<User> userIds, 
-			   		   @ModelAttribute("userVehicles") List<UserVehicle> uvs, BindingResult br) {
+			   		   @ModelAttribute("userVehicle") UserVehicle uv, BindingResult br) {
 		this.vehicleService.update(newVehicle);
-		if(uvs.size() > 0) {
-			for(UserVehicle userVehicle : uvs) {
-				this.userVehicleService.update(userVehicle);
-				this.userService.update(userVehicle.getUser());
-			}
+		if(uv != null) {
+			this.userVehicleService.update(uv);
+			this.userService.update(uv.getUser());
 			this.vehicleService.update(newVehicle);
 		}
 		return "redirect:/vehicles/list";
@@ -72,7 +69,7 @@ public class VehicleController {
 		List<User> users = this.userService.findAllUsers();
 		inModel.addAttribute("newVehicle", new Vehicle());
 		inModel.addAttribute("users", users);
-		inModel.addAttribute("userVehicles", new HashSet<UserVehicle>());
+		inModel.addAttribute("userVehicle", new UserVehicle());
 		return "vehicles/list";
 	}
 	

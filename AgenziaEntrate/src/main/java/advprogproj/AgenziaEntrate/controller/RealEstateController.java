@@ -48,20 +48,16 @@ public class RealEstateController {
 		
 		inModel.addAttribute("realEstates", allRealEstates);
 		inModel.addAttribute("numRealEstates", numRealEstates);
-		
 		return "realestates/list";
 	}
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("newRealEstate") RealEstate newRealEstate, 
-			   		   @ModelAttribute("userIds") List<User> userIds, 
-			   		   @ModelAttribute("userRealEstate") List<UserRealEstate> ures, BindingResult br) {
+			   		   @ModelAttribute("userRealEstate") UserRealEstate ure, BindingResult br) {
 		this.realEstateService.update(newRealEstate);
-		if(ures.size() > 0) {
-			for(UserRealEstate userRealEstate : ures) {
-				this.userRealEstateService.update(userRealEstate);
-				this.userService.update(userRealEstate.getUser());
-			}
+		if(ure != null) {
+			this.userRealEstateService.update(ure);
+			this.userService.update(ure.getUser());
 			this.realEstateService.update(newRealEstate);
 		}
 		return "redirect:/realestates/list";
@@ -72,7 +68,7 @@ public class RealEstateController {
 		List<User> users = this.userService.findAllUsers();
 		inModel.addAttribute("newRealEstate", new RealEstate());
 		inModel.addAttribute("users", users);
-		inModel.addAttribute("userRealEstate", new HashSet<UserRealEstate>());
+		inModel.addAttribute("userRealEstate", new UserRealEstate());
 		return "realestates/list";
 	}
 	

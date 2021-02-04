@@ -24,7 +24,7 @@ import advprogproj.AgenziaEntrate.services.UserService;
 
 @RequestMapping("/institution")
 @Controller
-public class BankAccountController {
+public class InstitutionController {
 	//private final Logger logger = (Logger) LoggerFactory.getLogger(BankAccountController.class);
 	private BankAccountService bankAccountService;
 	private UserService userService;
@@ -50,13 +50,11 @@ public class BankAccountController {
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("newBankAccount") BankAccount newBankAccount, 
-					   @ModelAttribute("userIds") List<User> userIds, BindingResult br) {
+					   @ModelAttribute("userId") String userId, BindingResult br) {
 		this.bankAccountService.update(newBankAccount);
-		if(userIds.size() > 0) {
-			for(User user : userIds) {
-				this.bankAccountService.addOwner(user.getCf(), newBankAccount.getIBAN(), newBankAccount.getBillDate().toString());
-				this.userService.update(user);
-			}
+		if(userId != null) {
+			this.bankAccountService.addOwner(userId, newBankAccount.getIBAN(), newBankAccount.getBillDate().toString());
+			this.userService.update(this.userService.findUser(userId));
 			this.bankAccountService.update(newBankAccount);
 		}
 		return "redirect:/institution/list";
@@ -67,6 +65,7 @@ public class BankAccountController {
 		List<User> users = this.userService.findAllUsers();
 		inModel.addAttribute("newBankAccount", new BankAccount());
 		inModel.addAttribute("users", users);
+		inModel.addAttribute("userId", new String());
 		return "institution/list";
 	}
 	
