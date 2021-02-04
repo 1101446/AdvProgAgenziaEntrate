@@ -1,5 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,11 @@ import advprogproj.AgenziaEntrate.model.entities.Access;
 public class AccessServiceDefault implements AccessService{
 	
 	private AccessDaoDefault accessDao;
+	
+	@Transactional
+	public List<Access> findAllAccess() {
+		return this.accessDao.findAll();
+	}
 	
 	@Transactional
 	public Access findAccess(long id) {
@@ -28,8 +35,8 @@ public class AccessServiceDefault implements AccessService{
 	}
 	
 	@Transactional
-	public void delete(Access access) {
-		this.accessDao.delete(access);
+	public void delete(long id) {
+		this.accessDao.delete(this.findAccess(id));
 	}
 	
 	@Autowired

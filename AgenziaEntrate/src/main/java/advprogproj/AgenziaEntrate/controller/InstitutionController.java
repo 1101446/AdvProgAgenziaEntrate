@@ -63,7 +63,7 @@ public class InstitutionController {
 	@GetMapping(value = "/add")
 	public String add(Model inModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("newBankAccount", new BankAccount());
+		inModel.addAttribute("bankAccount", new BankAccount());
 		inModel.addAttribute("users", users);
 		inModel.addAttribute("userId", new String());
 		return "institution/list";
@@ -73,7 +73,7 @@ public class InstitutionController {
 	public String edit(@PathVariable("bankAccountId") String bankAccountId, 
 					   @PathVariable("billDate") String billDate, Model inModel) {
 		BankAccount bk = this.bankAccountService.findBankAccount(bankAccountId, billDate);
-		inModel.addAttribute("newBankAccount", bk);
+		inModel.addAttribute("bankAccount", bk);
 		return "institution/form";
 	}
 	

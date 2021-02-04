@@ -7,32 +7,36 @@
 		<c:url value="/institution/save" var="action_url" />
         <form:form method="POST" action="${action_url}" modelAttribute="bankAccount">
         	<table>
-				<c:if test="${empty bankAccount.IBAN }">
-               		<tr>
-                    	<td><form:label path="IBAN">IBAN</form:label></td>
-                    	<td><form:input path="IBAN"/></td>
-                	</tr>
-				</c:if>
+             	<tr>
+                   	<td><form:label path="IBAN">IBAN</form:label></td>
+                   	<td><form:input path="IBAN"/></td>
+               	</tr>
+				<tr>
+                   	<td><form:label path="billDate">Data Saldo</form:label></td>
+                   	<td><form:input path="billDate"/></td>
+               </tr>
                <tr>
                     <td><form:label path="bankName">Ente di credito</form:label></td>
                     <td><form:input path="bankName"/></td>
                </tr>
-				<tr>
-                    <td><form:label path="billDate">Data Saldo</form:label></td>
-                    <td><form:input path="billDate"/></td>
-                </tr>
+				
 				<tr>
                     <td><form:label path="balance">Saldo</form:label></td>
                     <td><form:input path="balance"/></td>
                 </tr>
 				<tr>
-					<td><form:label path="user_id"/></td>
-					<td><form:select path="user_id"/></td>
+					<select name="userId">
+						<c:forEach items="${users}" var="u">
+							<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName})</option> 
+						</c:forEach>
+					</select>
 				</tr>
 				<tr>
 					<td><form:hidden path="IBAN" /></td>
 				</tr>
-				
+				<tr>
+					<td><form:hidden path="billDate" /></td>
+				</tr>
                 <tr>
                     <td><input type="submit" value="Submit"/></td>
                 </tr>

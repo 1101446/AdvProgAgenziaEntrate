@@ -1,11 +1,18 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
 
 @Repository("accessDao")
 public class AccessDaoDefault extends DefaultDao implements AccessDao{
+	
+	@Override
+	public List<Access> findAll() {
+		return this.getSession().createQuery("from Access a", Access.class).getResultList();
+	}
 	
 	@Override
 	public Access findById(long id) {

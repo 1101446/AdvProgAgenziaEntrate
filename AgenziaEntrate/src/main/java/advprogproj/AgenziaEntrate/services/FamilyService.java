@@ -1,8 +1,12 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.util.List;
+
 import advprogproj.AgenziaEntrate.model.entities.Family;
 
 public interface FamilyService {
+	
+	public List<Family> findAllFamilies();
 	
 	public Family findFamily(long id, String user);
 	

@@ -89,4 +89,14 @@ public class RealEstateController {
 	public void setRealEstateService(RealEstateService realEstateService) {
 		this.realEstateService = realEstateService;
 	}
+	
+	@Autowired
+	public void setUserRealEstateService(UserRealEstateService userRealEstateService) {
+		this.userRealEstateService = userRealEstateService;
+	}
+	
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 }

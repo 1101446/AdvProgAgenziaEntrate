@@ -1,5 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,11 @@ public class FamilyServiceDefault implements FamilyService{
 	
 	private FamilyDaoDefault familyDao;
 	private UserDaoDefault userDao;
+	
+	@Transactional
+	public List<Family> findAllFamilies() {
+		return this.familyDao.findAll();
+	}
 	
 	@Transactional
 	public Family findFamily(long id, String user) {
