@@ -72,7 +72,7 @@ public class ISEEController {
 	}
 	
 	@Autowired
-	public void setRealEstateService(ISEEService iseeService) {
+	public void setISEEService(ISEEService iseeService) {
 		this.iseeService = iseeService;
 	}
 }
