@@ -16,12 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
-import advprogproj.AgenziaEntrate.model.entities.RealEstate;
-import advprogproj.AgenziaEntrate.model.entities.User;
-import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
-import advprogproj.AgenziaEntrate.services.UserRealEstateService;
 import advprogproj.AgenziaEntrate.services.ISEEService;
-import advprogproj.AgenziaEntrate.services.RealEstateService;
 import advprogproj.AgenziaEntrate.services.UserService;
 //import ch.qos.logback.classic.Logger;
 
@@ -52,8 +47,8 @@ public class ISEEController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@ModelAttribute("ISEE") ISEE newISEE,  BindingResult br) {
-		this.iseeService.update(newISEE.getId());
+	public String save(@ModelAttribute("ISEE") ISEE isee,  BindingResult br) {
+		this.iseeService.update(isee.getId());
 		return "redirect:/isee/list";
 	}
 	
