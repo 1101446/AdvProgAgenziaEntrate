@@ -20,6 +20,7 @@
   	<a class="navbar-brand" href="<c:url value="/" />">Chi siamo</a> 
   	<a class="navbar-brand" href="<c:url value="/" />">Contatti</a>
   	<a class="navbar-brand" href="<c:url value="/login" />">Login</a>
+  	<a class="navbar-brand" href="<c:url value="/registration" />">Registrati</a>
   </c:if>
   <c:if test="${isAuth}">  
   	<c:if test="${isAdmin}">

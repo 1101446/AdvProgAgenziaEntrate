@@ -106,7 +106,7 @@ public class LoadDataTest {
 				userDao.create("ABABAB78B14T880I", "Mario", "Rossi", LocalDate.of(1980, 3, 20), "mario.rossi@gmail.com", userDao.encryptPassword("giovanni"), false, adminAccess);
 				userDao.create("CGGCGC80A72L598X", "Giovanni", "Belardi", LocalDate.of(1950, 5, 22), "giovannibelardi@hotmail.it", userDao.encryptPassword("paolo"), false, aeAccess);
 				userDao.create("REERTY79A92L354X", "Paolo", "Bianchi", LocalDate.of(1960, 5, 22), "p.bianchi@yahoo.com", userDao.encryptPassword("gatto"), true, userAccess);
-				userDao.create("JOPFRT45A58L667X", "Pino", "Insegna", LocalDate.of(1975, 5, 22), "insegna.p@gmailcom", userDao.encryptPassword("cane"), false, piAccess);
+				userDao.create("JOPFRT45A58L667X", "Pino", "Insegna", LocalDate.of(1975, 5, 22), "insegna.p@gmailcom", userDao.encryptPassword("cane"), false, bccAccess);
 				userDao.create("MRCRSS10L79M480X", "Marco", "Rossi", LocalDate.of(2010, 4, 29), "marco.rossi@gmailcom", userDao.encryptPassword("marco"), false, userAccess);
 				userDao.create("LCBNCH05E11L344Y", "Luca", "Bianchi", LocalDate.of(2005, 8, 22), "l.bianchi@yahoo.com", userDao.encryptPassword("luca"), true, userAccess);
 				

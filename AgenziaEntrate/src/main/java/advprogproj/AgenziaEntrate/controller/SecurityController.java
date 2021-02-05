@@ -10,7 +10,14 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.services.AccessService;
+import advprogproj.AgenziaEntrate.services.UserService;
 
 @Controller
 public class SecurityController 
@@ -18,8 +25,24 @@ public class SecurityController
 	@Autowired
 	String appName;
 	
-    @GetMapping(value = "/login")
-    public String loginPage(@RequestParam(value = "error", required = false) String error, 
+	private UserService userService;
+	private AccessService accessService;
+	
+	@PostMapping(value = "/save")
+    public String registration(@ModelAttribute("newUser") User newUser, Model model) {
+    	this.userService.update(newUser);
+        return "redirect:/home";
+    }
+	
+	@RequestMapping(value = "/registration")
+    public String registrationPage(Model model) {
+        model.addAttribute("newUser", new User());
+        model.addAttribute("userAccess", accessService.findAccessByName("UTENTE"));
+        return "registration";
+    }
+	
+	@GetMapping(value = "/login")
+    public String login(@RequestParam(value = "error", required = false) String error, 
 //                            @RequestParam(value = "logout", required = false) String logout,
                             Model model) {
         String errorMessage = null;
@@ -34,7 +57,7 @@ public class SecurityController
         model.addAttribute("appName", appName);
         return "login";
     }
-  
+	
 //    @GetMapping(value="/logout")
 //    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -43,5 +66,14 @@ public class SecurityController
 //        }
 //        return "redirect:/";
 //    }
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public void setAccessService(AccessService accessService) {
+		this.accessService = accessService;
+	}
+  
 }
 

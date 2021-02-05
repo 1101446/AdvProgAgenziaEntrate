@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public UserDetailsService userDetailsService() {
 		return new UserServiceDefault();
 	};
-	
+
 	/**
 	 * Configurazione dell'autenticazione
 	 */
@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().
 			antMatchers("/login").permitAll().
 			antMatchers("/").permitAll().
+			antMatchers("/registration").permitAll().
 			antMatchers("/institutions/**").hasAnyRole("ENTE", "USER").
 			antMatchers("/realestates/**").hasAnyRole("CATASTO", "USER").
 			antMatchers("/vehicles/**").hasAnyRole("MOTORIZZAZIONE", "USER").
@@ -65,12 +66,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 														// /login?logout
 					.invalidateHttpSession(true).permitAll().
 			and().csrf().disable();
-		
 //		http.authorizeRequests().antMatchers("/login").permitAll();
 //		http.authorizeRequests().antMatchers("/").permitAll();
 //		http.authorizeRequests().antMatchers("/instruments/**").hasAnyRole("ADMIN");
 //		http.authorizeRequests().antMatchers("/**").hasAnyRole("USER");
-		
+	
 //		http.formLogin().loginPage("/login");
 //		http.formLogin().defaultSuccessUrl("/");
 //		http.formLogin().failureUrl("/login?error=true");

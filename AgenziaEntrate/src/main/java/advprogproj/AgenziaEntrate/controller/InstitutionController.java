@@ -66,7 +66,7 @@ public class InstitutionController {
 		inModel.addAttribute("bankAccount", new BankAccount());
 		inModel.addAttribute("users", users);
 		inModel.addAttribute("userId", new String());
-		return "institution/list";
+		return "institution/form";
 	}
 	
 	@GetMapping(value = "/{bankAccountId}/{billDate}/edit")
