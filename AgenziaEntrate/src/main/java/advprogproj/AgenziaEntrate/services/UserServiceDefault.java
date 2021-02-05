@@ -32,6 +32,8 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 		return this.userDao.findAll();
 	}
 	
+	@Transactional(readOnly = true)
+	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
 		User user = userDao.findByEmail(email);
 		UserBuilder builder = null;

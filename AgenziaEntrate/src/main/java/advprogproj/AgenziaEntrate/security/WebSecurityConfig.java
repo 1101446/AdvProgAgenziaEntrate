@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		auth.inMemoryAuthentication().withUser("imadmin")
 //			.password(this.passwordEncoder.encode("imadmin"))
 //			.roles("USER", "ADMIN");
-
 		auth.userDetailsService(userDetailsService()).passwordEncoder(this.passwordEncoder);
 	}
 	
@@ -47,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
+		
 		http.authorizeRequests().
 			antMatchers("/login").permitAll().
 			antMatchers("/").permitAll().
@@ -67,7 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.invalidateHttpSession(true).permitAll().
 			and().csrf().disable();
 //		http.authorizeRequests().antMatchers("/login").permitAll();
-//		http.authorizeRequests().antMatchers("/").permitAll();
 //		http.authorizeRequests().antMatchers("/instruments/**").hasAnyRole("ADMIN");
 //		http.authorizeRequests().antMatchers("/**").hasAnyRole("USER");
 	

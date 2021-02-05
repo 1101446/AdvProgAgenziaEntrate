@@ -196,8 +196,10 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addViewController("/login").setViewName("login");
 
 //        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		registry.addRedirectViewController("/", "/home/");
-		//registry.addRedirectViewController("/institution/", "/institution/list/");
-
+		registry.addRedirectViewController("/", "/login/");
+		registry.addRedirectViewController("/roles/", "/roles/list/");
+		registry.addRedirectViewController("/realestates/", "/realestates/list");
+		registry.addRedirectViewController("/vehicles/", "/vehicles/list");
+		registry.addRedirectViewController("/institution/", "/institution/list/");
 	}
 }
