@@ -64,8 +64,9 @@ public class LoadDataTest {
 				
 				Access adminAccess = accessDao.create("ADMIN", 1, "Amministratore");
 				Access aeAccess = accessDao.create("ENTRATE", 2, "Ente Agenzia Entrate");
-				Access bccAccess = accessDao.create("ENTE", 3, "Ente Banca di Credito Cooperativo");
-				Access piAccess = accessDao.create("ENTE", 3, "Ente Poste Italiane");
+				Access bccAccess = accessDao.create("ENTE_CREDITO", 3, "Ente Banca di Credito Cooperativo");
+				Access catAccess = accessDao.create("CATASTO", 3, "Ente Catasto");
+				Access motoAccess = accessDao.create("MOTORIZZAZIONE", 3, "Ente motorizzazione");
 				Access userAccess = accessDao.create("UTENTE", 4, "Cittadino");
 				
 				session.getTransaction().commit();		

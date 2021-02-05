@@ -4,16 +4,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <hr/>
-	<sec:authorize access="hasRole('ADMIN')" var="isAdmin" />
-	<sec:authorize access="hasRole('USER')" var="isUser" />
-	<sec:authorize access="isAuthenticated()" var="isAuth" />
-	
-	<a href="<c:url value="/" />">Home</a> 
-	<- <a href="<c:url value="/singers/list" />">Cantanti</a> 
-	- <a href="/album/list">Album</a> 
-	
-	<c:if test="${isAdmin}">- <a href="<c:url value="/user/list" />">Utenti</a></c:if> 
-	
-	<c:if test="${isAuth}"> - <a href="<c:url value="/logout" />">Logout</a></c:if> 
-	
-	<c:if test="${! isAuth}">- <a href="<c:url value="/login" />">Login</a></c:if>
+
+<p class="float-right">${serverTime}.</p>
+<p>&copy; 2020-2021 Fell Good Inc. &middot; <a href="https://protezionedatipersonali.it/regolamento-generale-protezione-dati">Privacy</a> &middot; <a href="https://images-na.ssl-images-amazon.com/images/I/81RKJosQXuL._AC_SL1500_.jpg">Terms</a></p>

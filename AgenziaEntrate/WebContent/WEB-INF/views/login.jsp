@@ -1,81 +1,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<h2>${appName} - Accesso</h2>
-
 <c:if test="${not empty errorMessage}">
 	<div style="color: red; font-weight: bold; margin: 30px 0px;">${errorMessage}</div>
 </c:if>
-
-<form name='login' action="<c:url value="/login" />" method='POST'>
-	<table>
-		<tr>
-			<td>Email:</td>
-			<td><input type='text' name='username' value=''></td>
-		</tr>
-		<tr>
-			<td>Password:</td>
-			<td><input type='password' name='password' /></td>
-		</tr>
-		<tr>
-			<td colspan='2'><input name="submit" type="submit"
-				value="submit" /></td>
-		</tr>
-	</table>
-	<%--
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-         --%>
-</form>
-
+<div class="text-center">
+<form class="form-signin" name='login' action="<c:url value="/login" />" method='POST'>
+  	<h1 class="h3 mb-3 font-weight-normal">Accedi</h1>
+  	<label for="username" class="sr-only">Indirizzo Email</label>
+  	<input type="email" id="username" name="username" class="form-control" placeholder="Indirizzo email" required autofocus>
+  	<label for="password" class="sr-only">Password</label>
+  	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+ 	<button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button>
+<hr>
 <h2> Registrazione </h2>
 
-<form name='registration' action="<c:url value="/registration" />" method='POST'>
-	<table>
-		<tr>
-			<td>Nome:</td>
-			<td><input type='text' name='firstName' value=''></td>
-		</tr>
-		<tr>
-			<td>Cognome:</td>
-			<td><input type='text' name='secondName' value=''></td>
-		</tr>
-		<tr>
-			<td>Codice Fiscale:</td>
-			<td><input type='text' name='cf' value=''></td>
-		</tr>
-		<tr>
-			<td>Data di Nascita:</td>
-			<td><input type='date' name='birthD' value=''></td>
-		</tr>
-		<tr>
-			<td>Email:</td>
-			<td><input type='text' name='email' value=''></td>
-		</tr>
-		<tr>
-			<td>Password:</td>
-			<td><input type='password' name='password' /></td>
-		</tr>
-		<tr>
-			<td>Ripeti password:</td>
-			<td><input type='password' name='repeatPassword' /></td>
-		</tr>
-		<tr>
-			<td>Disabilità:</td>
-			<td>
-				<input type="radio" id="si" name="handicap" value="true">
-  				<label for="si">Si</label><br>
-  				<input type="radio" id="no" name="handicap" value="false">
-  				<label for="no">No</label><br>
-  			</td>
-		</tr>
-		<tr>
-			<td><input type='hidden' name='access' value="UTENTE"/></td>
-		</tr>
-		<tr>
-			<td colspan='2'><input name="submit" type="submit"
-				value="submit" /></td>
-		</tr>
-	</table>
-	<%--
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-         --%>
+<form class="form-signin" name='registration' action="<c:url value="/registration" />" method='POST'>
+		<label class="sr-only">Nome:</label>
+		<input class="form-control" placeholder="Nome" type='text' name='firstName' value=''>
+		<label class="sr-only">Cognome:</label>
+		<input class="form-control" placeholder="Cognome" type='text' name='secondName' value=''>
+		<label class="sr-only">Codice fiscale:</label>
+		<input class="form-control" placeholder="Codice fiscale" type='text' name='cf' value=''>
+		<label class="sr-only">Data di nascita:</label>
+		<input class="form-control" type='text' name='birthD' value=''>
+		<label class="sr-only">Email:</label>
+		<input class="form-control" placeholder="Email" type='email' name='email' value=''>
+		<label class="sr-only">Password:</label>
+		<input class="form-control" type='password' name='password' value=''>
+		<label class="sr-only">Disabilità:</label>
+			<input type="radio" id="si" name="handicap" value="true">
+  			<label for="si">Si</label><br>
+  			<input type="radio" id="no" name="handicap" value="false">
+  			<label for="no">No</label><br>
+		<input type='hidden' name='access' value="UTENTE"/>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Registrati</button>
 </form>
+</div>
