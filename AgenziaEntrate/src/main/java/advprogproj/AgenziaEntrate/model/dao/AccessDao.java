@@ -14,6 +14,8 @@ public interface AccessDao {
 	
 	Access findById(long id);
 	
+	public Access findByName(String name);
+	
 	Access create(String roleName, int priority, String description);
 	
 	Access update(Access access);

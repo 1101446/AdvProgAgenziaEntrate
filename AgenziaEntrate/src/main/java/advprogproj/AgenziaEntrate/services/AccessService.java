@@ -10,6 +10,8 @@ public interface AccessService {
 	
 	public Access findAccess(long id);
 	
+	public Access findAccessByName(String name);
+	
 	public Access create(String roleName, int priority, String description);
 	
 	public Access update(Access access);

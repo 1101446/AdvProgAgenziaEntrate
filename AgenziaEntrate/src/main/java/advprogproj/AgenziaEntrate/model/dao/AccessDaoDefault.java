@@ -3,6 +3,7 @@ package advprogproj.AgenziaEntrate.model.dao;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import javax.persistence.Query;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
 
@@ -17,6 +18,12 @@ public class AccessDaoDefault extends DefaultDao implements AccessDao{
 	@Override
 	public Access findById(long id) {
 		return this.getSession().find(Access.class, id);
+	}
+	
+	@Override
+	public Access findByName(String name) {
+		Query q = this.getSession().createQuery("from Access a WHERE a.roleName = :name", Access.class);
+		return (Access)q.setParameter("name", name).getSingleResult();
 	}
 	
 	@Override

@@ -25,6 +25,11 @@ public class AccessServiceDefault implements AccessService{
 	}
 	
 	@Transactional
+	public Access findAccessByName(String name) {
+		return this.accessDao.findByName(name);
+	}
+	
+	@Transactional
 	public Access create(String roleName, int priority, String description) {
 		return this.accessDao.create(roleName, priority, description);
 	}
