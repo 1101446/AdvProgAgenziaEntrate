@@ -1,5 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,13 @@ public class ISEEServiceDefault implements ISEEService{
 	
 	private ISEEDao iseeDao;
 	private UserDao userDao;
+	
+	@Transactional
+	@Override
+	public List<ISEE> findAllISEEs() {
+		return this.iseeDao.findAll();
+	}
+	
 	
 	@Transactional
 	@Override
