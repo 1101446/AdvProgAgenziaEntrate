@@ -1,0 +1,15 @@
+<?xml  version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache  Software
+   Foundation//DTD Tiles  Configuration 3.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  <definition extends="default" name="roles/list">
+   <put-attribute name="body" value="/WEB-INF/views/roles/list.jsp" />
+  </definition>
+  <definition extends="default" name="roles/form">
+   <put-attribute name="body" value="/WEB-INF/views/roles/form.jsp" />
+  </definition>
+  <definition extends="default" name="roles/link_choose">
+   <put-attribute name="body" value="/WEB-INF/views/roles/link_choose.jsp" />
+  </definition>
+</tiles-definitions>
