@@ -48,18 +48,20 @@ public class AccessController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String saveAccess(@ModelAttribute("access") Access newAccess, @RequestParam("userId") String userId) {
+	public String saveAccess(@ModelAttribute("access") Access newAccess, 
+							 @RequestParam("userId") String userId) {
 		Access a = this.accessService.update(newAccess);
+		String id = Long.toString(a.getId());
 		if(userId != null) {
-			return "redirect:/roles/save/"+a.getId()+"/"+userId;
+			return "redirect:/roles/save/"+id+"/"+userId;
 		}
 		return "redirect:/roles/list";
 	}
 	
 	@GetMapping(value = "/save/{accessId}/{userId}")
-	public String saveUser(@PathVariable("accessId") long accessId, 
-						   @PathVariable("userId") String userId, BindingResult br) {
-		Access newAccess = this.accessService.findAccess(accessId);
+	public String saveUser(@PathVariable("accessId") String accessId, 
+						   @PathVariable("userId") String userId) {
+		Access newAccess = this.accessService.findAccess(new Long(accessId));
 		User u = this.userService.findUser(userId);
 		u.setAccess(newAccess);
 		this.userService.update(u);
