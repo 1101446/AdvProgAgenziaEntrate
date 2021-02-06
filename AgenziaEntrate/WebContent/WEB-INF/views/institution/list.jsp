@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-Elenco conti correnti: ${numInstruments}. 
+Elenco conti correnti: ${numBankAccounts}. 
 
 <c:if test="${fn:length(message) > 0}">
 <p>${message}</p>

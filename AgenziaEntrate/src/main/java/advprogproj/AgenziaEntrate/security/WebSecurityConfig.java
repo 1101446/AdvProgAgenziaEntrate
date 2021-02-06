@@ -46,39 +46,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		http.authorizeRequests().
-			antMatchers("/login").permitAll().
-			antMatchers("/").permitAll().
-			antMatchers("/registration").permitAll().
-			antMatchers("/institutions/**").hasAnyRole("ENTE", "USER").
-			antMatchers("/realestates/**").hasAnyRole("CATASTO", "USER").
-			antMatchers("/vehicles/**").hasAnyRole("MOTORIZZAZIONE", "USER").
-			antMatchers("/isee/**").hasAnyRole("ENTRATE", "USER").
-			antMatchers("/access/**").hasAnyRole("ADMIN").
-			antMatchers("/**").hasAnyRole("USER").
-				and().formLogin().loginPage("/login").defaultSuccessUrl("/")
-					.failureUrl("/login?error=true").permitAll().
-				and().logout().logoutSuccessUrl("/") // NB se commentiamo
-														// questa riga,
-														// viene richiamata
-														// /login?logout
-					.invalidateHttpSession(true).permitAll().
-			and().csrf().disable();
-//		http.authorizeRequests().antMatchers("/login").permitAll();
-//		http.authorizeRequests().antMatchers("/instruments/**").hasAnyRole("ADMIN");
-//		http.authorizeRequests().antMatchers("/**").hasAnyRole("USER");
-	
-//		http.formLogin().loginPage("/login");
-//		http.formLogin().defaultSuccessUrl("/");
-//		http.formLogin().failureUrl("/login?error=true");
-//		http.formLogin().permitAll();
-		
-//		http.logout().logoutSuccessUrl("/");
-//		http.logout().invalidateHttpSession(true);
-//		http.logout().permitAll();
-		
-//		http.csrf().disable();
-
+		http.authorizeRequests().antMatchers("/**").hasAnyRole("ADMIN","UTENTE").
+			and().formLogin().loginPage("/login").defaultSuccessUrl("/")
+			.failureUrl("/login?error=true").permitAll().and().logout().logoutSuccessUrl("/") 
+			.invalidateHttpSession(true).permitAll().and().csrf().disable();
+		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll().
+			antMatchers("/registration").permitAll();
+		http.authorizeRequests().antMatchers("/**/**").hasRole("ADMIN").
+			antMatchers("/roles/**").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers("/institution/").hasAnyRole("ADMIN","ENTE", "UTENTE").
+			antMatchers("/institution/**").hasAnyRole("ADMIN","ENTE", "UTENTE");
+		http.authorizeRequests().antMatchers("/realestates/**").hasAnyRole("ADMIN","CATASTO", "UTENTE");
+		http.authorizeRequests().antMatchers("/vehicles/**").hasAnyRole("ADMIN","MOTORIZZAZIONE", "UTENTE");
+		http.authorizeRequests().antMatchers("/isee/**").hasAnyRole("ADMIN","ENTRATE", "UTENTE");
+		http.authorizeRequests().antMatchers("/users/**").hasAnyRole("ADMIN","ENTRATE");
+		http.authorizeRequests().antMatchers("/users/profile/**").hasAnyRole("UTENTE");
 	}
 }

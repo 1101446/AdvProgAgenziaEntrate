@@ -3,9 +3,9 @@ package advprogproj.AgenziaEntrate.services;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
+import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 public interface UserService {
 	
@@ -19,13 +19,22 @@ public interface UserService {
 	
 	public User update(User user);
 	
-	public void delete(String user, String bankAccount, String billDate);
+	public void delete(String user);
 	
-	public void addBankAccount(String user, String bankAccount, String billDate);
+	public void addBankAccount(String user, String bankAccount, LocalDate billDate);
 	
-	public void removeBankAccount(String user, String bankAccount, String billDate);
+	public void removeBankAccount(String user, String bankAccount, LocalDate billDate);
 	
 	public void addISEE(String user, long isee, String billDate);
 
 	public void removeISEE(String user, long isee);
+	
+	public void addUserRealEstate(String user, UserRealEstate userRealEstate);
+
+	public void removeUserRealEstate(String user, UserRealEstate userRealEstate);
+	
+	public void addUserVehicle(String user, UserVehicle userVehicle);
+
+	public void removeUserVehicle(String user, UserVehicle userVehicle);
+	
 }

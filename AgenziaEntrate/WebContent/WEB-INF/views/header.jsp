@@ -8,7 +8,7 @@
 <sec:authorize access="hasRole('CATASTO')" var="isRealEstate" />
 <sec:authorize access="hasRole('MOTORIZZAZIONE')" var="isVehicle" />
 <sec:authorize access="hasRole('ENTRATE')" var="isStaff" />
-<sec:authorize access="hasRole('USER')" var="isUser" />
+<sec:authorize access="hasRole('UTENTE')" var="isUser" />
 <sec:authorize access="isAuthenticated()" var="isAuth" />
 
 <h1>${appName}</h1>
@@ -24,18 +24,23 @@
   </c:if>
   <c:if test="${isAuth}">  
   	<c:if test="${isAdmin}">
-  		<a class="navbar-brand" href="<c:url value="/access/list" />">Permessi</a>
+  		<a class="navbar-brand" href="<c:url value="/roles/list" />">Permessi</a>
   	</c:if>
-  	<c:if test="${isAdmin} || ${isBank}">
+  	<c:if test="${isAdmin || isBank}">
   		<a class="navbar-brand" href="<c:url value="/institution/list" />">Conti Correnti</a>
   	</c:if>
-  	<c:if test="${isAdmin} || ${isRealEstate}">
+  	<c:if test="${isAdmin || isRealEstate}">
   		<a class="navbar-brand" href="<c:url value="/realestates/list" />">Immobili</a>
   	</c:if>
-  	<c:if test="${isAdmin} || ${isVehicle}">
+  	<c:if test="${isAdmin || isVehicle}">
   		<a class="navbar-brand" href="<c:url value="/vehicles/list" />">Veicoli</a>
   	</c:if>
-  	<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
+  	<c:if test="${isUser}">
+  		<a class="navbar-brand" href="<c:url value="/users/profile/<sec:authentication property="principal.username" />" />">Profilo</a>
+  	</c:if>
+  	<c:if test="${! isUser}">
+  		<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
+  	</c:if>
   	<a class="navbar-brand" href="<c:url value="/logout" />">Logout</a>
   </c:if>
 </nav> 

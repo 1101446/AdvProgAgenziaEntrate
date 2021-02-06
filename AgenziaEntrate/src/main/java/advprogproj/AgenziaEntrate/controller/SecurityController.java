@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.services.AccessService;
 import advprogproj.AgenziaEntrate.services.UserService;
@@ -34,10 +35,11 @@ public class SecurityController
         return "redirect:/home";
     }
 	
-	@RequestMapping(value = "/registration")
+	@GetMapping(value = "/registration")
     public String registrationPage(Model model) {
         model.addAttribute("newUser", new User());
-        model.addAttribute("userAccess", accessService.findAccessByName("UTENTE"));
+        Access a = accessService.findAccessByName("UTENTE");
+        model.addAttribute("userAccess", a);
         return "registration";
     }
 	

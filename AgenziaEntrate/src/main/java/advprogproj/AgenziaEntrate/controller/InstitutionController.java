@@ -29,7 +29,7 @@ public class InstitutionController {
 	private BankAccountService bankAccountService;
 	private UserService userService;
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@GetMapping(value = "/list")
 	public String list(Model inModel) {
 		//logger.info("Listing BankAccounts");
 		List<BankAccount> allBankAccounts = new ArrayList<BankAccount>();

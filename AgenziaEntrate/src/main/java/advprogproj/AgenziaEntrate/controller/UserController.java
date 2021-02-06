@@ -1,0 +1,74 @@
+package advprogproj.AgenziaEntrate.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.services.UserService;
+
+@RequestMapping("/users")
+@Controller
+public class UserController {
+	private UserService userService;
+	
+	@GetMapping(value = "/list")
+	public String list(Model inModel) {
+		//logger.info("Listing RealEstates");
+		List<User> allUsers = new ArrayList<User>();
+		int numUsers = -1;
+		
+		try {
+			allUsers = this.userService.findAllUsers();
+			numUsers = allUsers.size();
+		}catch(Exception e) {
+			//logger.error(e.getMessage());
+		}
+		
+		inModel.addAttribute("users", allUsers);
+		inModel.addAttribute("numUsers", numUsers);
+		return "users/list";
+	}
+	
+	@GetMapping(value = "/profile/{userId}")
+	public String getProfile(@PathVariable("userId") String userId, Model inModel) {
+		//logger.info("Listing RealEstates");
+		User profile = this.userService.findUser(userId);
+		inModel.addAttribute("user", profile);
+		return "users/profile";
+	}
+	
+	@PostMapping(value = "/save")
+	public String save(@ModelAttribute("user") User newUser, BindingResult br) {
+		this.userService.update(newUser);
+		return "redirect:/users/list";
+	}
+	
+	@GetMapping(value = "/add")
+	public String add(Model inModel) {
+		inModel.addAttribute("user", new User());
+		return "users/list";
+	}
+	
+	@GetMapping(value = "/{userId}/edit")
+	public String edit(@PathVariable("userId") String userId, Model inModel) {
+		User u = this.userService.findUser(userId);
+		inModel.addAttribute("user", u);
+		return "users/form";
+	}
+	
+	@GetMapping(value = "/{userId}/delete/")
+	public String delete(@PathVariable("userId") String userId) {
+		this.userService.delete(userId);
+		return "redirect:/users/list/";
+	}
+}

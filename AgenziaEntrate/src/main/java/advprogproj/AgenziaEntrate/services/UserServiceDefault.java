@@ -12,22 +12,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
-import advprogproj.AgenziaEntrate.model.dao.AccessDaoDefault;
-import advprogproj.AgenziaEntrate.model.dao.BankAccountDaoDefault;
-import advprogproj.AgenziaEntrate.model.dao.ISEEDaoDefault;
-import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
+import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
+import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
+import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.Family;
+import advprogproj.AgenziaEntrate.model.entities.ISEE;
+import advprogproj.AgenziaEntrate.model.dao.AccessDao;
+import advprogproj.AgenziaEntrate.model.dao.BankAccountDao;
+import advprogproj.AgenziaEntrate.model.dao.FamilyDao;
+import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
+import advprogproj.AgenziaEntrate.model.dao.UserDao;
+import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
+import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 
 @Service("userService")
 public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Autowired
-	private UserDaoDefault userDao;
+	private UserDao userDao;
 	
-	private BankAccountDaoDefault bankAccountDao;
-	private AccessDaoDefault accessDao;
-	private ISEEDaoDefault iseeDao;
+	private BankAccountDao bankAccountDao;
+	private AccessDao accessDao;
+	private ISEEDao iseeDao;
+	private FamilyDao familyDao;
+	private UserRealEstateDao userRealEstateDao;
+	private UserVehicleDao userVehicleDao;
 	
 	@Transactional
+	@Override
 	public List<User> findAllUsers() {
 		return this.userDao.findAll();
 	}
@@ -49,68 +61,126 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	} 
 	
 	@Transactional
+	@Override
 	public User findUser(String user) {
 		return this.userDao.findById(user);
 	}
 	
 	@Transactional
+	@Override
 	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, long access) {
 		return this.userDao.create(cf, firstName, secondName, birthDate, email, password, handicap, this.accessDao.findById(access));
 	}
 	
 	@Transactional
+	@Override
 	public User update(String user){
 		return this.update(this.findUser(user));
 	}
 	
 	@Transactional
+	@Override
 	public User update(User user) {
 		return this.userDao.update(user);
 	}
 	
 	@Transactional
-	public void delete(String user, String bankAccount, String billDate) {
-		this.removeBankAccount(user, bankAccount, billDate);		
+	@Override
+	public void delete(String user) {
+		User u = this.userDao.findById(user);
+		for(BankAccount a : u.getBankAccounts()) {
+			this.removeBankAccount(user, a.getIBAN(), a.getBillDate());	
+		}
+		
+		for(ISEE i : u.getAssociatedISEEs()) {
+			this.removeISEE(user, i.getId());
+		}
+		
+		for(UserRealEstate ure : u.getUserRealEstates()) {
+			ure.getRealEstate().removeOwner(ure);
+			this.userRealEstateDao.delete(ure);
+		}
+		
+		for(UserVehicle uv : u.getUserVehicles()) {
+			uv.getVehicle().removeOwner(uv);
+			this.userVehicleDao.delete(uv);
+		}
+		u.getBankAccounts().clear();
+		u.getAssociatedISEEs().clear();
+		u.getUserRealEstates().clear();
+		u.getUserVehicles().clear();
+
+		for(Family f : this.userDao.getFamilies(u)) {
+			this.familyDao.delete(f);
+		}	
 		this.userDao.delete(this.findUser(user));
 	}
 	
 	@Transactional
-	public void addBankAccount(String user, String IBAN, String billDate) {
-		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, LocalDate.parse(billDate)));
+	@Override
+	public void addBankAccount(String user, String IBAN, LocalDate billDate) {
+		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
 	}
 	
 	@Transactional
-	public void removeBankAccount(String user, String IBAN, String billDate) {
-		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, LocalDate.parse(billDate)));
+	@Override
+	public void removeBankAccount(String user, String IBAN, LocalDate billDate) {
+		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
 	}
 	
 	@Transactional
+	@Override
 	public void addISEE(String user, long isee, String billDate) {
 		this.userDao.addAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
 	}
 	
 	@Transactional
+	@Override
 	public void removeISEE(String user, long isee) {
 		this.userDao.removeAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
 	}
 	
+	@Transactional
+	@Override
+	public void addUserRealEstate(String user, UserRealEstate userRealEstate) {
+		this.userDao.addUserRealEstate(this.findUser(user), userRealEstate);
+	}
+	
+	@Transactional
+	@Override
+	public void removeUserRealEstate(String user, UserRealEstate userRealEstate) {
+		this.userDao.removeUserRealEstate(this.findUser(user), userRealEstate);
+	}
+	
+	@Transactional
+	@Override
+	public void addUserVehicle(String user, UserVehicle userVehicle) {
+		this.userDao.addUserVehicle(this.findUser(user) ,userVehicle);
+	}
+	
+	@Transactional
+	@Override
+	public void removeUserVehicle(String user, UserVehicle userVehicle) {
+		this.userDao.removeUserVehicle(this.findUser(user) ,userVehicle);
+	}
+	
 	@Autowired
-	public void setUserDao(UserDaoDefault userDao) {
+	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 	
 	@Autowired
-	public void setBankAccountDao(BankAccountDaoDefault bankAccountDao) {
+	public void setBankAccountDao(BankAccountDao bankAccountDao) {
 		this.bankAccountDao = bankAccountDao;
 	}
 	
 	@Autowired
-	public void setAccessDao(AccessDaoDefault accessDao) {
+	public void setAccessDao(AccessDao accessDao) {
 		this.accessDao = accessDao;
 	}
 	
 	@Autowired
-	public void setISEEDao(ISEEDaoDefault iseeDao) {
+	public void setISEEDao(ISEEDao iseeDao) {
 		this.iseeDao = iseeDao;
 	}
 }
