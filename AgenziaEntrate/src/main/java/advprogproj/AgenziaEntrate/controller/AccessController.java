@@ -48,13 +48,12 @@ public class AccessController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String saveAccess(@ModelAttribute("access") Access newAccess, @RequestParam(value="userId") String userId, BindingResult br) {
-		this.accessService.update(newAccess);
-		if(userId != "") {
-			return "redirect:roles/save/"+newAccess.getId()+"/"+userId;
-		}else {
-			return "redirect:/roles/list";
+	public String saveAccess(@ModelAttribute("access") Access newAccess, @RequestParam("userId") String userId) {
+		Access a = this.accessService.update(newAccess);
+		if(userId != null) {
+			return "redirect:/roles/save/"+a.getId()+"/"+userId;
 		}
+		return "redirect:/roles/list";
 	}
 	
 	@GetMapping(value = "/save/{accessId}/{userId}")
@@ -78,7 +77,6 @@ public class AccessController {
 	
 	@GetMapping(value = "/{accessId}/edit")
 	public String edit(@PathVariable("accessId") long accessId, Model accessModel) {
-		
 		Access a = this.accessService.findAccess(accessId);
 		accessModel.addAttribute("access", a);
 		return "roles/form";
@@ -96,9 +94,25 @@ public class AccessController {
 		List<User> users = this.userService.findAllUsers();
 		List<Access> access = this.accessService.findAllAccess();
 		accessModel.addAttribute("access",access);
-		accessModel.addAttribute("access",users);
-		
+		accessModel.addAttribute("users",users);
 		return "roles/link_choose";
+	}
+	
+	@PostMapping("/link")
+	public String link(
+			@RequestParam(value="next", required=false) String next,
+			@RequestParam(value="access") long accessId,
+			@RequestParam(value="user") String userId) {
+		User u = this.userService.findUser(userId);
+		Access a = this.accessService.findAccess(accessId);
+		u.setAccess(a);
+		this.userService.update(u);
+		
+		if (next == null || next.length() == 0) {
+			next = "/roles/list";
+		}
+		
+		return "redirect:" + next;
 	}
 	
 	@Autowired

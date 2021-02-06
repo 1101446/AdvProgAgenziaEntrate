@@ -52,10 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.invalidateHttpSession(true).permitAll().and().csrf().disable();
 		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll().
 			antMatchers("/registration").permitAll();
-		http.authorizeRequests().antMatchers("/**/**").hasRole("ADMIN").
-			antMatchers("/roles/**").hasRole("ADMIN");
-		http.authorizeRequests().antMatchers("/institution/").hasAnyRole("ADMIN","ENTE", "UTENTE").
-			antMatchers("/institution/**").hasAnyRole("ADMIN","ENTE", "UTENTE");
+		http.authorizeRequests().antMatchers("/roles/**").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers("/institution/**").hasAnyRole("ADMIN","ENTE", "UTENTE");
 		http.authorizeRequests().antMatchers("/realestates/**").hasAnyRole("ADMIN","CATASTO", "UTENTE");
 		http.authorizeRequests().antMatchers("/vehicles/**").hasAnyRole("ADMIN","MOTORIZZAZIONE", "UTENTE");
 		http.authorizeRequests().antMatchers("/isee/**").hasAnyRole("ADMIN","ENTRATE", "UTENTE");
