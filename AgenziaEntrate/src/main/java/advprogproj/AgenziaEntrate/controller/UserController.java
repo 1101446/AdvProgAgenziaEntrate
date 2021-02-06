@@ -42,7 +42,7 @@ public class UserController {
 	@GetMapping(value = "/profile/{userId}")
 	public String getProfile(@PathVariable("userId") String userId, Model inModel) {
 		//logger.info("Listing RealEstates");
-		User profile = this.userService.findUser(userId);
+		User profile = this.userService.findUserEmail(userId);
 		inModel.addAttribute("user", profile);
 		return "users/profile";
 	}

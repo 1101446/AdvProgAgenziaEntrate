@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,7 +129,7 @@ public class InstitutionController {
 		User u = this.userService.findUser(userId);
 		BankAccount b = this.bankAccountService.findBankAccount(bankAccountId, billDate);
 		this.bankAccountService.addOwner(userId, bankAccountId, billDate);
-		this.userService.addBankAccount(userId, bankAccountId, billDate);
+		this.userService.addBankAccount(userId, bankAccountId, LocalDate.parse(billDate));
 		this.bankAccountService.update(b);
 		this.userService.update(u);
 		if (next == null || next.length() == 0) {

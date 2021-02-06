@@ -68,6 +68,12 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Transactional
 	@Override
+	public User findUserEmail(String email) {
+		return this.userDao.findByEmail(email);
+	}
+	
+	@Transactional
+	@Override
 	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, long access) {
 		return this.userDao.create(cf, firstName, secondName, birthDate, email, password, handicap, this.accessDao.findById(access));
 	}
@@ -162,6 +168,17 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	@Override
 	public void removeUserVehicle(String user, UserVehicle userVehicle) {
 		this.userDao.removeUserVehicle(this.findUser(user) ,userVehicle);
+	}
+	
+	@Transactional
+	@Override
+	public void replaceAccess(long accessId) {
+		for(User u : this.findAllUsers() ) {
+			if(u.getAccess().equals(this.accessDao.findById(accessId))) {
+				u.setAccess(this.accessDao.findByName("UTENTE"));
+				this.update(u);
+			}	
+		}
 	}
 	
 	@Autowired

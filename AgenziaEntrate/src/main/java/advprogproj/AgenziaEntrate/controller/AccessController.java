@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.User;
@@ -29,12 +30,11 @@ public class AccessController {
 	private AccessService accessService;
 	private UserService userService;
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model inModel) {
+	@GetMapping(value = "/list")
+	public String list(Model accessModel) {
 		//logger.info("Listing RealEstates");
 		List<Access> allAccess = new ArrayList<Access>();
 		int numAccess = -1;
-		
 		try {
 			allAccess = this.accessService.findAllAccess();
 			numAccess = allAccess.size();
@@ -42,39 +42,63 @@ public class AccessController {
 			//logger.error(e.getMessage());
 		}
 		
-		inModel.addAttribute("allAccess", allAccess);
-		inModel.addAttribute("numAccess", numAccess);
+		accessModel.addAttribute("allAccess", allAccess);
+		accessModel.addAttribute("numAccess", numAccess);
 		return "roles/list";
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@ModelAttribute("access") Access newAccess, BindingResult br) {
+	public String saveAccess(@ModelAttribute("access") Access newAccess, @RequestParam(value="userId") String userId, BindingResult br) {
 		this.accessService.update(newAccess);
-		
+		if(userId != "") {
+			return "redirect:roles/save/"+newAccess.getId()+"/"+userId;
+		}else {
+			return "redirect:/roles/list";
+		}
+	}
+	
+	@GetMapping(value = "/save/{accessId}/{userId}")
+	public String saveUser(@PathVariable("accessId") long accessId, 
+						   @PathVariable("userId") String userId, BindingResult br) {
+		Access newAccess = this.accessService.findAccess(accessId);
+		User u = this.userService.findUser(userId);
+		u.setAccess(newAccess);
+		this.userService.update(u);
 		return "redirect:/roles/list";
 	}
 	
 	@GetMapping(value = "/add")
-	public String add(Model inModel) {
+	public String add(Model accessModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("access", new Access());
-		inModel.addAttribute("users", users);
+		accessModel.addAttribute("access", new Access());
+		accessModel.addAttribute("users", users);
 
-		return "roles/list";
+		return "roles/form";
 	}
 	
 	@GetMapping(value = "/{accessId}/edit")
-	public String edit(@PathVariable("accessId") long accessId, Model inModel) {
+	public String edit(@PathVariable("accessId") long accessId, Model accessModel) {
+		
 		Access a = this.accessService.findAccess(accessId);
-		inModel.addAttribute("access", a);
+		accessModel.addAttribute("access", a);
 		return "roles/form";
 	}
 	
 	@GetMapping(value = "/{accessId}/delete/")
-	public String delete(@PathVariable("accessId") long accessId,
-			   	 	   	 @PathVariable("userId") String userId) {
+	public String delete(@PathVariable("accessId") long accessId) {
+		this.userService.replaceAccess(accessId);
 		this.accessService.delete(accessId);
 		return "redirect:/roles/list/";
+	}
+	
+	@GetMapping("/link/choose")
+	public String addRole(Model accessModel) {
+		List<User> users = this.userService.findAllUsers();
+		List<Access> access = this.accessService.findAllAccess();
+		accessModel.addAttribute("access",access);
+		accessModel.addAttribute("access",users);
+		
+		return "roles/link_choose";
 	}
 	
 	@Autowired

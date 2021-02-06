@@ -13,6 +13,8 @@ public interface UserService {
 	
 	public User findUser(String user);
 	
+	public User findUserEmail(String email);
+	
 	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, long access);
 	
 	public User update(String user);
@@ -36,5 +38,7 @@ public interface UserService {
 	public void addUserVehicle(String user, UserVehicle userVehicle);
 
 	public void removeUserVehicle(String user, UserVehicle userVehicle);
+
+	void replaceAccess(long accessId);
 	
 }

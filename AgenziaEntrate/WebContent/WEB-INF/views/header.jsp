@@ -10,7 +10,6 @@
 <sec:authorize access="hasRole('ENTRATE')" var="isStaff" />
 <sec:authorize access="hasRole('UTENTE')" var="isUser" />
 <sec:authorize access="isAuthenticated()" var="isAuth" />
-
 <h1>${appName}</h1>
 <c:if test="${isAuth}"> Benvenuto/a <sec:authentication property="principal.username" /> </c:if>
  
@@ -23,6 +22,7 @@
   	<a class="navbar-brand" href="<c:url value="/registration" />">Registrati</a>
   </c:if>
   <c:if test="${isAuth}">  
+  	<sec:authentication property="principal.username" var="username"/>
   	<c:if test="${isAdmin}">
   		<a class="navbar-brand" href="<c:url value="/roles/list" />">Permessi</a>
   	</c:if>
@@ -36,7 +36,7 @@
   		<a class="navbar-brand" href="<c:url value="/vehicles/list" />">Veicoli</a>
   	</c:if>
   	<c:if test="${isUser}">
-  		<a class="navbar-brand" href="<c:url value="/users/profile/<sec:authentication property="principal.username" />" />">Profilo</a>
+  		<a class="navbar-brand" href="<c:url value='/users/profile/${username}'/>" >Profilo</a>
   	</c:if>
   	<c:if test="${! isUser}">
   		<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>

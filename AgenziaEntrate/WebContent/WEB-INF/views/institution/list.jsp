@@ -8,8 +8,6 @@ Elenco conti correnti: ${numBankAccounts}.
 <c:if test="${fn:length(message) > 0}">
 <p>${message}</p>
 </c:if>
-
-<h1>Elenco</h1>
 <table>
 	<thead>
 		<td>IBAN</td>
@@ -28,7 +26,7 @@ Elenco conti correnti: ${numBankAccounts}.
 			<td>${ba.balance}</td>
 			<td>
 				<ul>
-					<c:forEach items="${ba.owner}" var="o">
+					<c:forEach items="${ba.owners}" var="o">
 						<li>${o.firstName} ${o.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${o.cf}/unlink/" />?next=/institution/list/">-/-</a>]</li>
 					</c:forEach>
 				</ul>

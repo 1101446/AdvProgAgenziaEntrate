@@ -28,7 +28,7 @@ public class Access implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name = "ROLE", nullable = false)
+	@Column(name = "ROLE", nullable = false, unique = true)
 	public String getRoleName() {
 		return this.roleName;
 	}
