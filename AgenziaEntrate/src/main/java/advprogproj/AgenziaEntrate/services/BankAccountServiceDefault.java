@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.BankAccountDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.User;
 
 @Service("bankAccount")
 public class BankAccountServiceDefault implements BankAccountService{
@@ -58,13 +59,21 @@ public class BankAccountServiceDefault implements BankAccountService{
 	@Transactional
 	@Override
 	public void addOwner(String user, String IBAN, String billDate) {
-		this.bankAccountDao.addOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
+		BankAccount bk = this.findBankAccount(IBAN, billDate);
+		User u = this.userDao.findById(user);
+		this.bankAccountDao.addOwner(u, bk);
+		this.userDao.update(u);
+		this.bankAccountDao.update(bk);
 	}
 	
 	@Transactional
 	@Override
 	public void removeOwner(String user, String IBAN, String billDate) {
-		this.bankAccountDao.removeOwner(this.userDao.findById(user), this.findBankAccount(IBAN, billDate));
+		BankAccount bk = this.findBankAccount(IBAN, billDate);
+		User u = this.userDao.findById(user);
+		this.bankAccountDao.removeOwner(u, bk);
+		this.userDao.update(u);
+		this.bankAccountDao.update(bk);
 	}
 	
 	@Autowired
