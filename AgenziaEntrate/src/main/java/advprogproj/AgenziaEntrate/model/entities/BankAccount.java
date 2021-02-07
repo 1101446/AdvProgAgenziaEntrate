@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @Table(name = "bank_account")
 public class BankAccount implements Serializable{
 	private String IBAN;
-	private String bankName;
 	private LocalDate billDate;
+	private String bankName;
 	private long balance;
 	
 	private Set<User> owners = new HashSet<User>();
@@ -31,15 +31,6 @@ public class BankAccount implements Serializable{
 		this.IBAN = iBAN;
 	}
 	
-	@Column(name = "BANK_NAME", nullable = false)
-	public String getBankName() {
-		return this.bankName;
-	}
-	
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
-	}
-	
 	@Id
 	@Column(name = "BILL_DATE")
 	public LocalDate getBillDate() {
@@ -48,6 +39,15 @@ public class BankAccount implements Serializable{
 	
 	public void setBillDate(LocalDate billDate) {
 		this.billDate = billDate;
+	}
+	
+	@Column(name = "BANK_NAME", nullable = false)
+	public String getBankName() {
+		return this.bankName;
+	}
+	
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 	
 	@Column(name = "BALANCE", nullable = false)

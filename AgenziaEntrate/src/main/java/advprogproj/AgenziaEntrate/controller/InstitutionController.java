@@ -49,7 +49,7 @@ public class InstitutionController {
 	@PostMapping(value = "/save")
 	public String saveBankAccount(@ModelAttribute("bankAccount") BankAccount newBankAccount, 
 					   @RequestParam("userId") String userId) {
-		BankAccount bk= this.bankAccountService.update(newBankAccount);
+		BankAccount bk = this.bankAccountService.update(newBankAccount);
 		if(userId != null) {
 			return "redirect:/institution/save/"+bk.getIBAN()+"/"+bk.getBillDate().toString()+"/"+userId;
 		}
@@ -75,8 +75,10 @@ public class InstitutionController {
 	@GetMapping(value = "/{bankAccountId}/{billDate}/edit")
 	public String edit(@PathVariable("bankAccountId") String bankAccountId, 
 					   @PathVariable("billDate") String billDate, Model inModel) {
+		List<User> users = this.userService.findAllUsers();
 		BankAccount bk = this.bankAccountService.findBankAccount(bankAccountId, billDate);
 		inModel.addAttribute("bankAccount", bk);
+		inModel.addAttribute("users", users);
 		return "institution/form";
 	}
 	

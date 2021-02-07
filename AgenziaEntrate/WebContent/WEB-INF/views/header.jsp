@@ -21,26 +21,32 @@
   	<a class="navbar-brand" href="<c:url value="/login" />">Login</a>
   	<a class="navbar-brand" href="<c:url value="/registration" />">Registrati</a>
   </c:if>
-  <c:if test="${isAuth}">  
+  <c:if test="${isAuth}">
   	<sec:authentication property="principal.username" var="username"/>
-  	<c:if test="${isAdmin}">
-  		<a class="navbar-brand" href="<c:url value="/roles/list" />">Permessi</a>
-  	</c:if>
-  	<c:if test="${isAdmin || isBank}">
-  		<a class="navbar-brand" href="<c:url value="/institution/list" />">Conti Correnti</a>
-  	</c:if>
-  	<c:if test="${isAdmin || isRealEstate}">
-  		<a class="navbar-brand" href="<c:url value="/realestates/list" />">Immobili</a>
-  	</c:if>
-  	<c:if test="${isAdmin || isVehicle}">
-  		<a class="navbar-brand" href="<c:url value="/vehicles/list" />">Veicoli</a>
-  	</c:if>
-  	<c:if test="${isUser}">
-  		<a class="navbar-brand" href="<c:url value='/users/profile/${username}'/>" >Profilo</a>
-  	</c:if>
-  	<c:if test="${! isUser}">
-  		<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
-  	</c:if>
+  	<c:choose>  
+  		<c:when test="${isAdmin}">
+  			<a class="navbar-brand" href="<c:url value="/roles/list" />">Permessi</a>
+  			<a class="navbar-brand" href="<c:url value="/institution/list" />">Conti Correnti</a>
+  			<a class="navbar-brand" href="<c:url value="/realestates/list" />">Immobili</a>
+  			<a class="navbar-brand" href="<c:url value="/vehicles/list" />">Veicoli</a>
+  			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
+  		</c:when>
+  		<c:when test="${isBank}">
+  			<a class="navbar-brand" href="<c:url value="/institution/list" />">Conti Correnti</a>
+  		</c:when>
+  		<c:when test="${isRealEstate}">
+  			<a class="navbar-brand" href="<c:url value="/realestates/list" />">Immobili</a>
+  		</c:when>
+  		<c:when test="${isVehicle}">
+  			<a class="navbar-brand" href="<c:url value="/vehicles/list" />">Veicoli</a>
+  		</c:when>
+  		<c:when test="${isUser}">
+  			<a class="navbar-brand" href="<c:url value='/users/profile/${username}'/>" >Profilo</a>
+  		</c:when>
+  		<c:otherwise>
+  			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
+  		</c:otherwise>
+  	</c:choose>
   	<a class="navbar-brand" href="<c:url value="/logout" />">Logout</a>
   </c:if>
 </nav> 

@@ -30,7 +30,7 @@ public class UserController {
 		allUsers = this.userService.findAllUsers();
 		numUsers = allUsers.size();
 		
-		inModel.addAttribute("users", allUsers);
+		inModel.addAttribute("allUsers", allUsers);
 		inModel.addAttribute("numUsers", numUsers);
 		return "users/list";
 	}

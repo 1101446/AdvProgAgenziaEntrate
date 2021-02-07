@@ -64,7 +64,7 @@ public class RealEstateController {
 		inModel.addAttribute("realEstate", new RealEstate());
 		inModel.addAttribute("users", users);
 		inModel.addAttribute("userRealEstate", new UserRealEstate());
-		return "realestates/list";
+		return "realestates/form";
 	}
 	
 	@GetMapping(value = "/{realEstateId}/edit")

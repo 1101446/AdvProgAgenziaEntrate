@@ -13,13 +13,12 @@
                	</tr>
 				<tr>
                    	<td><form:label path="billDate">Data Saldo</form:label></td>
-                   	<td><form:input type="date" path="billDate" /></td>
+                   	<td><form:input path="billDate" /></td>
                </tr>
                <tr>
                     <td><form:label path="bankName">Ente di credito</form:label></td>
                     <td><form:input path="bankName"/></td>
-               </tr>
-				
+               </tr>			
 				<tr>
                     <td><form:label path="balance">Saldo</form:label></td>
                     <td><form:input path="balance"/></td>
@@ -29,19 +28,13 @@
 					<td>
 						<select name="userId">
 							<c:forEach items="${users}" var="u">
-								<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName})</option> 
+								<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 							</c:forEach>
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td><form:hidden path="IBAN" /></td>
-				</tr>
-				<tr>
-					<td><form:hidden path="billDate" /></td>
-				</tr>
                 <tr>
-                    <td><input type="submit" value="Submit"/></td>
+                    <td><input type="submit" value="Aggiungi"/></td>
                 </tr>
             </table>
 		</form:form>
