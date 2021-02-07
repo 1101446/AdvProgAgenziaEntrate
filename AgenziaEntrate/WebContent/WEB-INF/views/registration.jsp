@@ -8,7 +8,7 @@
 <h2> Registrazione </h2>
 
 <div>
-<c:url value="/registration" var="action_url" />
+<c:url value="/registration/save" var="action_url" />
 <form:form method='POST' action="<c:url value='${action_url}'/>" modelAttribute="newUser">
 		<form:label path="firstName" class="sr-only">Nome:</form:label>
 		<form:input path="firstName" class="form-control" placeholder="Nome" type='text'/>
@@ -22,12 +22,10 @@
 		<form:input path="email" class="form-control" placeholder="Email" type='email'/>
 		<form:label path="password" class="sr-only">Password:</form:label>
 		<form:input path="password" class="form-control" type='password' />
-		<form:label path="isHandicap" class="sr-only">Disabilità:</form:label>
-			<form:input path="isHandicap" type="radio" id="si" name="handicap" value="true" />
-  			<form:label path="isHandicap" for="si">Si</form:label>
-  			<form:input path="isHandicap" type="radio" id="no" name="handicap" value="false" />
-  			<form:label path="isHandicap" for="no">No</form:label>
-		<form:input path="access" type='hidden' name='access' value="${userAccess}"/>
+		<form:label path="handicap" class="sr-only">Disabilità:</form:label>
+		<form:input path="handicap" />
+
+		<form:input path="access" type="hidden" value="${userAccess}"/>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Registrati</button>
 </form:form>
 </div>

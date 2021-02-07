@@ -101,7 +101,8 @@ public class LoadDataTest {
 				
 				session.getTransaction().commit();
 				session.beginTransaction();
-
+				
+				userDao.create("ADMINAD0A00A000A", "admin", "admin", LocalDate.of(1970, 5, 22), "admin@admin.com", userDao.encryptPassword("admin"), false, adminAccess);
 				userDao.create("AAABBB20A78L700X", "Mario", "Rossi", LocalDate.of(1970, 5, 22), "mariorossi@libero.it", userDao.encryptPassword("mario"), false, userAccess);
 				userDao.create("ABABAB78B14T880I", "Mario", "Rossi", LocalDate.of(1980, 3, 20), "mario.rossi@gmail.com", userDao.encryptPassword("giovanni"), false, adminAccess);
 				userDao.create("CGGCGC80A72L598X", "Giovanni", "Belardi", LocalDate.of(1950, 5, 22), "giovannibelardi@hotmail.it", userDao.encryptPassword("paolo"), false, aeAccess);

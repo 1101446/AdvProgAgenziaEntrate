@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
@@ -28,20 +29,6 @@ public class SecurityController
 	
 	private UserService userService;
 	private AccessService accessService;
-	
-	@PostMapping(value = "/save")
-    public String registration(@ModelAttribute("newUser") User newUser, Model model) {
-    	this.userService.update(newUser);
-        return "redirect:/home";
-    }
-	
-	@GetMapping(value = "/registration")
-    public String registrationPage(Model model) {
-        model.addAttribute("newUser", new User());
-        Access a = accessService.findAccessByName("UTENTE");
-        model.addAttribute("userAccess", a);
-        return "registration";
-    }
 	
 	@GetMapping(value = "/login")
     public String login(@RequestParam(value = "error", required = false) String error, 
@@ -60,6 +47,29 @@ public class SecurityController
         return "login";
     }
 	
+	@PostMapping(value = "/registration/save")
+    public String registration(@ModelAttribute("newUser") User newUser, Model model) {
+    	this.userService.update(newUser);
+        return "redirect:/";
+    }
+	
+	@GetMapping(value = "/registration")
+    public String registrationPage(Model model) {
+        model.addAttribute("newUser", new User());
+        Access a = accessService.findAccessByName("UTENTE");
+        model.addAttribute("userAccess", a);
+        return "registration";
+    }
+	
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
+	@Autowired
+	public void setAccessService(AccessService accessService) {
+		this.accessService = accessService;
+	}
 //    @GetMapping(value="/logout")
 //    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -68,14 +78,6 @@ public class SecurityController
 //        }
 //        return "redirect:/";
 //    }
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	public void setAccessService(AccessService accessService) {
-		this.accessService = accessService;
-	}
   
 }
 

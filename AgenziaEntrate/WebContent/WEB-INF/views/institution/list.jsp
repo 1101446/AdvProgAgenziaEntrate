@@ -14,11 +14,11 @@ Elenco conti correnti: ${numBankAccounts}.
 		<td>Ente</td>
 		<td>Data saldo</td>
 		<td>Saldo</td>
+		<td>Intestatari</td>
 		<td>Modifica</td>
 		<td>Elimina</td>
-		<td>Intestatari</td>
 	</thead>
-	<c:forEach items="${bankAccounts}" var="ba">
+	<c:forEach items="${allBankAccounts}" var="ba">
 		<tr>
 			<td>${ba.IBAN}</td>
 			<td>${ba.bankName}</td>
@@ -26,8 +26,8 @@ Elenco conti correnti: ${numBankAccounts}.
 			<td>${ba.balance}</td>
 			<td>
 				<ul>
-					<c:forEach items="${ba.owners}" var="o">
-						<li>${o.firstName} ${o.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${o.cf}/unlink/" />?next=/institution/list/">-/-</a>]</li>
+					<c:forEach items="${ba.owners}" var="u">
+						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink/" />">-/-</a>]</li>
 					</c:forEach>
 				</ul>
 			</td>
@@ -38,4 +38,5 @@ Elenco conti correnti: ${numBankAccounts}.
 </table>
 <hr/>
 <a href="<c:url value="/institution/add" />">Aggiungi conto corrente</a>
+<a href="<c:url value="/institution/link/choose" />">Aggiungi intestatario</a>
 <!-- Chiedere come implemetare parte della form per inserire utenti -->

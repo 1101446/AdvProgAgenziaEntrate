@@ -40,14 +40,14 @@ public class InstitutionController {
 			//logger.error(e.getMessage());
 		}
 		
-		inModel.addAttribute("bankAccounts", allBankAccounts);
+		inModel.addAttribute("allBankAccounts", allBankAccounts);
 		inModel.addAttribute("numBankAccounts", numBankAccounts);
 		
 		return "institution/list";
 	}
 	
 	@PostMapping(value = "/save")
-	public String saveBankAccount(@ModelAttribute("newBankAccount") BankAccount newBankAccount, 
+	public String saveBankAccount(@ModelAttribute("bankAccount") BankAccount newBankAccount, 
 					   @RequestParam("userId") String userId) {
 		BankAccount bk= this.bankAccountService.update(newBankAccount);
 		if(userId != null) {
@@ -97,11 +97,12 @@ public class InstitutionController {
 	}
 	
 	@PostMapping("/link")
-	public String link(
-			@RequestParam(value="user") String userId,
-			@RequestParam(value="bankAccount") String bankAccountId, 
-			@RequestParam(value="billDate")String billDate){
-		this.bankAccountService.addOwner(userId, bankAccountId, billDate);
+	public String link(@RequestParam(value="bankAccount") String bankAccount,
+					   @RequestParam(value="user") String userId){
+		String []bankAccountId = bankAccount.split("--");
+		System.out.println(bankAccountId);
+		System.out.println(bankAccountId[1]);
+		this.bankAccountService.addOwner(userId, bankAccountId[0], bankAccountId[1]);
 		return "redirect:/institution/list";
 	}
 	

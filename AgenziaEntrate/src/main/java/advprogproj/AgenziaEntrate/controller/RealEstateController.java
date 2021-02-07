@@ -38,13 +38,8 @@ public class RealEstateController {
 		//logger.info("Listing RealEstates");
 		List<RealEstate> allRealEstates = new ArrayList<RealEstate>();
 		int numRealEstates = -1;
-		
-		try {
-			allRealEstates = this.realEstateService.findAllRealEstates();
-			numRealEstates = allRealEstates.size();
-		}catch(Exception e) {
-			//logger.error(e.getMessage());
-		}
+		allRealEstates = this.realEstateService.findAllRealEstates();
+		numRealEstates = allRealEstates.size();
 		
 		inModel.addAttribute("realEstates", allRealEstates);
 		inModel.addAttribute("numRealEstates", numRealEstates);

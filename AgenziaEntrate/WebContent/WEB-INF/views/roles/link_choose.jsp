@@ -26,5 +26,5 @@
 			</td>
 		</tr>
 	</table>
-	<input type="submit" value="Modifica"/>
+	<input type="submit" value="Salva"/>
 	</form>

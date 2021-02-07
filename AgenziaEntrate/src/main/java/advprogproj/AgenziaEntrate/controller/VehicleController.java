@@ -37,14 +37,8 @@ public class VehicleController {
 		//logger.info("Listing Vehicles");
 		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 		int numVehicles = -1;
-		
-		try {
-			allVehicles = this.vehicleService.findAllVehicles();
-			numVehicles = allVehicles.size();
-		}catch(Exception e) {
-		//	logger.error(e.getMessage());
-		}
-		
+		allVehicles = this.vehicleService.findAllVehicles();
+		numVehicles = allVehicles.size();
 		inModel.addAttribute("vehicles", allVehicles);
 		inModel.addAttribute("numVehicles", numVehicles);
 		

@@ -3,6 +3,7 @@ package advprogproj.AgenziaEntrate.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,13 +27,8 @@ public class UserController {
 		//logger.info("Listing RealEstates");
 		List<User> allUsers = new ArrayList<User>();
 		int numUsers = -1;
-		
-		try {
-			allUsers = this.userService.findAllUsers();
-			numUsers = allUsers.size();
-		}catch(Exception e) {
-			//logger.error(e.getMessage());
-		}
+		allUsers = this.userService.findAllUsers();
+		numUsers = allUsers.size();
 		
 		inModel.addAttribute("users", allUsers);
 		inModel.addAttribute("numUsers", numUsers);
@@ -71,4 +67,10 @@ public class UserController {
 		this.userService.delete(userId);
 		return "redirect:/users/list/";
 	}
+	
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
 }

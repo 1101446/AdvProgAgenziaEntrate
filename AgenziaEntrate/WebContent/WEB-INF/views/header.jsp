@@ -44,5 +44,4 @@
   	<a class="navbar-brand" href="<c:url value="/logout" />">Logout</a>
   </c:if>
 </nav> 
-   
 <hr/>
