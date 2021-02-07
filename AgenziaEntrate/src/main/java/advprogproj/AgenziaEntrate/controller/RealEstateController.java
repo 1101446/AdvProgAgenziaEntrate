@@ -48,13 +48,14 @@ public class RealEstateController {
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("realEstate") RealEstate newRealEstate, 
-			   		   @ModelAttribute("userRealEstate") UserRealEstate ure, BindingResult br) {
+			   		   //@ModelAttribute("userRealEstate") UserRealEstate ure, 
+			   		   BindingResult br) {
 		this.realEstateService.update(newRealEstate);
-		if(ure != null) {
+		/*if(ure != null) {
 			this.userRealEstateService.update(ure);
 			this.userService.update(ure.getUser());
 			this.realEstateService.update(newRealEstate);
-		}
+		}*/
 		return "redirect:/realestates/list";
 	}
 	
@@ -69,8 +70,10 @@ public class RealEstateController {
 	
 	@GetMapping(value = "/{realEstateId}/edit")
 	public String edit(@PathVariable("realEstateId") long realEstateId, Model inModel) {
+		List<User> users = this.userService.findAllUsers();
 		RealEstate re = this.realEstateService.findRealEstate(realEstateId);
 		inModel.addAttribute("realEstate", re);
+		inModel.addAttribute("users", users);
 		return "realestates/form";
 	}
 	

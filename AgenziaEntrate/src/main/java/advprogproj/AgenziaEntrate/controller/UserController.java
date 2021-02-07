@@ -52,7 +52,7 @@ public class UserController {
 	@GetMapping(value = "/add")
 	public String add(Model inModel) {
 		inModel.addAttribute("user", new User());
-		return "users/list";
+		return "users/form";
 	}
 	
 	@GetMapping(value = "/{userId}/edit")

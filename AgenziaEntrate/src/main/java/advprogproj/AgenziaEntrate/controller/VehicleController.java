@@ -47,13 +47,14 @@ public class VehicleController {
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("vehicle") Vehicle newVehicle, 
-			   		   @ModelAttribute("userVehicle") UserVehicle uv, BindingResult br) {
+			   		   //@ModelAttribute("userVehicle") UserVehicle uv, 
+						BindingResult br) {
 		this.vehicleService.update(newVehicle);
-		if(uv != null) {
+		/*if(uv != null) {
 			this.userVehicleService.update(uv);
 			this.userService.update(uv.getUser());
 			this.vehicleService.update(newVehicle);
-		}
+		}*/
 		return "redirect:/vehicles/list";
 	}
 	
@@ -63,12 +64,14 @@ public class VehicleController {
 		inModel.addAttribute("vehicle", new Vehicle());
 		inModel.addAttribute("users", users);
 		inModel.addAttribute("userVehicle", new UserVehicle());
-		return "vehicles/list";
+		return "vehicles/form";
 	}
 	
 	@GetMapping(value = "/{vehicleId}/edit")
 	public String edit(@PathVariable("vehicleId") long vehicleId, Model inModel) {
+		List<User> users = this.userService.findAllUsers();
 		Vehicle ve = this.vehicleService.findVehicle(vehicleId);
+		inModel.addAttribute("users", users);
 		inModel.addAttribute("vehicle", ve);
 		return "vehicles/form";
 	}
