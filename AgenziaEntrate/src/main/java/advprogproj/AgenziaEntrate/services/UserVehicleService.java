@@ -12,5 +12,5 @@ public interface UserVehicleService {
 	
 	public UserVehicle update(UserVehicle userVehicle);
 	
-	public void delete(UserVehicle userVehicle);
+	public void delete(String user, long vehicle, LocalDate endOfYear);
 }

@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
@@ -48,14 +50,22 @@ public class RealEstateController {
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("realEstate") RealEstate newRealEstate, 
-			   		   //@ModelAttribute("userRealEstate") UserRealEstate ure, 
-			   		   BindingResult br) {
-		this.realEstateService.update(newRealEstate);
-		/*if(ure != null) {
-			this.userRealEstateService.update(ure);
-			this.userService.update(ure.getUser());
-			this.realEstateService.update(newRealEstate);
-		}*/
+			   		   @RequestParam("userId") String userId,
+			   		   @RequestParam("endOfYear") LocalDate endOfYear,
+			   		   @RequestParam("price") int price) {
+		RealEstate re = this.realEstateService.update(newRealEstate);
+		if(!userId.equals("noUser"))
+			return "redirect:/realestates/save/"+re.getId()+"/"+userId.toString()+"/"+endOfYear+"/"+price;
+		else
+			return "redirect:/realestates/list";
+	}
+	
+	@GetMapping(value = "/save/{realEstateId}/{userId}/{endOfYear}/{price}")
+	public String saveUserRealEstate(@PathVariable("realEstateId") long realEstateId,
+									 @PathVariable("userId") String userId,
+									 @PathVariable("endOfYear") String endOfYear,
+									 @PathVariable("price") int price) {
+		this.userRealEstateService.create(userId, realEstateId, LocalDate.parse(endOfYear), price);
 		return "redirect:/realestates/list";
 	}
 	
@@ -77,10 +87,36 @@ public class RealEstateController {
 		return "realestates/form";
 	}
 	
-	@GetMapping(value = "/{realEstateId}/delete/")
+	@GetMapping(value = "/{realEstateId}/delete")
 	public String delete(@PathVariable("realEstateId") long realEstateId) {
 		this.realEstateService.delete(realEstateId);
-		return "redirect:/realestates/list/";
+		return "redirect:/realestates/list";
+	}
+	
+	@GetMapping("/link/choose")
+	public String link(Model institutionModel) {
+		institutionModel.addAttribute("realEstate", this.realEstateService.findAllRealEstates());
+		institutionModel.addAttribute("users", this.userService.findAllUsers());
+		
+		return "realestates/link_choose";
+	}
+	
+	@PostMapping("/link")
+	public String link(@RequestParam(value="realEstate") long realEstate,
+					   @RequestParam(value="user") String userId,
+					   @RequestParam(value="endOfYear") String endOfYear,
+					   @RequestParam(value="price") int price){
+		this.userRealEstateService.create(userId, realEstate, LocalDate.parse(endOfYear), price);
+		return "redirect:/realestates/list";
+	}
+	
+	@GetMapping(value = "/realEstate/{realEstateId}/user/{userId}/endOfYear/{endOfYear}/unlink/" )
+	public String unlinkUserRealEstates( 
+			@PathVariable("realEstateId") long realEstateId, 
+			@PathVariable("userId") String userId,
+			@PathVariable("endOfYear") String endOfYear){
+		this.userRealEstateService.delete(userId,realEstateId,LocalDate.parse(endOfYear));
+		return "redirect:/realestates/list";
 	}
 	
 	@Autowired

@@ -49,11 +49,11 @@ public class FamilyController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@RequestParam("id") long id, 
-					   @RequestParam("userId") String userId,
-					   @RequestParam("hierarchy") String hierarchy,
-					   @RequestParam("houseHolder") String houseHolder,
-					   @RequestParam("update") boolean update) {
+	public String save(@RequestParam(value="id") long id, 
+					   @RequestParam(value="userId") String userId,
+					   @RequestParam(value="hierarchy") String hierarchy,
+					   @RequestParam(value="houseHolder") String houseHolder,
+					   @RequestParam(value="update") boolean update) {
 		if(update) {
 			User u = this.userService.findUser(userId);
 			Family  f = new Family();
@@ -81,6 +81,7 @@ public class FamilyController {
 					   @PathVariable("userId") String userId, Model familyModel) {
 		List<User> users = this.userService.findAllUsers();
 		Family f = this.familyService.findFamily(familyId, userId);
+		familyModel.addAttribute("userId", userId);
 		familyModel.addAttribute("users", users);
 		familyModel.addAttribute("family", f);
 		familyModel.addAttribute("update", true);

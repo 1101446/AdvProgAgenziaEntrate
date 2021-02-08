@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 import advprogproj.AgenziaEntrate.model.entities.User;
@@ -47,14 +49,22 @@ public class VehicleController {
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("vehicle") Vehicle newVehicle, 
-			   		   //@ModelAttribute("userVehicle") UserVehicle uv, 
-						BindingResult br) {
-		this.vehicleService.update(newVehicle);
-		/*if(uv != null) {
-			this.userVehicleService.update(uv);
-			this.userService.update(uv.getUser());
-			this.vehicleService.update(newVehicle);
-		}*/
+			 		   @RequestParam(value="userId") String userId,
+			 		   @RequestParam(value="endOfYear") LocalDate endOfYear,
+			 		   @RequestParam(value="price") int price) {
+		Vehicle v = this.vehicleService.update(newVehicle);
+		if(!userId.equals("noUser"))
+			return "redirect:/vehicles/save/"+v.getId()+"/"+userId.toString()+"/"+endOfYear+"/"+price;
+		else
+			return "redirect:/vehicles/list";
+	}
+	
+	@GetMapping(value = "/save/{vehicleId}/{userId}/{endOfYear}/{price}")
+	public String saveUserVehicle(@PathVariable("vehicleId") long vehicleId,
+									 @PathVariable("userId") String userId,
+									 @PathVariable("endOfYear") String endOfYear,
+									 @PathVariable("price") int price) {
+		this.userVehicleService.create(userId, vehicleId, LocalDate.parse(endOfYear), price);
 		return "redirect:/vehicles/list";
 	}
 	
@@ -76,10 +86,36 @@ public class VehicleController {
 		return "vehicles/form";
 	}
 	
-	@GetMapping(value = "/{vehicleId}/delete/")
+	@GetMapping(value = "/{vehicleId}/delete")
 	public String delete(@PathVariable("vehicleId") long vehicleId) {
 		this.vehicleService.delete(vehicleId);
-		return "redirect:/vehicles/list/";
+		return "redirect:/vehicles/list";
+	}
+	
+	@GetMapping("/link/choose")
+	public String link(Model institutionModel) {
+		institutionModel.addAttribute("vehicles", this.vehicleService.findAllVehicles());
+		institutionModel.addAttribute("users", this.userService.findAllUsers());
+		
+		return "vehicles/link_choose";
+	}
+	
+	@PostMapping("/link")
+	public String link(@RequestParam(value="vehicle") long vehicle,
+					   @RequestParam(value="user") String userId,
+					   @RequestParam(value="endOfYear") String endOfYear,
+					   @RequestParam(value="price") int price){
+		this.userVehicleService.create(userId, vehicle, LocalDate.parse(endOfYear), price);
+		return "redirect:/vehicles/list";
+	}
+	
+	@GetMapping(value = "/realEstate/{vehicleId}/user/{userId}/endOfYear/{endOfYear}/unlink/" )
+	public String unlinkUserVehicles( 
+			@PathVariable("vehicleId") long vehicleId, 
+			@PathVariable("userId") String userId,
+			@PathVariable("endOfYear") String endOfYear){
+		this.userVehicleService.delete(userId,vehicleId,LocalDate.parse(endOfYear));
+		return "redirect:/vehicles/list";
 	}
 	
 	@Autowired

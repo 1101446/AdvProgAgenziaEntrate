@@ -27,16 +27,15 @@ Elenco conti correnti: ${numBankAccounts}.
 			<td>
 				<ul>
 					<c:forEach items="${ba.owners}" var="u">
-						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink/" />">-/-</a>]</li>
+						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink" />">-/-</a>]</li>
 					</c:forEach>
 				</ul>
 			</td>
-			<td>[<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/edit/" />">+</a>]</td>
-			<td>[<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/delete/" />">X</a>]</td>
+			<td>[<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/edit" />">+</a>]</td>
+			<td>[<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/delete" />">X</a>]</td>
 		</tr>
 	</c:forEach>
 </table>
 <hr/>
 <a href="<c:url value="/institution/add" />">Aggiungi conto corrente</a>
 <a href="<c:url value="/institution/link/choose" />">Aggiungi intestatario</a>
-<!-- Chiedere come implemetare parte della form per inserire utenti -->

@@ -23,8 +23,8 @@ Elenco immobili: ${numRealEstates}.
 			<td>${re.address}</td>
 			<td>${re.CAP}</td>
 			<td>${re.country}</td>
-			<td>[<a href="<c:url value="/vehicles/${re.id}/edit/" />">+</a>]</td>
-			<td>[<a href="<c:url value="/vehicles/${re.id}/delete/" />">X</a>]</td>
+			<td>[<a href="<c:url value="/realestates/${re.id}/edit" />">+</a>]</td>
+			<td>[<a href="<c:url value="/realestates/${re.id}/delete" />">X</a>]</td>
 		</tr>
 	</c:forEach>
 </table>

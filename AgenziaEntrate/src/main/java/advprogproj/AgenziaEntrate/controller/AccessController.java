@@ -49,10 +49,10 @@ public class AccessController {
 	
 	@PostMapping(value = "/save")
 	public String saveAccess(@ModelAttribute("access") Access newAccess, 
-							 @RequestParam("userId") String userId) {
+							 @RequestParam(value="userId") String userId) {
 		Access a = this.accessService.update(newAccess);
 		String id = Long.toString(a.getId());
-		if(userId != null) {
+		if(!userId.equals("noUser")) {
 			return "redirect:/roles/save/"+id+"/"+userId;
 		}
 		return "redirect:/roles/list";

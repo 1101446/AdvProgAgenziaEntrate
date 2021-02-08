@@ -9,7 +9,7 @@
 		<tr>
 			<td>Veicolo</td>
 			<td>
-				<select name="vehicles">
+				<select name="vehicle">
 					<c:forEach items="${vehicles}" var="v">
 						<option value="${v.id}">${v.brand} - ${v.model} - ${v.vehicleRegistration}</option> 
 					</c:forEach>

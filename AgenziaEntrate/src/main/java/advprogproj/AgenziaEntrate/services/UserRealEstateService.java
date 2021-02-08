@@ -12,5 +12,5 @@ public interface UserRealEstateService {
 	
 	public UserRealEstate update(UserRealEstate userRealEstate);
 	
-	public void delete(UserRealEstate userRealEstate);
+	public void delete(String user, long realEstate, LocalDate endOfYear);
 }

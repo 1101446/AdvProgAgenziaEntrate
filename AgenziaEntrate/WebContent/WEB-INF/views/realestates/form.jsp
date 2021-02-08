@@ -20,35 +20,31 @@
                     <td><form:input path="country"/></td>
                	</tr>
 			   	<tr>
+					<td><form:hidden path="id" /></td>
+				</tr>
 			</table>
 			<table>
 				<tr>
-					<td><label path="userId">Utente</label></td>
+					<td><label name="userId">Utente</label></td>
 					<td>	
-						<select name="user">
-								<option value="">----------</option>
+						<select name="userId">
+								<option value="noUser" selected>----------</option>
 							<c:forEach items="${users}" var="u">
-								<option value="${u}">${u.cf} - ${u.firstName} ${u.secondName})</option> 
+								<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td><input type="hidden" name="realEstate" value="${realEstate.id}" /></td>
-				</tr>
-				<tr>
 					<td><label name="endOfYear">Data Saldo</label></td>
-                   	<td><input type="date"/></td>
+                   	<td><input name="endOfYear" type="date" value="01/01/90" /></td>
 				</tr>
 				<tr>
 					<td><label name="price">Prezzo</label></td>
-                   	<td><input type="num" /></td>
-				</tr>
-				<tr>
-					<td><form:hidden path="id" /></td>
+                   	<td><input name="price" type="number" value="0" /></td>
 				</tr>
                 <tr>
-                    <td><input type="submit" value="Submit"/></td>
+                    <td><input type="submit" value="Salva"/></td>
                 </tr>
             </table>
 		</form:form>

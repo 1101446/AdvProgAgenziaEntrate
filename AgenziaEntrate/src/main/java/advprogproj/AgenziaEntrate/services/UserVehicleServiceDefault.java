@@ -9,7 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
+import advprogproj.AgenziaEntrate.model.entities.RealEstate;
+import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
+import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
 @Service("userVehicle")
 public class UserVehicleServiceDefault implements UserVehicleService{
@@ -27,19 +31,30 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	@Transactional
 	@Override
 	public UserVehicle create(String user, long vehicle, LocalDate endOfYear, long price) {
-		return this.userVehicleDao.create(this.userDao.findById(user), this.vehicleDao.findById(vehicle), endOfYear, price);
+		User u = this.userDao.findById(user);
+		Vehicle v = this.vehicleDao.findById(vehicle);
+		UserVehicle newUserVehicle = this.userVehicleDao.create(u, v, endOfYear, price);
+		return newUserVehicle;
 	}
 	
 	@Transactional
 	@Override
 	public UserVehicle update(UserVehicle userVehicle) {
-		return this.userVehicleDao.update(userVehicle);
+		UserVehicle uv = this.userVehicleDao.update(userVehicle);
+		this.userDao.update(userVehicle.getUser());
+		this.vehicleDao.update(userVehicle.getVehicle());
+		this.userDao.update(uv.getUser());
+		this.vehicleDao.update(uv.getVehicle());
+		return uv;
 	}
 	
 	@Transactional
 	@Override
-	public void delete(UserVehicle userVehicle) {
-		this.userVehicleDao.delete(userVehicle);
+	public void delete(String user, long vehicle, LocalDate endOfYear) {
+		UserVehicle uv = this.findUserVehicle(user, vehicle, endOfYear);
+		this.userDao.removeUserVehicle(uv.getUser(), uv);
+		this.vehicleDao.removeUserVehicle(uv.getVehicle(), uv);
+		this.userVehicleDao.delete(uv);
 	}
 	
 	@Autowired

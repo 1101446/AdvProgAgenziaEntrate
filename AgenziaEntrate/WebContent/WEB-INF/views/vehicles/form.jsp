@@ -15,7 +15,6 @@
                     <td><form:label path="model">Modello</form:label></td>
                     <td><form:input path="model"/></td>
                </tr>
-				
 				<tr>
                     <td><form:label path="vehicleRegistration">Targa</form:label></td>
                     <td><form:input path="vehicleRegistration"/></td>
@@ -23,17 +22,27 @@
 				<tr>
 					<td><form:hidden path="id" /></td>
 				</tr>
+			</table>
+			<table>
 				<tr>
-					<td><label path="userId">Utente</label></td>
+					<td><label name="userId">Utente</label></td>
 					<td>
 						<select name="userId">
-							<option value="">----------</option>
+							<option value="noUser" selected>----------</option>
 						<c:forEach items="${users}" var="u">
 							<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 						</c:forEach>
 						</select>
 					</td>
                 </tr>
+				<tr>
+					<td><label name="endOfYear">Data Saldo</label></td>
+                   	<td><input name="endOfYear" type="date" type="date" value="01/01/90"/></td>
+				</tr>
+				<tr>
+					<td><label name="price">Prezzo</label></td>
+                   	<td><input name="price" type="number" value="0" /></td>
+				</tr>
 				<tr>
                     <td><input type="submit" value="Aggiungi"/></td>
                 </tr>

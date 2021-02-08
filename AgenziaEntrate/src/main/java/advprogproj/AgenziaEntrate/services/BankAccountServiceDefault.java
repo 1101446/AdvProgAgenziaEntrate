@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,9 +52,12 @@ public class BankAccountServiceDefault implements BankAccountService{
 	
 	@Transactional
 	@Override
-	public void delete(String IBAN, String billDate, String user) {
+	public void delete(String IBAN, String billDate) {
+		Set<User> users = this.bankAccountDao.getOwners(this.findBankAccount(IBAN, LocalDate.parse(billDate)));
+		for(User u : users) {
+			this.removeOwner(u.getCf(), IBAN, billDate);
+		}
 		this.bankAccountDao.delete(this.findBankAccount(IBAN, LocalDate.parse(billDate)));
-		this.removeOwner(user, IBAN, billDate);
 	}
 	
 	@Transactional

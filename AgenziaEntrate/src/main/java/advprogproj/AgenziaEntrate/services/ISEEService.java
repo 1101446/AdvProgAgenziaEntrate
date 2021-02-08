@@ -18,8 +18,8 @@ public interface ISEEService {
 	
 	public void delete(long id);
 	
-	public void addUserAssociated(long isee, String user);
+	public void addAssociatedUser(long isee, String user);
 	
-	public void removeUserAssociated(long isee, String user);
+	public void removeAssociatedUser(long isee, String user);
 
 }

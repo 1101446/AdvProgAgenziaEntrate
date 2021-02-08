@@ -25,16 +25,15 @@ Elenco isee: ${numISEEs}.
 			<td>
 				<ul>
 					<c:forEach items="${i.associatedUsers}" var="u">
-						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink/" />">-/-</a>]</li>
+						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink" />">-/-</a>]</li>
 					</c:forEach>
 				</ul>
 			</td>
-			<td>[<a href="<c:url value="/isees/${i.id}/edit/" />">+</a>]</td>
-			<td>[<a href="<c:url value="/isees/${i.id}/delete/" />">X</a>]</td>
+			<td>[<a href="<c:url value="/isees/${i.id}/edit" />">+</a>]</td>
+			<td>[<a href="<c:url value="/isees/${i.id}/delete" />">X</a>]</td>
 		</tr>
 	</c:forEach>
 </table>
 <hr/>
 <a href="<c:url value="/isees/add" />">Aggiungi isee</a>
 <a href="<c:url value="/isees/link/choose" />">Aggiungi intestatario</a>
-<!-- Chiedere come implemetare parte della form per inserire utenti -->

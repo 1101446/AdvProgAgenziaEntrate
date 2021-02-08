@@ -23,8 +23,8 @@ Elenco veicoli: ${numVehicles}.
 			<td>${v.brand}</td>
 			<td>${v.model}</td>
 			<td>${v.vehicleRegistration}</td>
-			<td>[<a href="<c:url value="/vehicles/${v.id}/edit/" />">+</a>]</td>
-			<td>[<a href="<c:url value="/vehicles/${v.id}/delete/" />">X</a>]</td>
+			<td>[<a href="<c:url value="/vehicles/${v.id}/edit" />">+</a>]</td>
+			<td>[<a href="<c:url value="/vehicles/${v.id}/delete" />">X</a>]</td>
 		</tr>
 	</c:forEach>
 </table>

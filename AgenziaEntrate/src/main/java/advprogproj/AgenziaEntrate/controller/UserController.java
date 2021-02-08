@@ -39,7 +39,7 @@ public class UserController {
 	public String getProfile(@PathVariable("userId") String userId, Model userModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(userId);
-		userModel.addAttribute("user", profile);
+		userModel.addAttribute("profile", profile);
 		return "users/profile";
 	}
 	

@@ -27,6 +27,7 @@
 					<td><label path="userId">Utente</label></td>
 					<td>
 						<select name="userId">
+							<option value="noUser" selected>----------</option>
 							<c:forEach items="${users}" var="u">
 								<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 							</c:forEach>

@@ -17,7 +17,7 @@ public interface BankAccountService {
 	
 	public BankAccount update(BankAccount bankAccount);
 
-	public void delete(String IBAN, String billDate, String user);
+	public void delete(String IBAN, String billDate);
 	
 	public void addOwner(String user, String IBAN, String billDate) ;
 	

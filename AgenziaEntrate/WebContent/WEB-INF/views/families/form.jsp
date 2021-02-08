@@ -15,9 +15,15 @@
 					<td><label name="userId">Utente</td>
 					<td>
 						<select name="userId">
-						<option value="">----------</option>
 						<c:forEach items="${users}" var="u">
-							<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
+							<c:choose>
+								<c:when test="${update && u.cf == userId}">
+									<option value="${u.cf}" selected>${u.cf} - ${u.firstName} ${u.secondName}</option>
+							 	</c:when>
+							 	<c:otherwise>
+							 		<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option>
+							 	</c:otherwise>
+							</c:choose>
 						</c:forEach>
 						</select>
 					</td>

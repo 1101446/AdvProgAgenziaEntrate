@@ -1,6 +1,8 @@
 package advprogproj.AgenziaEntrate.services;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
+import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
+import advprogproj.AgenziaEntrate.model.entities.User;
 
 @Service("ISEE")
 public class ISEEServiceDefault implements ISEEService{
@@ -45,19 +49,31 @@ public class ISEEServiceDefault implements ISEEService{
 	@Transactional
 	@Override
 	public void delete(long id) {
+		Set<User> users = this.iseeDao.getAssociatedUsers(this.findISEE(id));
+		for(User u : users) {
+			this.removeAssociatedUser(id, u.getCf());
+		}
 		this.iseeDao.delete(this.findISEE(id));
 	}
 	
 	@Transactional
 	@Override
-	public void addUserAssociated(long isee, String user) {
-		this.iseeDao.addUserAssociated(this.userDao.findById(user), this.findISEE(isee));
+	public void addAssociatedUser(long isee, String user) {
+		ISEE i = this.findISEE(isee);
+		User u = this.userDao.findById(user);
+		this.iseeDao.addUserAssociated(u, i);
+		this.userDao.update(u);
+		this.iseeDao.update(i);
 	}
 	
 	@Transactional
 	@Override
-	public void removeUserAssociated(long isee, String user) {
-		this.iseeDao.removeUserAssociated(this.userDao.findById(user), this.findISEE(isee));
+	public void removeAssociatedUser(long isee, String user) {
+		ISEE i = this.findISEE(isee);
+		User u = this.userDao.findById(user);
+		this.iseeDao.removeUserAssociated(u, i);
+		this.userDao.update(u);
+		this.iseeDao.update(i);
 	}
 	
 	@Autowired

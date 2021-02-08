@@ -49,14 +49,14 @@ public class InstitutionController {
 	
 	@PostMapping(value = "/save")
 	public String saveBankAccount(@ModelAttribute("bankAccount") BankAccount newBankAccount, 
-					   @RequestParam("userId") String userId,
-					   @RequestParam("update") boolean update) {
+					   @RequestParam(value="userId") String userId,
+					   @RequestParam(value="update") boolean update) {
 		BankAccount bk;
 		if(update)
 			bk = this.bankAccountService.update(newBankAccount);
 		else
 			bk = this.bankAccountService.create(newBankAccount.getIBAN(), newBankAccount.getBankName(), newBankAccount.getBillDate(), newBankAccount.getBalance());
-		if(userId != null) 
+		if(!userId.equals("noUser")) 
 			return "redirect:/institution/save/"+bk.getIBAN()+"/"+bk.getBillDate().toString()+"/"+userId;
 		else 
 			return "redirect:/institution/list";
@@ -92,9 +92,8 @@ public class InstitutionController {
 	
 	@GetMapping(value = "/{bankAccountId}/{billDate}/delete/")
 	public String delete(@PathVariable("bankAccountId") String bankAccountId, 
-						 @PathVariable("billDate") String billDate, 
-						 @PathVariable("userId") String userId) {
-		this.bankAccountService.delete(bankAccountId, billDate, userId);
+						 @PathVariable("billDate") String billDate) {
+		this.bankAccountService.delete(bankAccountId, billDate);
 		return "redirect:/institution/list/";
 	}
 	
@@ -110,8 +109,6 @@ public class InstitutionController {
 	public String link(@RequestParam(value="bankAccount") String bankAccount,
 					   @RequestParam(value="user") String userId){
 		String []bankAccountId = bankAccount.split("--");
-		System.out.println(bankAccountId);
-		System.out.println(bankAccountId[1]);
 		this.bankAccountService.addOwner(userId, bankAccountId[0], bankAccountId[1]);
 		return "redirect:/institution/list";
 	}
