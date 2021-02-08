@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.User;
@@ -31,7 +32,7 @@ public class FamilyController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model inModel) {
-		//logger.info("Listing RealEstates");
+		//logger.info("Listing Families");
 		List<Family> allFamilies = new ArrayList<Family>();
 		int numFamilies = -1;
 		
@@ -42,14 +43,23 @@ public class FamilyController {
 			//logger.error(e.getMessage());
 		}
 		
-		inModel.addAttribute("families", allFamilies);
+		inModel.addAttribute("allFamilies", allFamilies);
 		inModel.addAttribute("numFamilies", numFamilies);
 		return "families/list";
 	}
 	
 	@PostMapping(value = "/save")
-	public String save(@ModelAttribute("family") Family newFamily, BindingResult br) {
-		this.familyService.update(newFamily.getId(), newFamily.getUser().getCf());
+	public String save(@RequestParam("id") long id, 
+					   @RequestParam("userId") String userid,
+					   @RequestParam("hierarchy") String hierarchy,
+					   @RequestParam("houseHolder") String houseHolder,
+					   BindingResult br) {
+		Family f = new Family();
+		f.setId(id);
+		f.setUser(this.userService.findUser(userid));
+		f.setHierarchy(hierarchy);
+		f.setHouseHolder(houseHolder);
+		this.familyService.update(f);
 		
 		return "redirect:/families/list";
 	}
@@ -57,10 +67,9 @@ public class FamilyController {
 	@GetMapping(value = "/add")
 	public String add(Model inModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("family", new Family());
 		inModel.addAttribute("users", users);
 
-		return "families/list";
+		return "families/form";
 	}
 	
 	@GetMapping(value = "/{familyId}/{userId}/edit")

@@ -36,14 +36,14 @@ public class FamilyServiceDefault implements FamilyService{
 	
 	@Transactional
 	@Override
-	public Family update(long id, String user) {
-		return this.findFamily(id, user);
+	public Family update(Family family) {
+		return this.familyDao.update(family);
 	}
 	
 	@Transactional
 	@Override
 	public void delete(long id, String user) {
-		this.findFamily(id, user);
+		this.familyDao.delete(this.findFamily(id, user));
 	}
 	
 	@Autowired

@@ -41,34 +41,34 @@ public class ISEEController {
 			//logger.error(e.getMessage());
 		}
 		
-		inModel.addAttribute("ISEEs", allISEEs);
+		inModel.addAttribute("allISEEs", allISEEs);
 		inModel.addAttribute("numISEEs", numISEEs);
-		return "isee/list";
+		return "isees/list";
 	}
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("ISEE") ISEE isee,  BindingResult br) {
 		this.iseeService.update(isee.getId());
-		return "redirect:/isee/list";
+		return "redirect:/isees/list";
 	}
 	
 	@GetMapping(value = "/add")
 	public String add(Model inModel) {
 		inModel.addAttribute("ISEE", new ISEE());
-		return "isee/list";
+		return "isees/form";
 	}
 	
 	@GetMapping(value = "/{iseeId}/edit")
 	public String edit(@PathVariable("iseeId") long iseeId, Model inModel) {
 		ISEE i = this.iseeService.findISEE(iseeId);
 		inModel.addAttribute("isee", i);
-		return "isee/form";
+		return "isees/form";
 	}
 	
 	@GetMapping(value = "/{iseeId}/delete/")
 	public String delete(@PathVariable("iseeId") long iseeId) {
 		this.iseeService.delete(iseeId);
-		return "redirect:/isee/list/";
+		return "redirect:/isees/list/";
 	}
 	
 	@Autowired

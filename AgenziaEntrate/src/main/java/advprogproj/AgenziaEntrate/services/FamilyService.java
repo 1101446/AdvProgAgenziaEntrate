@@ -12,7 +12,7 @@ public interface FamilyService {
 	
 	public Family create(long id, String user, String hierarchy, String houseHolder);
 	
-	public Family update(long id, String user);
+	public Family update(Family family);
 	
 	public void delete(long id, String user);
 }
