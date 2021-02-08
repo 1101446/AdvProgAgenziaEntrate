@@ -25,8 +25,8 @@ public class BankAccountServiceDefault implements BankAccountService{
 	
 	@Transactional
 	@Override
-	public BankAccount findBankAccount(String bankAccount, String billDate) {
-		return this.bankAccountDao.findById(bankAccount, LocalDate.parse(billDate));
+	public BankAccount findBankAccount(String bankAccount, LocalDate billDate) {
+		return this.bankAccountDao.findById(bankAccount, billDate);
 	}
 	
 	@Transactional
@@ -38,7 +38,7 @@ public class BankAccountServiceDefault implements BankAccountService{
 	@Transactional
 	@Override
 	public BankAccount update(String IBAN, String billDate) {
-		return this.update(this.findBankAccount(IBAN, billDate));
+		return this.update(this.findBankAccount(IBAN, LocalDate.parse(billDate)));
 		
 	}
 	
@@ -52,14 +52,14 @@ public class BankAccountServiceDefault implements BankAccountService{
 	@Transactional
 	@Override
 	public void delete(String IBAN, String billDate, String user) {
-		this.bankAccountDao.delete(this.findBankAccount(IBAN, billDate));
+		this.bankAccountDao.delete(this.findBankAccount(IBAN, LocalDate.parse(billDate)));
 		this.removeOwner(user, IBAN, billDate);
 	}
 	
 	@Transactional
 	@Override
 	public void addOwner(String user, String IBAN, String billDate) {
-		BankAccount bk = this.findBankAccount(IBAN, billDate);
+		BankAccount bk = this.findBankAccount(IBAN, LocalDate.parse(billDate));
 		User u = this.userDao.findById(user);
 		this.bankAccountDao.addOwner(u, bk);
 		this.userDao.update(u);
@@ -69,7 +69,7 @@ public class BankAccountServiceDefault implements BankAccountService{
 	@Transactional
 	@Override
 	public void removeOwner(String user, String IBAN, String billDate) {
-		BankAccount bk = this.findBankAccount(IBAN, billDate);
+		BankAccount bk = this.findBankAccount(IBAN, LocalDate.parse(billDate));
 		User u = this.userDao.findById(user);
 		this.bankAccountDao.removeOwner(u, bk);
 		this.userDao.update(u);

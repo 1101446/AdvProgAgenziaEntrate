@@ -33,6 +33,9 @@
 						</select>
 					</td>
 				</tr>
+				<tr>
+                    <td><input name="update" type="hidden" value="${update}"/></td>
+                </tr>
                 <tr>
                     <td><input type="submit" value="Aggiungi"/></td>
                 </tr>

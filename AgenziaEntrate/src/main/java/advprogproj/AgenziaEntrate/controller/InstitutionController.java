@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +49,17 @@ public class InstitutionController {
 	
 	@PostMapping(value = "/save")
 	public String saveBankAccount(@ModelAttribute("bankAccount") BankAccount newBankAccount, 
-					   @RequestParam("userId") String userId) {
-		BankAccount bk = this.bankAccountService.update(newBankAccount);
-		if(userId != null) {
+					   @RequestParam("userId") String userId,
+					   @RequestParam("update") boolean update) {
+		BankAccount bk;
+		if(update)
+			bk = this.bankAccountService.update(newBankAccount);
+		else
+			bk = this.bankAccountService.create(newBankAccount.getIBAN(), newBankAccount.getBankName(), newBankAccount.getBillDate(), newBankAccount.getBalance());
+		if(userId != null) 
 			return "redirect:/institution/save/"+bk.getIBAN()+"/"+bk.getBillDate().toString()+"/"+userId;
-		}
-		return "redirect:/institution/list";
+		else 
+			return "redirect:/institution/list";
 	}
 	
 	@GetMapping(value = "/save/{bankAccountId}/{billDate}/{userId}")
@@ -69,6 +75,7 @@ public class InstitutionController {
 		List<User> users = this.userService.findAllUsers();
 		institutionModel.addAttribute("bankAccount", new BankAccount());
 		institutionModel.addAttribute("users", users);
+		institutionModel.addAttribute("update", false);
 		return "institution/form";
 	}
 	
@@ -76,9 +83,10 @@ public class InstitutionController {
 	public String edit(@PathVariable("bankAccountId") String bankAccountId, 
 					   @PathVariable("billDate") String billDate, Model institutionModel) {
 		List<User> users = this.userService.findAllUsers();
-		BankAccount bk = this.bankAccountService.findBankAccount(bankAccountId, billDate);
+		BankAccount bk = this.bankAccountService.findBankAccount(bankAccountId, LocalDate.parse(billDate));
 		institutionModel.addAttribute("bankAccount", bk);
 		institutionModel.addAttribute("users", users);
+		institutionModel.addAttribute("update", true);
 		return "institution/form";
 	}
 	

@@ -9,7 +9,7 @@
         	<table>
 				<tr>
 					<td><label name="id">Id</td>
-					<td><input name="id" type="number" /></td>
+					<td><input name="id" type="number" value="${family.id}"/></td>
 				</tr>
 				<tr>
 					<td><label name="userId">Utente</td>
@@ -24,11 +24,14 @@
                 </tr>
 				<tr>
                    	<td><label name="hierarchy">Gerarchia</label></td>
-                   	<td><input name="hierarchy" type="text" /></td>
+                   	<td><input name="hierarchy" type="text" value="${family.hierarchy}"/></td>
                </tr>
                <tr>
                     <td><label name="houseHolder">Capo famiglia</label></td>
-                    <td><input name="houseHolder" type="text"/></td>
+                    <td><input name="houseHolder" type="text" value="${family.houseHolder}"/></td>
+               </tr>
+				<tr>
+                    <td><input name="update" type="hidden" value="${update}"/></td>
                </tr>
 			   <tr>
                     <td><input type="submit" value="Aggiungi"/></td>

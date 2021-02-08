@@ -24,7 +24,7 @@ Elenco isee: ${numISEEs}.
 			<td>${i.valueOfISEE}</td>
 			<td>
 				<ul>
-					<c:forEach items="${i.owners}" var="u">
+					<c:forEach items="${i.associatedUsers}" var="u">
 						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink/" />">-/-</a>]</li>
 					</c:forEach>
 				</ul>

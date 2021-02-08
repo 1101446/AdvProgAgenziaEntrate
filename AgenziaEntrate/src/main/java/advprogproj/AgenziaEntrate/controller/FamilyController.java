@@ -50,20 +50,21 @@ public class FamilyController {
 	
 	@PostMapping(value = "/save")
 	public String save(@RequestParam("id") long id, 
-					   @RequestParam("userId") String userid,
+					   @RequestParam("userId") String userId,
 					   @RequestParam("hierarchy") String hierarchy,
-					   @RequestParam("houseHolder") String houseHolder) {
-		Family f = new Family();
-		System.out.println(userid);
-		System.out.println(hierarchy);
-		System.out.println(houseHolder);
-		f.setId(id);
-		User u = this.userService.findUser(userid);
-		f.setUser(u);
-		f.setHierarchy(hierarchy);
-		f.setHouseHolder(houseHolder);
-		this.familyService.update(f);
-		
+					   @RequestParam("houseHolder") String houseHolder,
+					   @RequestParam("update") boolean update) {
+		if(update) {
+			User u = this.userService.findUser(userId);
+			Family  f = new Family();
+			f.setId(id);
+			f.setUser(u);
+			f.setHierarchy(hierarchy);
+			f.setHouseHolder(houseHolder);
+			this.familyService.update(f);
+		}
+		else
+			this.familyService.create(id, userId, hierarchy, houseHolder);
 		return "redirect:/families/list";
 	}
 	
@@ -71,7 +72,7 @@ public class FamilyController {
 	public String add(Model familyModel) {
 		List<User> users = this.userService.findAllUsers();
 		familyModel.addAttribute("users", users);
-
+		familyModel.addAttribute("update", false);
 		return "families/form";
 	}
 	
@@ -82,6 +83,7 @@ public class FamilyController {
 		Family f = this.familyService.findFamily(familyId, userId);
 		familyModel.addAttribute("users", users);
 		familyModel.addAttribute("family", f);
+		familyModel.addAttribute("update", true);
 		return "families/form";
 	}
 	

@@ -9,7 +9,7 @@ public interface BankAccountService {
 	
 	public List<BankAccount> findAllBankAccounts();
 	
-	public BankAccount findBankAccount(String bankAccount, String billDate);
+	public BankAccount findBankAccount(String bankAccount, LocalDate billDate);
 	
 	public BankAccount create(String IBAN, String bankName, LocalDate billDate, long balance);
 
