@@ -28,7 +28,7 @@ public class InstitutionController {
 	private UserService userService;
 	
 	@GetMapping(value = "/list")
-	public String list(Model inModel) {
+	public String list(Model institutionModel) {
 		//logger.info("Listing BankAccounts");
 		List<BankAccount> allBankAccounts = new ArrayList<BankAccount>();
 		int numBankAccounts = -1;
@@ -40,8 +40,8 @@ public class InstitutionController {
 			//logger.error(e.getMessage());
 		}
 		
-		inModel.addAttribute("allBankAccounts", allBankAccounts);
-		inModel.addAttribute("numBankAccounts", numBankAccounts);
+		institutionModel.addAttribute("allBankAccounts", allBankAccounts);
+		institutionModel.addAttribute("numBankAccounts", numBankAccounts);
 		
 		return "institution/list";
 	}
@@ -65,20 +65,20 @@ public class InstitutionController {
 	}
 	
 	@GetMapping(value = "/add")
-	public String add(Model inModel) {
+	public String add(Model institutionModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("bankAccount", new BankAccount());
-		inModel.addAttribute("users", users);
+		institutionModel.addAttribute("bankAccount", new BankAccount());
+		institutionModel.addAttribute("users", users);
 		return "institution/form";
 	}
 	
 	@GetMapping(value = "/{bankAccountId}/{billDate}/edit")
 	public String edit(@PathVariable("bankAccountId") String bankAccountId, 
-					   @PathVariable("billDate") String billDate, Model inModel) {
+					   @PathVariable("billDate") String billDate, Model institutionModel) {
 		List<User> users = this.userService.findAllUsers();
 		BankAccount bk = this.bankAccountService.findBankAccount(bankAccountId, billDate);
-		inModel.addAttribute("bankAccount", bk);
-		inModel.addAttribute("users", users);
+		institutionModel.addAttribute("bankAccount", bk);
+		institutionModel.addAttribute("users", users);
 		return "institution/form";
 	}
 	
@@ -91,9 +91,9 @@ public class InstitutionController {
 	}
 	
 	@GetMapping("/link/choose")
-	public String link(Model uiModel) {
-		uiModel.addAttribute("bankAccounts", this.bankAccountService.findAllBankAccounts());
-		uiModel.addAttribute("users", this.userService.findAllUsers());
+	public String link(Model institutionModel) {
+		institutionModel.addAttribute("bankAccounts", this.bankAccountService.findAllBankAccounts());
+		institutionModel.addAttribute("users", this.userService.findAllUsers());
 		
 		return "institution/link_choose";
 	}

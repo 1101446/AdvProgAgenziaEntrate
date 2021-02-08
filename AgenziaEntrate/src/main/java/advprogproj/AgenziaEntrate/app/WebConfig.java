@@ -200,5 +200,8 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addRedirectViewController("/realestates/", "/realestates/list");
 		registry.addRedirectViewController("/vehicles/", "/vehicles/list");
 		registry.addRedirectViewController("/institution/", "/institution/list/");
+		registry.addRedirectViewController("/isees/", "/isees/list/");
+		registry.addRedirectViewController("/users/", "/users/list/");
+		registry.addRedirectViewController("/families/", "/families/list/");
 	}
 }

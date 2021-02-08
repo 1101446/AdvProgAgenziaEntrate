@@ -23,23 +23,23 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping(value = "/list")
-	public String list(Model inModel) {
+	public String list(Model userModel) {
 		//logger.info("Listing RealEstates");
 		List<User> allUsers = new ArrayList<User>();
 		int numUsers = -1;
 		allUsers = this.userService.findAllUsers();
 		numUsers = allUsers.size();
 		
-		inModel.addAttribute("allUsers", allUsers);
-		inModel.addAttribute("numUsers", numUsers);
+		userModel.addAttribute("allUsers", allUsers);
+		userModel.addAttribute("numUsers", numUsers);
 		return "users/list";
 	}
 	
 	@GetMapping(value = "/profile/{userId}")
-	public String getProfile(@PathVariable("userId") String userId, Model inModel) {
+	public String getProfile(@PathVariable("userId") String userId, Model userModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(userId);
-		inModel.addAttribute("user", profile);
+		userModel.addAttribute("user", profile);
 		return "users/profile";
 	}
 	
@@ -56,9 +56,9 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/{userId}/edit")
-	public String edit(@PathVariable("userId") String userId, Model inModel) {
+	public String edit(@PathVariable("userId") String userId, Model userModel) {
 		User u = this.userService.findUser(userId);
-		inModel.addAttribute("user", u);
+		userModel.addAttribute("user", u);
 		return "users/form";
 	}
 	

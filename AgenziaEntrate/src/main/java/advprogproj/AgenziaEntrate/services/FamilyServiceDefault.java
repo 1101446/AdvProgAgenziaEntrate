@@ -25,7 +25,7 @@ public class FamilyServiceDefault implements FamilyService{
 	@Transactional
 	@Override
 	public Family findFamily(long id, String user) {
-		return this.familyDao.findById(id, user);
+		return this.familyDao.findById(id, this.userDao.findById(user));
 	}
 	
 	@Transactional

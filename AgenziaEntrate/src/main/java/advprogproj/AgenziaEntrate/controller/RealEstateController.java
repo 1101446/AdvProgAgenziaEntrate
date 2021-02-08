@@ -34,15 +34,15 @@ public class RealEstateController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model inModel) {
+	public String list(Model reModel) {
 		//logger.info("Listing RealEstates");
 		List<RealEstate> allRealEstates = new ArrayList<RealEstate>();
 		int numRealEstates = -1;
 		allRealEstates = this.realEstateService.findAllRealEstates();
 		numRealEstates = allRealEstates.size();
 		
-		inModel.addAttribute("realEstates", allRealEstates);
-		inModel.addAttribute("numRealEstates", numRealEstates);
+		reModel.addAttribute("realEstates", allRealEstates);
+		reModel.addAttribute("numRealEstates", numRealEstates);
 		return "realestates/list";
 	}
 	
@@ -60,20 +60,20 @@ public class RealEstateController {
 	}
 	
 	@GetMapping(value = "/add")
-	public String add(Model inModel) {
+	public String add(Model reModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("realEstate", new RealEstate());
-		inModel.addAttribute("users", users);
-		inModel.addAttribute("userRealEstate", new UserRealEstate());
+		reModel.addAttribute("realEstate", new RealEstate());
+		reModel.addAttribute("users", users);
+		reModel.addAttribute("userRealEstate", new UserRealEstate());
 		return "realestates/form";
 	}
 	
 	@GetMapping(value = "/{realEstateId}/edit")
-	public String edit(@PathVariable("realEstateId") long realEstateId, Model inModel) {
+	public String edit(@PathVariable("realEstateId") long realEstateId, Model reModel) {
 		List<User> users = this.userService.findAllUsers();
 		RealEstate re = this.realEstateService.findRealEstate(realEstateId);
-		inModel.addAttribute("realEstate", re);
-		inModel.addAttribute("users", users);
+		reModel.addAttribute("realEstate", re);
+		reModel.addAttribute("users", users);
 		return "realestates/form";
 	}
 	

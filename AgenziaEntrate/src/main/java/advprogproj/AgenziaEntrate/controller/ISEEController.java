@@ -29,7 +29,7 @@ public class ISEEController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model inModel) {
+	public String list(Model iseeModel) {
 		//logger.info("Listing RealEstates");
 		List<ISEE> allISEEs = new ArrayList<ISEE>();
 		int numISEEs = -1;
@@ -41,8 +41,8 @@ public class ISEEController {
 			//logger.error(e.getMessage());
 		}
 		
-		inModel.addAttribute("allISEEs", allISEEs);
-		inModel.addAttribute("numISEEs", numISEEs);
+		iseeModel.addAttribute("allISEEs", allISEEs);
+		iseeModel.addAttribute("numISEEs", numISEEs);
 		return "isees/list";
 	}
 	
@@ -53,15 +53,15 @@ public class ISEEController {
 	}
 	
 	@GetMapping(value = "/add")
-	public String add(Model inModel) {
-		inModel.addAttribute("ISEE", new ISEE());
+	public String add(Model iseeModel) {
+		iseeModel.addAttribute("ISEE", new ISEE());
 		return "isees/form";
 	}
 	
 	@GetMapping(value = "/{iseeId}/edit")
-	public String edit(@PathVariable("iseeId") long iseeId, Model inModel) {
+	public String edit(@PathVariable("iseeId") long iseeId, Model iseeModel) {
 		ISEE i = this.iseeService.findISEE(iseeId);
-		inModel.addAttribute("isee", i);
+		iseeModel.addAttribute("isee", i);
 		return "isees/form";
 	}
 	

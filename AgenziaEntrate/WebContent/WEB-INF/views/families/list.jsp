@@ -23,10 +23,10 @@ Elenco famiglie: ${numFamilies}.
 			<td>${f.user.firstName} ${f.user.secondName}</td>
 			<td>${f.hierarchy}</td>
 			<td>${f.houseHolder}</td>
-			<td>[<a href="<c:url value="/families/${f.id}/edit/" />">+</a>]</td>
-			<td>[<a href="<c:url value="/families/${f.id}/delete/" />">X</a>]</td>
+			<td>[<a href="<c:url value="/families/${f.id}/${f.user.cf}/edit/" />">+</a>]</td>
+			<td>[<a href="<c:url value="/families/${f.id}/${f.user.cf}/delete/" />">X</a>]</td>
 		</tr>
 	</c:forEach>
 </table>
 <hr/>
-<a href="<c:url value="/roles/add" />">Aggiungi nuova relazione</a>
+<a href="<c:url value="/families/add" />">Aggiungi nuova relazione</a>

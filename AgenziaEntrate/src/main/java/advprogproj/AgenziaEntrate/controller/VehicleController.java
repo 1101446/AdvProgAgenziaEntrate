@@ -33,14 +33,14 @@ public class VehicleController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model inModel) {
+	public String list(Model vehicleModel) {
 		//logger.info("Listing Vehicles");
 		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
 		int numVehicles = -1;
 		allVehicles = this.vehicleService.findAllVehicles();
 		numVehicles = allVehicles.size();
-		inModel.addAttribute("vehicles", allVehicles);
-		inModel.addAttribute("numVehicles", numVehicles);
+		vehicleModel.addAttribute("vehicles", allVehicles);
+		vehicleModel.addAttribute("numVehicles", numVehicles);
 		
 		return "vehicles/list";
 	}
@@ -59,20 +59,20 @@ public class VehicleController {
 	}
 	
 	@GetMapping(value = "/add")
-	public String add(Model inModel) {
+	public String add(Model vehicleModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("vehicle", new Vehicle());
-		inModel.addAttribute("users", users);
-		inModel.addAttribute("userVehicle", new UserVehicle());
+		vehicleModel.addAttribute("vehicle", new Vehicle());
+		vehicleModel.addAttribute("users", users);
+		vehicleModel.addAttribute("userVehicle", new UserVehicle());
 		return "vehicles/form";
 	}
 	
 	@GetMapping(value = "/{vehicleId}/edit")
-	public String edit(@PathVariable("vehicleId") long vehicleId, Model inModel) {
+	public String edit(@PathVariable("vehicleId") long vehicleId, Model vehicleModel) {
 		List<User> users = this.userService.findAllUsers();
 		Vehicle ve = this.vehicleService.findVehicle(vehicleId);
-		inModel.addAttribute("users", users);
-		inModel.addAttribute("vehicle", ve);
+		vehicleModel.addAttribute("users", users);
+		vehicleModel.addAttribute("vehicle", ve);
 		return "vehicles/form";
 	}
 	

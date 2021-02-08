@@ -20,9 +20,8 @@ public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 	}
 	
 	@Override
-	public Family findById(long id, String user) {
-		Query q = this.getSession().createQuery("from Family a join fetch a.user "
-				+ "WHERE a.id = :id AND a.user= :user",Family.class);
+	public Family findById(long id, User user) {
+		Query q = this.getSession().createQuery("from Family a WHERE a.id = :id AND a.user= :user",Family.class);
 		return (Family)q.setParameter("id", id).
 				setParameter("user", user).getSingleResult();
 	}

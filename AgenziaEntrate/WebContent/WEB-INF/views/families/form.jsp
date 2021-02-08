@@ -9,10 +9,10 @@
         	<table>
 				<tr>
 					<td><label name="id">Id</td>
-					<td><input name="id" type="num">Id</td>
-					<td></td>
+					<td><input name="id" type="number" /></td>
 				</tr>
 				<tr>
+					<td><label name="userId">Utente</td>
 					<td>
 						<select name="userId">
 						<option value="">----------</option>
@@ -34,4 +34,4 @@
                     <td><input type="submit" value="Aggiungi"/></td>
                 </tr>
             </table>
-		</form:form>
+		</form>

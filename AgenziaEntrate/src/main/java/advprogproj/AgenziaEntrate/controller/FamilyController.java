@@ -31,7 +31,7 @@ public class FamilyController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model inModel) {
+	public String list(Model familyModel) {
 		//logger.info("Listing Families");
 		List<Family> allFamilies = new ArrayList<Family>();
 		int numFamilies = -1;
@@ -43,8 +43,8 @@ public class FamilyController {
 			//logger.error(e.getMessage());
 		}
 		
-		inModel.addAttribute("allFamilies", allFamilies);
-		inModel.addAttribute("numFamilies", numFamilies);
+		familyModel.addAttribute("allFamilies", allFamilies);
+		familyModel.addAttribute("numFamilies", numFamilies);
 		return "families/list";
 	}
 	
@@ -52,11 +52,14 @@ public class FamilyController {
 	public String save(@RequestParam("id") long id, 
 					   @RequestParam("userId") String userid,
 					   @RequestParam("hierarchy") String hierarchy,
-					   @RequestParam("houseHolder") String houseHolder,
-					   BindingResult br) {
+					   @RequestParam("houseHolder") String houseHolder) {
 		Family f = new Family();
+		System.out.println(userid);
+		System.out.println(hierarchy);
+		System.out.println(houseHolder);
 		f.setId(id);
-		f.setUser(this.userService.findUser(userid));
+		User u = this.userService.findUser(userid);
+		f.setUser(u);
 		f.setHierarchy(hierarchy);
 		f.setHouseHolder(houseHolder);
 		this.familyService.update(f);
@@ -65,20 +68,24 @@ public class FamilyController {
 	}
 	
 	@GetMapping(value = "/add")
-	public String add(Model inModel) {
+	public String add(Model familyModel) {
 		List<User> users = this.userService.findAllUsers();
-		inModel.addAttribute("users", users);
+		familyModel.addAttribute("users", users);
 
 		return "families/form";
 	}
 	
 	@GetMapping(value = "/{familyId}/{userId}/edit")
 	public String edit(@PathVariable("familyId") long familyId,
-					   @PathVariable("userId") String userId, Model inModel) {
+					   @PathVariable("userId") String userId, Model familyModel) {
+		List<User> users = this.userService.findAllUsers();
 		Family f = this.familyService.findFamily(familyId, userId);
-		inModel.addAttribute("family", f);
+		familyModel.addAttribute("users", users);
+		familyModel.addAttribute("family", f);
 		return "families/form";
 	}
+	
+	
 	
 	@GetMapping(value = "/{familyId}/{userId}/delete/")
 	public String delete(@PathVariable("familyId") long familyId,

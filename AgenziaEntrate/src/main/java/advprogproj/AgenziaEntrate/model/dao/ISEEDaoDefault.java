@@ -16,7 +16,7 @@ public class ISEEDaoDefault extends DefaultDao implements ISEEDao {
 
 	@Override
 	public List<ISEE> findAll() {
-		return this.getSession().createQuery("from ISEE a", ISEE.class).getResultList();
+		return this.getSession().createQuery("from ISEE a join fetch a.associatedUsers", ISEE.class).getResultList();
 	}
 
 	@Override
