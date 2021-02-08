@@ -29,6 +29,8 @@
   			<a class="navbar-brand" href="<c:url value="/institution/list" />">Conti Correnti</a>
   			<a class="navbar-brand" href="<c:url value="/realestates/list" />">Immobili</a>
   			<a class="navbar-brand" href="<c:url value="/vehicles/list" />">Veicoli</a>
+  			<a class="navbar-brand" href="<c:url value="/isees/list" />">Cronologia ISEE</a>
+  			<a class="navbar-brand" href="<c:url value="/families/list" />">Elenco Famiglie</a>
   			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
   		</c:when>
   		<c:when test="${isBank}">
@@ -40,8 +42,14 @@
   		<c:when test="${isVehicle}">
   			<a class="navbar-brand" href="<c:url value="/vehicles/list" />">Veicoli</a>
   		</c:when>
+  		<c:when test="${isStaff}">
+  			<a class="navbar-brand" href="<c:url value="/isees/list" />">Cronologia ISEE</a>
+  			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
+  		</c:when>
   		<c:when test="${isUser}">
   			<a class="navbar-brand" href="<c:url value='/users/profile/${username}'/>" >Profilo</a>
+  			<a class="navbar-brand" href="<c:url value="/families/${username}/list" />">Famiglia</a>
+  			<a class="navbar-brand" href="<c:url value="/isees/${username}/list" />">Cronologia ISEE</a>
   		</c:when>
   		<c:otherwise>
   			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
