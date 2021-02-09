@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
+import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
@@ -44,10 +45,15 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	
 	@Transactional
 	@Override
-	public UserVehicle update(UserVehicle userVehicle) {
-		UserVehicle uv = this.userVehicleDao.update(userVehicle);
-		this.userDao.update(userVehicle.getUser());
-		this.vehicleDao.update(userVehicle.getVehicle());
+	public UserVehicle update(String user, long vehicle, LocalDate endOfYear, int price) {
+		UserVehicle uv = new UserVehicle();
+		User u = this.userDao.findById(user);
+		Vehicle v = this.vehicleDao.findById(vehicle);
+		uv.setUser(u);
+		uv.setVehicle(v);
+		uv.setEndOfYear(endOfYear);
+		uv.setPrice(price);
+		this.userVehicleDao.update(uv);
 		this.userDao.update(uv.getUser());
 		this.vehicleDao.update(uv.getVehicle());
 		return uv;

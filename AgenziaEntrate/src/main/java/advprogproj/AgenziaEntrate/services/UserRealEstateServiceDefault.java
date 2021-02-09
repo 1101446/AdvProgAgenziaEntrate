@@ -44,10 +44,15 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 	
 	@Transactional
 	@Override
-	public UserRealEstate update(UserRealEstate userRealEstate) {
-		UserRealEstate ure = this.userRealEstateDao.update(userRealEstate);
-		this.userDao.update(userRealEstate.getUser());
-		this.realEstateDao.update(userRealEstate.getRealEstate());
+	public UserRealEstate update(String user, long realEstate, LocalDate endOfYear, int price) {
+		UserRealEstate ure = new UserRealEstate();
+		User u = this.userDao.findById(user);
+		RealEstate re = this.realEstateDao.findById(realEstate);
+		ure.setUser(u);
+		ure.setRealEstate(re);
+		ure.setEndOfYear(endOfYear);
+		ure.setPrice(price);
+		this.userRealEstateDao.update(ure);
 		this.userDao.update(ure.getUser());
 		this.realEstateDao.update(ure.getRealEstate());
 		return ure;

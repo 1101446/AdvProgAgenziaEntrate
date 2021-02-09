@@ -13,7 +13,7 @@ public interface UserRealEstateService {
 	
 	public UserRealEstate create(String user, long realEstate, LocalDate endOfYear, long price);
 	
-	public UserRealEstate update(UserRealEstate userRealEstate);
+	public UserRealEstate update(String user, long realEstate, LocalDate endOfYear, int price);
 	
 	public void delete(String user, long realEstate, LocalDate endOfYear);
 }

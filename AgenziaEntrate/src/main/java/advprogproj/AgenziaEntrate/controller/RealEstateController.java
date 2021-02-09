@@ -124,9 +124,8 @@ public class RealEstateController {
 					   @RequestParam(value="endOfYear") LocalDate endOfYear,
 					   @RequestParam(value="price") int price,
 					   @RequestParam(value="update") boolean update){
-		if(update) {
-			UserRealEstate ure = this.userRealEstateService.findUserRealEstate(userId, realEstateId, endOfYear);
-			this.userRealEstateService.update(ure);
+		if(update){
+			this.userRealEstateService.update(userId, realEstateId, endOfYear, price);
 		}
 		else
 			this.userRealEstateService.create(userId, realEstateId, endOfYear, price);

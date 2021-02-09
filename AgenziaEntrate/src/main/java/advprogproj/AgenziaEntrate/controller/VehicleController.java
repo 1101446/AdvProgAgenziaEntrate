@@ -127,9 +127,8 @@ public class VehicleController {
 					   @RequestParam(value="endOfYear") LocalDate endOfYear,
 					   @RequestParam(value="price") int price,
 					   @RequestParam(value="update") boolean update){
-		if(update) {
-			UserVehicle uv = this.userVehicleService.findUserVehicle(userId, vehicleId, endOfYear);
-			this.userVehicleService.update(uv);
+		if(update){
+			this.userVehicleService.update(userId, vehicleId, endOfYear, price);
 		}
 		else
 			this.userVehicleService.create(userId, vehicleId, endOfYear, price);

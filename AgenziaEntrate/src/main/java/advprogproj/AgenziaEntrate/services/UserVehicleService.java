@@ -13,7 +13,7 @@ public interface UserVehicleService {
 	
 	public UserVehicle create(String user, long vehicle, LocalDate endOfYear, long price);
 	
-	public UserVehicle update(UserVehicle userVehicle);
+	public UserVehicle update(String user, long vehicle, LocalDate endOfYear, int price);
 	
 	public void delete(String user, long vehicle, LocalDate endOfYear);
 }
