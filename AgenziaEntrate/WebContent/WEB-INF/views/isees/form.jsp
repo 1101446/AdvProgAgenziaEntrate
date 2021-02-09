@@ -16,7 +16,7 @@
                    	<td><form:input path="valueOfISEE" /></td>
                </tr>
 				<tr>
-					<td><label path="userId">Utente</label></td>
+					<td><label path="userId">Assegna ISEE a utente</label></td>
 					<td>
 						<select name="userId">
 							<option value="noUser" selected>----------</option>

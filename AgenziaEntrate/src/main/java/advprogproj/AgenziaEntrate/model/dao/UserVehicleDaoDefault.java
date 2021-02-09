@@ -1,6 +1,8 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Query;
 
@@ -14,11 +16,17 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 public class UserVehicleDaoDefault extends DefaultDao implements UserVehicleDao{
 	
 	@Override
+	public Set<UserVehicle> findAll(){
+		Query q = this.getSession().createQuery("from UserVehicle a join fetch a.user join fetch a.vehicle ", UserVehicle.class);
+		return new HashSet<UserVehicle>(q.getResultList());
+	}
+	
+	@Override
 	public UserVehicle findById(User user, Vehicle vehicle, LocalDate date) {
 		Query q = this.getSession().createQuery("from UserVehicle a join fetch a.user join fetch a.vehicle "
-				+ "WHERE a.user = :user AND a.userVehicle = :userVehicle AND a.endOfYear = :date", UserVehicle.class);
+				+ "WHERE a.user = :user AND a.vehicle = :vehicle AND a.endOfYear = :date", UserVehicle.class);
 		return (UserVehicle) q.setParameter("user", user).
-				setParameter("realEstate", vehicle).
+				setParameter("vehicle", vehicle).
 				setParameter("date", date).getSingleResult();
 	}
 	

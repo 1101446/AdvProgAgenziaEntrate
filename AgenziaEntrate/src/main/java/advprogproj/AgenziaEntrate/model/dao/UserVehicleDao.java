@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import org.hibernate.Session;
 
@@ -10,6 +11,8 @@ import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 public interface UserVehicleDao {
 	Session getSession();
+	
+	public Set<UserVehicle> findAll();
 	
 	UserVehicle findById(User user, Vehicle vehicle, LocalDate date);
 	

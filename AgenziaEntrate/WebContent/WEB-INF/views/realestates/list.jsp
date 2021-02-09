@@ -29,5 +29,26 @@ Elenco immobili: ${numRealEstates}.
 	</c:forEach>
 </table>
 <hr/>
+<table class="text-center">
+	<thead>
+		<td>Utente</td>
+		<td>Immobile</td>
+		<td>Data Saldo</td>
+		<td>Valore</td>
+		<td>Modifica</td>
+		<td>Elimina</td>
+	</thead>
+	<c:forEach items="${userRealEstates}" var="ure">
+		<tr>
+			<td>${ure.user.cf}</td>
+			<td>${ure.realEstate.address} ${ure.realEstate.CAP} ${ure.realEstate.country}</td>
+			<td>${ure.endOfYear}</td>
+			<td>${ure.price}</td>
+			<td>[<a href="<c:url value="/realestates/${ure.realEstate.id}/user/${ure.user.cf}/endOfYear/${ure.endOfYear}/edit" />">+</a>]</td>
+			<td>[<a href="<c:url value="/realestates/${ure.realEstate.id}/user/${ure.user.cf}/endOfYear/${ure.endOfYear}/unlink" />">X</a>]</td>
+		</tr>
+	</c:forEach>
+</table>
+<hr/>
 <a href="<c:url value="/realestates/add" />">Aggiungi nuovo immobile</a>
 <a href="<c:url value="/realestates/link/choose" />">Aggiungi intestatario</a>

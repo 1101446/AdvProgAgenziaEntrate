@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,12 @@ public class UserRealEstateServiceDefault implements UserRealEstateService{
 	private UserRealEstateDao userRealEstateDao;
 	private UserDao userDao;
 	private RealEstateDao realEstateDao;
+	
+	@Transactional
+	@Override
+	public Set<UserRealEstate> findAllUserRealEstates() {
+		return this.userRealEstateDao.findAll();
+	}
 	
 	@Transactional
 	@Override

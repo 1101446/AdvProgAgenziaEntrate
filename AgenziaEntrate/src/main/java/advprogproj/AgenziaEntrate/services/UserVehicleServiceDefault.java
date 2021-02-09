@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.VehicleDao;
-import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
-import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
 
@@ -21,6 +20,12 @@ public class UserVehicleServiceDefault implements UserVehicleService{
 	private UserVehicleDao userVehicleDao;
 	private UserDao userDao;
 	private VehicleDao vehicleDao;
+	
+	@Transactional
+	@Override
+	public Set<UserVehicle> findAllUserVehicles() {
+		return this.userVehicleDao.findAll();
+	}
 	
 	@Transactional
 	@Override

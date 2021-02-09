@@ -25,6 +25,7 @@
 				</tr>
 				<tr>
 					<td>
+						<label name="userId">Assegna permesso a utente</label>
 						<select name="userId">
 						<option value="noUser" selected>----------</option>
 						<c:forEach items="${users}" var="u">

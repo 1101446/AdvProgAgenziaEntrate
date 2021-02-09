@@ -24,7 +24,7 @@
                     <td><form:input path="balance"/></td>
                 </tr>
 				<tr>
-					<td><label path="userId">Utente</label></td>
+					<td><label path="userId">Assegna conto corrente a utente</label></td>
 					<td>
 						<select name="userId">
 							<option value="noUser" selected>----------</option>

@@ -3,6 +3,7 @@ package advprogproj.AgenziaEntrate.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
+import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.services.UserVehicleService;
 import advprogproj.AgenziaEntrate.services.VehicleService;
@@ -37,12 +40,17 @@ public class VehicleController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model vehicleModel) {
 		//logger.info("Listing Vehicles");
-		List<Vehicle> allVehicles = new ArrayList<Vehicle>();
+		Set<UserVehicle> allUserVehicles = this.userVehicleService.findAllUserVehicles();
+		List<Vehicle> allVehicles = this.vehicleService.findAllVehicles();
 		int numVehicles = -1;
-		allVehicles = this.vehicleService.findAllVehicles();
+		int numUserVehicles = -1;
+		
 		numVehicles = allVehicles.size();
+		numUserVehicles = allUserVehicles.size();
 		vehicleModel.addAttribute("vehicles", allVehicles);
+		vehicleModel.addAttribute("userVehicles", allUserVehicles);
 		vehicleModel.addAttribute("numVehicles", numVehicles);
+		vehicleModel.addAttribute("numUserVehicles", numUserVehicles);
 		
 		return "vehicles/list";
 	}
@@ -86,6 +94,18 @@ public class VehicleController {
 		return "vehicles/form";
 	}
 	
+	@GetMapping(value = "/{vehicleId}/user/{userId}/endOfYear/{endOfYear}/edit")
+	public String editUserVehicle(@PathVariable("vehicleId") long vehicleId,
+									 @PathVariable("userId") String userId,
+									 @PathVariable("endOfYear") String endOfYear,Model vehicleModel) {
+		UserVehicle uv = this.userVehicleService.findUserVehicle(userId,vehicleId,LocalDate.parse(endOfYear));
+		vehicleModel.addAttribute("userVehicle", uv);
+		vehicleModel.addAttribute("vehicle", uv.getVehicle());
+		vehicleModel.addAttribute("user", uv.getUser());
+		vehicleModel.addAttribute("update", true);
+		return "vehicles/link_choose";
+	}
+	
 	@GetMapping(value = "/{vehicleId}/delete")
 	public String delete(@PathVariable("vehicleId") long vehicleId) {
 		this.vehicleService.delete(vehicleId);
@@ -93,23 +113,30 @@ public class VehicleController {
 	}
 	
 	@GetMapping("/link/choose")
-	public String link(Model institutionModel) {
-		institutionModel.addAttribute("vehicles", this.vehicleService.findAllVehicles());
-		institutionModel.addAttribute("users", this.userService.findAllUsers());
+	public String link(Model vehicleModel) {
+		vehicleModel.addAttribute("vehicles", this.vehicleService.findAllVehicles());
+		vehicleModel.addAttribute("users", this.userService.findAllUsers());
+		vehicleModel.addAttribute("update", false);
 		
 		return "vehicles/link_choose";
 	}
 	
 	@PostMapping("/link")
-	public String link(@RequestParam(value="vehicle") long vehicle,
+	public String link(@RequestParam(value="vehicle") long vehicleId,
 					   @RequestParam(value="user") String userId,
-					   @RequestParam(value="endOfYear") String endOfYear,
-					   @RequestParam(value="price") int price){
-		this.userVehicleService.create(userId, vehicle, LocalDate.parse(endOfYear), price);
+					   @RequestParam(value="endOfYear") LocalDate endOfYear,
+					   @RequestParam(value="price") int price,
+					   @RequestParam(value="update") boolean update){
+		if(update) {
+			UserVehicle uv = this.userVehicleService.findUserVehicle(userId, vehicleId, endOfYear);
+			this.userVehicleService.update(uv);
+		}
+		else
+			this.userVehicleService.create(userId, vehicleId, endOfYear, price);
 		return "redirect:/vehicles/list";
 	}
 	
-	@GetMapping(value = "/realEstate/{vehicleId}/user/{userId}/endOfYear/{endOfYear}/unlink/" )
+	@GetMapping(value = "/{vehicleId}/user/{userId}/endOfYear/{endOfYear}/unlink" )
 	public String unlinkUserVehicles( 
 			@PathVariable("vehicleId") long vehicleId, 
 			@PathVariable("userId") String userId,

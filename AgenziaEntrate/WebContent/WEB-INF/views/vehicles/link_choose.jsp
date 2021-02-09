@@ -6,34 +6,57 @@
     
 <form method="POST" action="<c:url value="/vehicles/link" />">
 	<table>
-		<tr>
-			<td>Veicolo</td>
-			<td>
-				<select name="vehicle">
-					<c:forEach items="${vehicles}" var="v">
-						<option value="${v.id}">${v.brand} - ${v.model} - ${v.vehicleRegistration}</option> 
-					</c:forEach>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>Utente</td>
-			<td>
-				<select name="user">
-				<c:forEach items="${users}" var="u">
-					<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
-				</c:forEach>
-				</select>
-			</td>
-		</tr>
+		<c:choose>
+			<c:when test="${update}">
+				<tr>
+					<td>Veicolo</td>
+					<td>${vehicle.brand} - ${vehicle.model} - ${vehicle.vehicleRegistration}</td>
+				</tr>
+				<tr>
+					<td>Utente</td>
+					<td>${user.cf} - ${user.firstName} ${user.secondName}</td>
+				</tr>
+				<tr>
+            		<td><input name="vehicle" type="hidden" value="${vehicle.id}"/></td>
+       			</tr>
+				<tr>
+            		<td><input name="user" type="hidden" value="${user.cf}"/></td>
+       			</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td>Veicolo</td>
+					<td>
+						<select name="vehicle">
+						<c:forEach items="${vehicles}" var="v">
+							<option value="${v.id}">${v.brand} - ${v.model} - ${v.vehicleRegistration}</option> 
+						</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Utente</td>
+					<td>
+						<select name="user">
+						<c:forEach items="${users}" var="u">
+							<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
+						</c:forEach>
+						</select>
+					</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 		<tr>
 			<td><label name="endOfYear">Data Saldo</label></td>
-			<td><input name="endOfYear" type="date"/></td>
+			<td><input name="endOfYear" type="date" value="${userVehicle.endOfYear.getDayOfMonth()}/${userVehicle.endOfYear.getMonthValue()}/${userVehicle.endOfYear.getYear()}"/></td>
 		</tr>
 		<tr>
 			<td><label path="price">Prezzo</label></td>
-			<td><input name="price" type="num"/></td>
+			<td><input name="price" type="number" value="${userVehicle.price}"/></td>
 		</tr>
+		<tr>
+            <td><input name="update" type="hidden" value="${update}"/></td>
+        </tr>
 	</table>
 	<input type="submit" value="Salva"/>
 </form>

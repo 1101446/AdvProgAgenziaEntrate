@@ -52,11 +52,11 @@ public class RealEstateDaoDefault extends DefaultDao implements RealEstateDao {
 	
 	@Override
 	public void addUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate) {
-		realEstate.addUserRealEstate(userRealEstate);
+		realEstate.addOwner(userRealEstate);
 	}
 	
 	@Override
 	public void removeUserRealEstate(RealEstate realEstate, UserRealEstate userRealEstate) {
-		realEstate.removeUserRealEstate(userRealEstate);
+		realEstate.removeOwner(userRealEstate);
 	}
 }

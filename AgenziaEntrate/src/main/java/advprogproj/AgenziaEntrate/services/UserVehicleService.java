@@ -1,10 +1,13 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
 public interface UserVehicleService {
+	
+	public Set<UserVehicle> findAllUserVehicles();
 	
 	public UserVehicle findUserVehicle(String user, long vehicle, LocalDate date); 
 	

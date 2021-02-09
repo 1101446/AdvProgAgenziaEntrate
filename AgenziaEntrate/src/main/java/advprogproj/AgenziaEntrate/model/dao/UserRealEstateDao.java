@@ -1,6 +1,8 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
 import java.time.LocalDate;
+import java.util.Set;
+
 import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
@@ -10,6 +12,8 @@ public interface UserRealEstateDao {
 	Session getSession();
 	
 	public void setSession(Session session);
+	
+	Set<UserRealEstate> findAll();
 	
 	UserRealEstate findById(User user, RealEstate realEstate, LocalDate date);
 	

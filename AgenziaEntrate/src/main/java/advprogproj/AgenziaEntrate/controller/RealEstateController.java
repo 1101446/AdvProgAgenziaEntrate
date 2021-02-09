@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +39,17 @@ public class RealEstateController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model reModel) {
 		//logger.info("Listing RealEstates");
-		List<RealEstate> allRealEstates = new ArrayList<RealEstate>();
+		Set<UserRealEstate> allUserRealEstates = this.userRealEstateService.findAllUserRealEstates();
+		List<RealEstate> allRealEstates = this.realEstateService.findAllRealEstates();
 		int numRealEstates = -1;
-		allRealEstates = this.realEstateService.findAllRealEstates();
-		numRealEstates = allRealEstates.size();
+		int numUserRealEstates = -1;
 		
+		numRealEstates = allRealEstates.size();
+		numUserRealEstates = allUserRealEstates.size();
 		reModel.addAttribute("realEstates", allRealEstates);
 		reModel.addAttribute("numRealEstates", numRealEstates);
+		reModel.addAttribute("userRealEstates", allUserRealEstates);
+		reModel.addAttribute("numUserRealEstates", numUserRealEstates);
 		return "realestates/list";
 	}
 	
@@ -79,12 +84,24 @@ public class RealEstateController {
 	}
 	
 	@GetMapping(value = "/{realEstateId}/edit")
-	public String edit(@PathVariable("realEstateId") long realEstateId, Model reModel) {
+	public String editRealEstate(@PathVariable("realEstateId") long realEstateId, Model reModel) {
 		List<User> users = this.userService.findAllUsers();
 		RealEstate re = this.realEstateService.findRealEstate(realEstateId);
 		reModel.addAttribute("realEstate", re);
 		reModel.addAttribute("users", users);
 		return "realestates/form";
+	}
+	
+	@GetMapping(value = "/{realEstateId}/user/{userId}/endOfYear/{endOfYear}/edit")
+	public String editUserRealEstate(@PathVariable("realEstateId") long realEstateId,
+									 @PathVariable("userId") String userId,
+									 @PathVariable("endOfYear") String endOfYear,Model reModel) {
+		UserRealEstate ure = this.userRealEstateService.findUserRealEstate(userId,realEstateId,LocalDate.parse(endOfYear));
+		reModel.addAttribute("userRealEstate", ure);
+		reModel.addAttribute("realEstate", ure.getRealEstate());
+		reModel.addAttribute("user", ure.getUser());
+		reModel.addAttribute("update", true);
+		return "realestates/link_choose";
 	}
 	
 	@GetMapping(value = "/{realEstateId}/delete")
@@ -94,30 +111,36 @@ public class RealEstateController {
 	}
 	
 	@GetMapping("/link/choose")
-	public String link(Model institutionModel) {
-		institutionModel.addAttribute("realEstate", this.realEstateService.findAllRealEstates());
-		institutionModel.addAttribute("users", this.userService.findAllUsers());
-		
+	public String link(Model reModel) {
+		reModel.addAttribute("realEstates", this.realEstateService.findAllRealEstates());
+		reModel.addAttribute("users", this.userService.findAllUsers());
+		reModel.addAttribute("update", false);
 		return "realestates/link_choose";
 	}
 	
 	@PostMapping("/link")
-	public String link(@RequestParam(value="realEstate") long realEstate,
+	public String link(@RequestParam(value="realEstate") long realEstateId,
 					   @RequestParam(value="user") String userId,
-					   @RequestParam(value="endOfYear") String endOfYear,
-					   @RequestParam(value="price") int price){
-		this.userRealEstateService.create(userId, realEstate, LocalDate.parse(endOfYear), price);
+					   @RequestParam(value="endOfYear") LocalDate endOfYear,
+					   @RequestParam(value="price") int price,
+					   @RequestParam(value="update") boolean update){
+		if(update) {
+			UserRealEstate ure = this.userRealEstateService.findUserRealEstate(userId, realEstateId, endOfYear);
+			this.userRealEstateService.update(ure);
+		}
+		else
+			this.userRealEstateService.create(userId, realEstateId, endOfYear, price);
 		return "redirect:/realestates/list";
 	}
 	
-	@GetMapping(value = "/realEstate/{realEstateId}/user/{userId}/endOfYear/{endOfYear}/unlink/" )
+	@GetMapping(value = "/{realEstateId}/user/{userId}/endOfYear/{endOfYear}/unlink" )
 	public String unlinkUserRealEstates( 
 			@PathVariable("realEstateId") long realEstateId, 
 			@PathVariable("userId") String userId,
 			@PathVariable("endOfYear") String endOfYear){
 		this.userRealEstateService.delete(userId,realEstateId,LocalDate.parse(endOfYear));
 		return "redirect:/realestates/list";
-	}
+	} 
 	
 	@Autowired
 	public void setRealEstateService(RealEstateService realEstateService) {

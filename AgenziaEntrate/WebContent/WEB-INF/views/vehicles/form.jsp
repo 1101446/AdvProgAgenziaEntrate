@@ -23,9 +23,10 @@
 					<td><form:hidden path="id" /></td>
 				</tr>
 			</table>
+		<h3>Inserimento proprietario</h3>
 			<table>
 				<tr>
-					<td><label name="userId">Utente</label></td>
+					<td><label name="userId">Assegna a utente</label></td>
 					<td>
 						<select name="userId">
 							<option value="noUser" selected>----------</option>
@@ -40,7 +41,7 @@
                    	<td><input name="endOfYear" type="date" type="date" value="01/01/90"/></td>
 				</tr>
 				<tr>
-					<td><label name="price">Prezzo</label></td>
+					<td><label name="price">Valore</label></td>
                    	<td><input name="price" type="number" value="0" /></td>
 				</tr>
 				<tr>
