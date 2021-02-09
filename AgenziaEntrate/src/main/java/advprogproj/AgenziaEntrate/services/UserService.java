@@ -17,8 +17,6 @@ public interface UserService {
 	
 	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, long access);
 	
-	public User update(String user);
-	
 	public User update(User user);
 	
 	public void delete(String user);

@@ -80,30 +80,25 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Transactional
 	@Override
-	public User update(String user){
-		return this.update(this.findUser(user));
-	}
-	
-	@Transactional
-	@Override
 	public User update(User user) {
 		return this.userDao.update(user);
 	}
-	
+
 	@Transactional
 	@Override
 	public void delete(String user) {
 		User u = this.userDao.findById(user);
+		
 		for(BankAccount a : u.getBankAccounts()) {
-			this.removeBankAccount(user, a.getIBAN(), a.getBillDate());	
+			a.getOwners().removeIf(us -> us == u);
 		}
 		
 		for(ISEE i : u.getAssociatedISEEs()) {
-			this.removeISEE(user, i.getId());
+			i.getAssociatedUsers().removeIf(us -> us == u);
 		}
 		
 		for(UserRealEstate ure : u.getUserRealEstates()) {
-			ure.getRealEstate().removeOwner(ure);
+			ure.getRealEstate().removeOwner(ure);	
 			this.userRealEstateDao.delete(ure);
 		}
 		
@@ -111,14 +106,11 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 			uv.getVehicle().removeOwner(uv);
 			this.userVehicleDao.delete(uv);
 		}
-		u.getBankAccounts().clear();
-		u.getAssociatedISEEs().clear();
-		u.getUserRealEstates().clear();
-		u.getUserVehicles().clear();
 
 		for(Family f : this.userDao.getFamilies(u)) {
 			this.familyDao.delete(f);
 		}	
+		
 		this.userDao.delete(this.findUser(user));
 	}
 	
@@ -128,7 +120,6 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
 	}
 	
-	@Transactional
 	@Override
 	public void removeBankAccount(String user, String IBAN, LocalDate billDate) {
 		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
@@ -140,7 +131,6 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 		this.userDao.addAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
 	}
 	
-	@Transactional
 	@Override
 	public void removeISEE(String user, long isee) {
 		this.userDao.removeAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
@@ -152,7 +142,6 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 		this.userDao.addUserRealEstate(this.findUser(user), userRealEstate);
 	}
 	
-	@Transactional
 	@Override
 	public void removeUserRealEstate(String user, UserRealEstate userRealEstate) {
 		this.userDao.removeUserRealEstate(this.findUser(user), userRealEstate);
@@ -164,7 +153,6 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 		this.userDao.addUserVehicle(this.findUser(user) ,userVehicle);
 	}
 	
-	@Transactional
 	@Override
 	public void removeUserVehicle(String user, UserVehicle userVehicle) {
 		this.userDao.removeUserVehicle(this.findUser(user) ,userVehicle);
@@ -199,5 +187,25 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	@Autowired
 	public void setISEEDao(ISEEDao iseeDao) {
 		this.iseeDao = iseeDao;
+	}
+	
+	@Autowired
+	public void setIseeDao(ISEEDao iseeDao) {
+		this.iseeDao = iseeDao;
+	}
+	
+	@Autowired
+	public void setFamilyDao(FamilyDao familyDao) {
+		this.familyDao = familyDao;
+	}
+	
+	@Autowired
+	public void setUserRealEstateDao(UserRealEstateDao userRealEstateDao) {
+		this.userRealEstateDao = userRealEstateDao;
+	}
+	
+	@Autowired
+	public void setUserVehicleDao(UserVehicleDao userVehicleDao) {
+		this.userVehicleDao = userVehicleDao;
 	}
 }

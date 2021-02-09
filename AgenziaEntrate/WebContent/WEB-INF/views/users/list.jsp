@@ -36,7 +36,7 @@
 				</c:choose>
 				<td>${profile.email}</td>
 				<td>${profile.password}</td>
-				<td>[<a href="<c:url value="/users/${u.cf}/edit/" />">+</a>]</td>
+				<td>[<a href="<c:url value="/users/${u.cf}/edit" />">+</a>]</td>
 			</tr>
 		</c:when>
 		<c:otherwise>
@@ -48,6 +48,7 @@
 				<td>Handicap</td>
 				<td>Email</td>
 				<td>Password</td>
+				<td>Ruolo</td>
 				<td>Modifica</td>
 				<td>Elimina</td>
 			</thead>
@@ -66,14 +67,15 @@
 						</c:otherwise>
 					</c:choose>
 					<td>${u.email}</td>
-					<td>${u.password}</td>
-					<td>[<a href="<c:url value="/users/${u.cf}/edit/" />">+</a>]</td>
-					<td>[<a href="<c:url value="/users/${u.cf}/delete/" />">X</a>]</td>
+					<td>**********</td>
+					<td>${u.access.roleName}</td>
+					<td>[<a href="<c:url value="/users/${u.cf}/edit" />">+</a>]</td>
+					<td>[<a href="<c:url value="/users/${u.cf}/delete" />">X</a>]</td>
 				</tr>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
 </table>
 <hr/>
-<a href="<c:url value="/users/add" />">Aggiungi nuovo ruolo</a>
+<a href="<c:url value="/users/add" />">Aggiungi nuovo utente</a>
 <a href="<c:url value="/users/link/choose" />">Modifica ruolo utenti</a>

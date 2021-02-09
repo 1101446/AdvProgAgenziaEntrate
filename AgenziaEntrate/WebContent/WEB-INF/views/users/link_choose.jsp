@@ -3,18 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-	<form method="POST" action="<c:url value="/roles/link" />">
+	<form method="POST" action="<c:url value="/users/link" />">
 	<table>
-		<tr>
-			<td>Permesso</td>
-			<td>
-				<select name="access">
-					<c:forEach items="${access}" var="a">
-						<option value="${a.id}">${a.roleName}</option> 
-					</c:forEach>
-				</select>
-			</td>
-		</tr>
 		<tr>
 			<td>Utente</td>
 			<td>
@@ -22,6 +12,16 @@
 				<c:forEach items="${users}" var="u">
 					<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 				</c:forEach>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Permesso</td>
+			<td>
+				<select name="access">
+					<c:forEach items="${access}" var="a">
+						<option value="${a.id}" >${a.roleName}</option> 
+					</c:forEach>
 				</select>
 			</td>
 		</tr>
