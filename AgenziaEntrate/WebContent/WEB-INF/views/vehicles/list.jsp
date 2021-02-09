@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-Elenco veicoli: ${numVehicles}. 
+<h4>Elenco veicoli: ${numVehicles}</h4> 
 
 <c:if test="${fn:length(message) > 0}">
 <p>${message}</p>
@@ -29,6 +29,7 @@ Elenco veicoli: ${numVehicles}.
 	</c:forEach>
 </table>
 <hr/>
+<h4>Veicoli associati: ${numUserVehicles}</h4>
 <table class="text-center">
 	<thead>
 		<td>Utente</td>

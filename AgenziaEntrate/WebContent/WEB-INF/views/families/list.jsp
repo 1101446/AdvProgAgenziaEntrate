@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-Elenco famiglie: ${numFamilies}. 
+<h4>Elenco famiglie: ${numFamilies}</h4> 
 
 <c:if test="${fn:length(message) > 0}">
 <p>${message}</p>
