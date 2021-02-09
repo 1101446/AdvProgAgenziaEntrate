@@ -47,7 +47,7 @@
   			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
   		</c:when>
   		<c:when test="${isUser}">
-  			<a class="navbar-brand" href="<c:url value='/users/profile/${username}'/>" >Profilo</a>
+  			<a class="navbar-brand" href="<c:url value="/users/profile/${username}"/>" >Profilo</a>
   			<a class="navbar-brand" href="<c:url value="/families/${username}/list" />">Famiglia</a>
   			<a class="navbar-brand" href="<c:url value="/isees/${username}/list" />">Cronologia ISEE</a>
   		</c:when>
