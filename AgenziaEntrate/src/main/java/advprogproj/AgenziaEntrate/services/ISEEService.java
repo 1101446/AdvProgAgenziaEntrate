@@ -14,7 +14,7 @@ public interface ISEEService {
 	
 	public ISEE create(int yearOfValidity , int valueOfISEE);
 	
-	public ISEE update(long id);
+	public ISEE update(ISEE isee);
 	
 	public void delete(long id);
 	

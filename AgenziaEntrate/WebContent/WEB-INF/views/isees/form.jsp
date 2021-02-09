@@ -5,7 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
     
 		<c:url value="/isees/save" var="action_url" />
-        <form:form method="POST" action="${action_url}" modelAttribute="ISEE">
+        <form:form method="POST" action="${action_url}" modelAttribute="isee">
         	<table>
              	<tr>
                    	<td><form:label path="yearOfValidity">Anno Validità</form:label></td> 

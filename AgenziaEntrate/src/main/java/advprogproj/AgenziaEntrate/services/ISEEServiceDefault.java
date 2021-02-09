@@ -42,18 +42,19 @@ public class ISEEServiceDefault implements ISEEService{
 	
 	@Transactional
 	@Override
-	public ISEE update(long id) {
-		return this.iseeDao.update(this.findISEE(id));
+	public ISEE update(ISEE isee) {
+		return this.iseeDao.update(isee);
 	}
 	
 	@Transactional
 	@Override
 	public void delete(long id) {
+		ISEE i = this.findISEE(id);
 		Set<User> users = this.iseeDao.getAssociatedUsers(this.findISEE(id));
 		for(User u : users) {
-			this.removeAssociatedUser(id, u.getCf());
+			this.userDao.removeAssociatedISEE(u, i);
 		}
-		this.iseeDao.delete(this.findISEE(id));
+		this.iseeDao.delete(i);
 	}
 	
 	@Transactional

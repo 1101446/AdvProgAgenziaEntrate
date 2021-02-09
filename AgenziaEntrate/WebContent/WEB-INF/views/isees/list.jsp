@@ -25,7 +25,7 @@
 			<td>
 				<ul>
 					<c:forEach items="${i.associatedUsers}" var="u">
-						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink" />">-/-</a>]</li>
+						<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/isees/${i.id}/user/${u.cf}/unlink" />">-/-</a>]</li>
 					</c:forEach>
 				</ul>
 			</td>

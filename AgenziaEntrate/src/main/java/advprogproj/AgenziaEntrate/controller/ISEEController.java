@@ -50,10 +50,10 @@ public class ISEEController {
 	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("ISEE") ISEE isee,
-			 		   @RequestParam(value="user") String userId) {
-		ISEE i = this.iseeService.update(isee.getId());
-		if(userId != "noUser") 
-			return "redirect:/institution/save/"+i.getId()+"/"+userId;
+			 		   @RequestParam(value="userId") String userId) {
+		ISEE i = this.iseeService.update(isee);
+		if(!userId.equals("noUser")) 
+			return "redirect:/isees/save/"+i.getId()+"/"+userId;
 		return "redirect:/isees/list";
 	}
 	
@@ -68,7 +68,7 @@ public class ISEEController {
 	public String add(Model iseeModel) {
 		List<User> users = this.userService.findAllUsers();
 		iseeModel.addAttribute("users", users);
-		iseeModel.addAttribute("ISEE", new ISEE());
+		iseeModel.addAttribute("isee", new ISEE());
 		return "isees/form";
 	}
 	
@@ -86,14 +86,14 @@ public class ISEEController {
 		iseeModel.addAttribute("isees", this.iseeService.findAllISEEs());
 		iseeModel.addAttribute("users", this.userService.findAllUsers());
 		
-		return "isee/link_choose";
+		return "isees/link_choose";
 	}
 	
 	@PostMapping("/link")
 	public String link(@RequestParam(value="isee") long isee,
 					   @RequestParam(value="user") String userId){
 		this.iseeService.addAssociatedUser(isee, userId);
-		return "redirect:/isee/list";
+		return "redirect:/isees/list";
 	}
 	
 	@GetMapping(value = "/{iseeId}/user/{userId}/unlink" )
@@ -101,7 +101,7 @@ public class ISEEController {
 			@PathVariable("iseeId") long iseeId, 
 			@PathVariable("userId") String userId){
 		this.iseeService.removeAssociatedUser(iseeId, userId);
-		return "redirect:/isee/list";
+		return "redirect:/isees/list";
 	}
 	
 	@GetMapping(value = "/{iseeId}/delete")
