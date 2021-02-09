@@ -32,18 +32,23 @@ public class InstitutionController {
 	public String list(Model institutionModel) {
 		//logger.info("Listing BankAccounts");
 		List<BankAccount> allBankAccounts = new ArrayList<BankAccount>();
+		List<BankAccount> allUserBankAccounts = new ArrayList<BankAccount>();
 		int numBankAccounts = -1;
+		int numUserBankAccounts = -1;
 		
 		try {
 			allBankAccounts = this.bankAccountService.findAllBankAccounts();
+			allUserBankAccounts = this.bankAccountService.findAllUserBankAccounts();
 			numBankAccounts = allBankAccounts.size();
+			numUserBankAccounts = allUserBankAccounts.size();
 		}catch(Exception e) {
 			//logger.error(e.getMessage());
 		}
 		
 		institutionModel.addAttribute("allBankAccounts", allBankAccounts);
 		institutionModel.addAttribute("numBankAccounts", numBankAccounts);
-		
+		institutionModel.addAttribute("allUserBankAccounts", allUserBankAccounts);
+		institutionModel.addAttribute("numUserBankAccounts", numUserBankAccounts);
 		return "institution/list";
 	}
 	
@@ -90,7 +95,7 @@ public class InstitutionController {
 		return "institution/form";
 	}
 	
-	@GetMapping(value = "/{bankAccountId}/{billDate}/delete/")
+	@GetMapping(value = "/{bankAccountId}/{billDate}/delete")
 	public String delete(@PathVariable("bankAccountId") String bankAccountId, 
 						 @PathVariable("billDate") String billDate) {
 		this.bankAccountService.delete(bankAccountId, billDate);
@@ -113,7 +118,7 @@ public class InstitutionController {
 		return "redirect:/institution/list";
 	}
 	
-	@GetMapping(value = "/{bankAccountId}/{billDate}/user/{userId}/unlink/" )
+	@GetMapping(value = "/{bankAccountId}/{billDate}/user/{userId}/unlink" )
 	public String unlinkBankAccount( 
 			@PathVariable("bankAccountId") String bankAccountId, 
 			@PathVariable("billDate") String billDate,

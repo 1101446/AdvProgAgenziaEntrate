@@ -20,6 +20,12 @@ public class BankAccountServiceDefault implements BankAccountService{
 	
 	@Transactional
 	@Override
+	public List<BankAccount> findAllUserBankAccounts() {
+		return this.bankAccountDao.findAllWithUser();
+	}
+	
+	@Transactional
+	@Override
 	public List<BankAccount> findAllBankAccounts() {
 		return this.bankAccountDao.findAll();
 	}

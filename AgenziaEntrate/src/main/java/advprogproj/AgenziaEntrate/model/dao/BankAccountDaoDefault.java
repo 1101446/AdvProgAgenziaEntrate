@@ -16,8 +16,13 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 	
 	@Override
-	public List<BankAccount> findAll(){
+	public List<BankAccount> findAllWithUser(){
 		return this.getSession().createQuery("from BankAccount a join fetch a.owners", BankAccount.class).getResultList();
+	}
+	
+	@Override
+	public List<BankAccount> findAll(){
+		return this.getSession().createQuery("from BankAccount a ", BankAccount.class).getResultList();
 	}
 	
 	@Override

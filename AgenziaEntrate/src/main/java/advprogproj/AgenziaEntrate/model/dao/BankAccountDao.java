@@ -13,6 +13,8 @@ public interface BankAccountDao {
 	
 	public void setSession(Session session);
 	
+	List<BankAccount> findAllWithUser();
+	
 	List<BankAccount> findAll();
 	
 	BankAccount findById(String IBAN, LocalDate billDate);

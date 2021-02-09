@@ -14,11 +14,34 @@
 		<td>Ente</td>
 		<td>Data saldo</td>
 		<td>Saldo</td>
-		<td>Intestatari</td>
 		<td>Modifica</td>
 		<td>Elimina</td>
 	</thead>
 	<c:forEach items="${allBankAccounts}" var="ba">
+		<tr>
+			<td>${ba.IBAN}</td>
+			<td>${ba.bankName}</td>
+			<td>${ba.billDate}</td>
+			<td>${ba.balance}</td>
+			<td>[<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/edit" />">+</a>]</td>
+			<td>[<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/delete" />">X</a>]</td>
+		</tr>
+	</c:forEach>
+</table>
+<hr/>
+<h4>Elenco conti correnti associati: ${numUserBankAccounts}</h4>
+
+<table>
+	<thead>
+		<td>IBAN</td>
+		<td>Ente</td>
+		<td>Data saldo</td>
+		<td>Saldo</td>
+		<td>Intestatari</td>
+		<td>Modifica</td>
+		<td>Elimina</td>
+	</thead>
+	<c:forEach items="${numUserBankAccounts}" var="ba">
 		<tr>
 			<td>${ba.IBAN}</td>
 			<td>${ba.bankName}</td>

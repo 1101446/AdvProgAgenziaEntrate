@@ -7,6 +7,8 @@ import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 
 public interface BankAccountService {
 	
+	public List<BankAccount> findAllUserBankAccounts();
+	
 	public List<BankAccount> findAllBankAccounts();
 	
 	public BankAccount findBankAccount(String bankAccount, LocalDate billDate);
