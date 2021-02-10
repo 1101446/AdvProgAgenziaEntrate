@@ -48,16 +48,18 @@ public class SecurityController
     }
 	
 	@PostMapping(value = "/registration/save")
-    public String registration(@ModelAttribute("newUser") User newUser, Model model) {
+    public String registration(@ModelAttribute("newUser") User newUser, 
+    						   @RequestParam(value="isHandicap") boolean handicap) {
+        Access a = accessService.findAccessByName("UTENTE");
+        newUser.setHandicap(handicap);
+        newUser.setAccess(a);
     	this.userService.update(newUser);
-        return "redirect:/";
+        return "redirect:/login";
     }
 	
 	@GetMapping(value = "/registration")
     public String registrationPage(Model model) {
         model.addAttribute("newUser", new User());
-        Access a = accessService.findAccessByName("UTENTE");
-        model.addAttribute("userAccess", a);
         return "registration";
     }
 	

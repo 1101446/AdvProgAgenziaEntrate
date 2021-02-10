@@ -99,7 +99,7 @@ public class InstitutionController {
 	public String delete(@PathVariable("bankAccountId") String bankAccountId, 
 						 @PathVariable("billDate") String billDate) {
 		this.bankAccountService.delete(bankAccountId, billDate);
-		return "redirect:/institution/list/";
+		return "redirect:/institution/list";
 	}
 	
 	@GetMapping("/link/choose")

@@ -47,9 +47,13 @@
   			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
   		</c:when>
   		<c:when test="${isUser}">
-  			<a class="navbar-brand" href="<c:url value="/users/profile/${username}"/>" >Profilo</a>
+  			<a class="navbar-brand" href="<c:url value="/users/profile"/>" >Profilo</a>
+  			<a class="navbar-brand" href="<c:url value="/institution/${username}/list" />">Conti Correnti</a>
+  			<a class="navbar-brand" href="<c:url value="/realestates/${username}/list" />">Immobili</a>
+  			<a class="navbar-brand" href="<c:url value="/vehicles/${username}/list" />">Veicoli</a>
   			<a class="navbar-brand" href="<c:url value="/families/${username}/list" />">Famiglia</a>
   			<a class="navbar-brand" href="<c:url value="/isees/${username}/list" />">Cronologia ISEE</a>
+  			<>
   		</c:when>
   		<c:otherwise>
   			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>

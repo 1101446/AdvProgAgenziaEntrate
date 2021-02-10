@@ -17,15 +17,15 @@
 		<form:label path="cf" class="sr-only">Codice fiscale:</form:label>
 		<form:input path="cf" class="form-control" placeholder="Codice fiscale" type='text'  />
 		<form:label path="birthD" class="sr-only">Data di nascita:</form:label>
-		<form:input path="birthD" class="form-control" type='date' />
+		<form:input path="birthD" class="form-control"/>
 		<form:label path="email" class="sr-only">Email:</form:label>
 		<form:input path="email" class="form-control" placeholder="Email" type='email'/>
 		<form:label path="password" class="sr-only">Password:</form:label>
 		<form:input path="password" class="form-control" type='password' />
-		<form:label path="handicap" class="sr-only">Disabilità:</form:label>
-		<form:input path="handicap" />
-
-		<form:input path="access" type="hidden" value="${userAccess}"/>
+		<input type="radio" id="si" name="isHandicap" value="true" />
+  		<label for="si">Si</label>
+  		<input type="radio" id="no" name="isHandicap" value="false" />
+  		<label for="no">No</label>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Registrati</button>
 </form:form>
 </div>

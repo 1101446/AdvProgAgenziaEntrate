@@ -2,15 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-    
-<h4>Elenco utenti: ${numUsers}</h4> 
 
 <c:if test="${fn:length(message) > 0}">
 <p>${message}</p>
 </c:if>
-<table class="text-center">
-	<c:choose>
-		<c:when test="${isUser}">
+<c:choose>
+	<c:when test="${isUser}">
+		<table class="text-center">
 			<thead>
 				<td>Codice Fiscale</td>
 				<td>Nome</td>
@@ -38,8 +36,11 @@
 				<td>${profile.password}</td>
 				<td>[<a href="<c:url value="/users/${u.cf}/edit" />">+</a>]</td>
 			</tr>
-		</c:when>
-		<c:otherwise>
+		</table>
+	</c:when>
+	<c:otherwise>
+		<h4>Elenco utenti: ${numUsers}</h4> 
+		<table class="text-center">
 			<thead>
 				<td>Codice Fiscale</td>
 				<td>Nome</td>
@@ -73,9 +74,9 @@
 					<td>[<a href="<c:url value="/users/${u.cf}/delete" />">X</a>]</td>
 				</tr>
 			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-</table>
+		</table>
+	</c:otherwise>
+</c:choose>
 <hr/>
 <a href="<c:url value="/users/add" />">Aggiungi nuovo utente</a>
 <a href="<c:url value="/users/link/choose" />">Modifica ruolo utenti</a>
