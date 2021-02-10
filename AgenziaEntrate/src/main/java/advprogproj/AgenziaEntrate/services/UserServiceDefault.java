@@ -1,7 +1,11 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User.UserBuilder;
@@ -167,6 +171,36 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 				this.update(u);
 			}	
 		}
+	}
+	
+	@Transactional
+	@Override
+	public Set<Family> getFamilies(User user) {
+		return this.userDao.getFamilies(user);
+	}
+	
+	@Transactional
+	@Override
+	public Set<BankAccount> getBankAccounts(User user) {
+		return this.userDao.getBankAccounts(user);
+	}
+	
+	@Transactional
+	@Override
+	public Set<ISEE> getAssociatedISEEs(User user) {
+		return this.userDao.getAssociatedISEEs(user);
+	}
+	
+	@Transactional
+	@Override
+	public Set<UserVehicle> getUserVehicles(User user) {
+		return this.userDao.getUserVehicles(user);
+	}
+	
+	@Transactional
+	@Override
+	public Set<UserRealEstate> getUserRealEstates(User user) {
+		return this.userDao.getUserRealEstates(user);
 	}
 	
 	@Autowired

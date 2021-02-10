@@ -47,13 +47,26 @@
   			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>
   		</c:when>
   		<c:when test="${isUser}">
-  			<a class="navbar-brand" href="<c:url value="/users/profile"/>" >Profilo</a>
-  			<a class="navbar-brand" href="<c:url value="/institution/${username}/list" />">Conti Correnti</a>
-  			<a class="navbar-brand" href="<c:url value="/realestates/${username}/list" />">Immobili</a>
-  			<a class="navbar-brand" href="<c:url value="/vehicles/${username}/list" />">Veicoli</a>
-  			<a class="navbar-brand" href="<c:url value="/families/${username}/list" />">Famiglia</a>
-  			<a class="navbar-brand" href="<c:url value="/isees/${username}/list" />">Cronologia ISEE</a>
-  			<>
+  			<form method="POST" id="userForm" action="<c:url value="/users/profile" />">
+  				<input type="hidden" name="email" value="${username}" />
+  				<input type="submit" class="navbar-brand" value="Profilo" />
+  			</form>
+  			<form method="POST" action="<c:url value="/realestates/profile" />">
+  				<input type="hidden" name="email" value="${username}" />
+  				<input type="submit" class="navbar-brand" value="Immobili" />
+  			</form>
+  			<form method="POST" action="<c:url value="/vehicles/profile" />">
+  				<input type="hidden" name="email" value="${username}" />
+  				<input type="submit" class="navbar-brand" value="Veicoli" />
+  			</form>
+  			<form method="POST" action="<c:url value="/families/profile" />">
+  				<input type="hidden" name="email" value="${username}" />
+  				<input type="submit" class="navbar-brand" value="Famiglia" />
+  			</form>
+  			<form method="POST" action="<c:url value="/isees/profile" />">
+  				<input type="hidden" name="email" value="${username}" />
+  				<input type="submit" class="navbar-brand" value="Cronologia ISEE" />
+  			</form>
   		</c:when>
   		<c:otherwise>
   			<a class="navbar-brand" href="<c:url value="/users/list" />">Utenti</a>

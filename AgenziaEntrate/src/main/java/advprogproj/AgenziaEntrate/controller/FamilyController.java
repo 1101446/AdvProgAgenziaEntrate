@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,15 @@ public class FamilyController {
 		
 		familyModel.addAttribute("allFamilies", allFamilies);
 		familyModel.addAttribute("numFamilies", numFamilies);
+		return "families/list";
+	}
+	
+	@PostMapping(value = "/profile")
+	public String getProfile(@RequestParam("email") String email, Model userModel) {
+		//logger.info("Listing RealEstates");
+		User profile = this.userService.findUserEmail(email);
+		Set<Family> profileFamilies = this.userService.getFamilies(profile);
+		userModel.addAttribute("profileFamilies", profileFamilies);
 		return "families/list";
 	}
 	

@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,32 @@ public class ISEEController {
 	public String list(Model iseeModel) {
 		//logger.info("Listing RealEstates");
 		List<ISEE> allISEEs = new ArrayList<ISEE>();
+		List<ISEE> allUserISEEs = new ArrayList<ISEE>();
 		int numISEEs = -1;
-		
+		int numUserISEEs = -1;
 		try {
 			allISEEs = this.iseeService.findAllISEEs();
 			numISEEs = allISEEs.size();
+			
+			allUserISEEs = this.iseeService.findAllUserISEEs();
+			numUserISEEs = allUserISEEs.size();
 		}catch(Exception e) {
 			//logger.error(e.getMessage());
 		}
 		
 		iseeModel.addAttribute("allISEEs", allISEEs);
 		iseeModel.addAttribute("numISEEs", numISEEs);
+		iseeModel.addAttribute("allUserISEEs", allUserISEEs);
+		iseeModel.addAttribute("numUserISEEs", numUserISEEs);
+		return "isees/list";
+	}
+	
+	@PostMapping(value = "/profile")
+	public String getProfile(@RequestParam("email") String email, Model userModel) {
+		//logger.info("Listing RealEstates");
+		User profile = this.userService.findUserEmail(email);
+		Set<ISEE> profileISEEs = this.userService.getAssociatedISEEs(profile);
+		userModel.addAttribute("profileISEEs", profileISEEs);
 		return "isees/list";
 	}
 	
@@ -107,7 +123,7 @@ public class ISEEController {
 	@GetMapping(value = "/{iseeId}/delete")
 	public String delete(@PathVariable("iseeId") long iseeId){
 		this.iseeService.delete(iseeId);
-		return "redirect:/isees/list/";
+		return "redirect:/isees/list";
 	}
 	
 	@Autowired

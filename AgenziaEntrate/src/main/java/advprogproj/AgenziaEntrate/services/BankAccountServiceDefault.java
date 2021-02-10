@@ -59,11 +59,12 @@ public class BankAccountServiceDefault implements BankAccountService{
 	@Transactional
 	@Override
 	public void delete(String IBAN, String billDate) {
-		Set<User> users = this.bankAccountDao.getOwners(this.findBankAccount(IBAN, LocalDate.parse(billDate)));
-		for(User u : users) {
-			this.removeOwner(u.getCf(), IBAN, billDate);
+		BankAccount bk = this.findBankAccount(IBAN, LocalDate.parse(billDate));
+		for(User u : this.bankAccountDao.getOwners(bk)) {
+			u.getBankAccounts().removeIf(b -> b.getIBAN() == bk.getIBAN() && b.getBillDate() == bk.getBillDate());
+			this.userDao.update(u);
 		}
-		this.bankAccountDao.delete(this.findBankAccount(IBAN, LocalDate.parse(billDate)));
+		this.bankAccountDao.delete(bk);
 	}
 	
 	@Transactional

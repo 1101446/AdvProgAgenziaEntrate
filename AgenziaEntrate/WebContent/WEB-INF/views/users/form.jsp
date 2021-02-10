@@ -3,7 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-    
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="hasRole('UTENTE')" var="isUser" />    
 		<c:url value="/users/save" var="action_url" />
         <form:form method="POST" action="${action_url}" modelAttribute="user">
         	<table>
@@ -43,7 +45,7 @@
 				<tr>
 				<c:choose>
 					<c:when test="${isUser}">
-						<td><form:hidden path="access" /></td>
+						<td><input type="hidden" name="accessId" value="${user.access.getId()}"/></td>
 					</c:when>
 					<c:otherwise>
 						<td><label>Permesso</label></td>

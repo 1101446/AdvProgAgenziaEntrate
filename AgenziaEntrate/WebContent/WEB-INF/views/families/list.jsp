@@ -2,12 +2,30 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="hasRole('UTENTE')" var="isUser" />
 
 <c:if test="${fn:length(message) > 0}">
 	<p>${message}</p>
 </c:if>
 <c:choose>
 	<c:when test="${isUser}">
+		<h4>Famiglie</h4> 
+		<table class="text-center">
+			<thead>
+				<td>Nome ruolo</td>
+				<td>Gerarchia</td>
+				<td>Capo Famiglia</td>
+			</thead>
+			<c:forEach items="${profileFamilies}" var="f">
+				<tr>
+					<td>${f.user.firstName} ${f.user.secondName}</td>
+					<td>${f.hierarchy}</td>
+					<td>${f.houseHolder}</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</c:when>
 	<c:otherwise>
 		<h4>Elenco famiglie: ${numFamilies}</h4> 

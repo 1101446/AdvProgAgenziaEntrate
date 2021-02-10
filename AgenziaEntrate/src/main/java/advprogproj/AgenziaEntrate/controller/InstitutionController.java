@@ -3,6 +3,7 @@ package advprogproj.AgenziaEntrate.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,15 @@ public class InstitutionController {
 		institutionModel.addAttribute("numBankAccounts", numBankAccounts);
 		institutionModel.addAttribute("allUserBankAccounts", allUserBankAccounts);
 		institutionModel.addAttribute("numUserBankAccounts", numUserBankAccounts);
+		return "institution/list";
+	}
+	
+	@PostMapping(value = "/profile")
+	public String getProfile(@RequestParam("email") String email, Model userModel) {
+		//logger.info("Listing RealEstates");
+		User profile = this.userService.findUserEmail(email);
+		Set<BankAccount> profileBankAccounts = this.userService.getBankAccounts(profile);
+		userModel.addAttribute("profileBankAccounts", profileBankAccounts);
 		return "institution/list";
 	}
 	

@@ -27,9 +27,6 @@ public class SecurityController
 	@Autowired
 	String appName;
 	
-	private UserService userService;
-	private AccessService accessService;
-	
 	@GetMapping(value = "/login")
     public String login(@RequestParam(value = "error", required = false) String error, 
 //                            @RequestParam(value = "logout", required = false) String logout,
@@ -47,31 +44,6 @@ public class SecurityController
         return "login";
     }
 	
-	@PostMapping(value = "/registration/save")
-    public String registration(@ModelAttribute("newUser") User newUser, 
-    						   @RequestParam(value="isHandicap") boolean handicap) {
-        Access a = accessService.findAccessByName("UTENTE");
-        newUser.setHandicap(handicap);
-        newUser.setAccess(a);
-    	this.userService.update(newUser);
-        return "redirect:/login";
-    }
-	
-	@GetMapping(value = "/registration")
-    public String registrationPage(Model model) {
-        model.addAttribute("newUser", new User());
-        return "registration";
-    }
-	
-	@Autowired
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-	
-	@Autowired
-	public void setAccessService(AccessService accessService) {
-		this.accessService = accessService;
-	}
 //    @GetMapping(value="/logout")
 //    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();

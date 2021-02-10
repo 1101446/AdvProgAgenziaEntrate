@@ -2,7 +2,11 @@ package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
+import advprogproj.AgenziaEntrate.model.entities.BankAccount;
+import advprogproj.AgenziaEntrate.model.entities.Family;
+import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
@@ -39,4 +43,13 @@ public interface UserService {
 
 	void replaceAccess(long accessId);
 	
+	public Set<Family> getFamilies(User user);
+
+	public Set<BankAccount> getBankAccounts(User user);
+	
+	public Set<ISEE> getAssociatedISEEs(User user);
+	
+	public Set<UserVehicle> getUserVehicles(User user);
+	
+	public Set<UserRealEstate> getUserRealEstates(User user);
 }

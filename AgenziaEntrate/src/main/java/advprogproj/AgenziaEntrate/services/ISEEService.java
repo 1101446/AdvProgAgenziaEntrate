@@ -8,6 +8,8 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 
 public interface ISEEService {
 	
+	public List<ISEE> findAllUserISEEs();
+	
 	public List<ISEE> findAllISEEs();
 	
 	public ISEE findISEE(long id);

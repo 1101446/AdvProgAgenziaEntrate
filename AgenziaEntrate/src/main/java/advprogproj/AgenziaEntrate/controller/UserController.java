@@ -39,12 +39,12 @@ public class UserController {
 		return "users/list";
 	}
 	
-	@GetMapping(value = "/profile/{userId}")
-	public String getProfile(@PathVariable("userId") String userId, Model userModel) {
+	@PostMapping(value = "/profile")
+	public String getProfile(@RequestParam("email") String email, Model userModel) {
 		//logger.info("Listing RealEstates");
-		User profile = this.userService.findUserEmail(userId);
+		User profile = this.userService.findUserEmail(email);
 		userModel.addAttribute("profile", profile);
-		return "users/profile";
+		return "users/list";
 	}
 	
 	@PostMapping(value = "/save")

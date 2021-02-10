@@ -1,8 +1,6 @@
 package advprogproj.AgenziaEntrate.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,6 +48,15 @@ public class RealEstateController {
 		reModel.addAttribute("numRealEstates", numRealEstates);
 		reModel.addAttribute("userRealEstates", allUserRealEstates);
 		reModel.addAttribute("numUserRealEstates", numUserRealEstates);
+		return "realestates/list";
+	}
+	
+	@PostMapping(value = "/profile")
+	public String getProfile(@RequestParam("email") String email, Model userModel) {
+		//logger.info("Listing RealEstates");
+		User profile = this.userService.findUserEmail(email);
+		Set<UserRealEstate> profileRealEstates = this.userService.getUserRealEstates(profile);
+		userModel.addAttribute("profileRealEstates", profileRealEstates);
 		return "realestates/list";
 	}
 	

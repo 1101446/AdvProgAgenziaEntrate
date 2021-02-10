@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="hasRole('UTENTE')" var="isUser" />
 
 <c:if test="${fn:length(message) > 0}">
 <p>${message}</p>
@@ -33,8 +36,8 @@
 					</c:otherwise>
 				</c:choose>
 				<td>${profile.email}</td>
-				<td>${profile.password}</td>
-				<td>[<a href="<c:url value="/users/${u.cf}/edit" />">+</a>]</td>
+				<td>**********</td>
+				<td>[<a href="<c:url value="/users/${profile.cf}/edit" />">+</a>]</td>
 			</tr>
 		</table>
 	</c:when>
@@ -75,8 +78,8 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<hr/>
+		<a href="<c:url value="/users/add" />">Aggiungi nuovo utente</a>
+		<a href="<c:url value="/users/link/choose" />">Modifica ruolo utenti</a>
 	</c:otherwise>
 </c:choose>
-<hr/>
-<a href="<c:url value="/users/add" />">Aggiungi nuovo utente</a>
-<a href="<c:url value="/users/link/choose" />">Modifica ruolo utenti</a>

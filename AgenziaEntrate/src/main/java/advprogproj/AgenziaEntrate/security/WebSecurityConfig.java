@@ -53,11 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.invalidateHttpSession(true).permitAll().and().csrf().disable();
 		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll();
 		http.authorizeRequests().antMatchers("/roles/**").hasRole("ADMIN");
-		http.authorizeRequests().antMatchers("/institution/**").hasAnyRole("ADMIN","ENTE", "UTENTE");
-		http.authorizeRequests().antMatchers("/realestates/**").hasAnyRole("ADMIN","CATASTO", "UTENTE");
-		http.authorizeRequests().antMatchers("/vehicles/**").hasAnyRole("ADMIN","MOTORIZZAZIONE", "UTENTE");
-		http.authorizeRequests().antMatchers("/isee/**").hasAnyRole("ADMIN","ENTRATE", "UTENTE");
+		http.authorizeRequests().antMatchers("/institution/**").hasAnyRole("ADMIN","ENTE");
+		http.authorizeRequests().antMatchers("/institution/profile").hasAnyRole("UTENTE");
+		http.authorizeRequests().antMatchers("/realestates/**").hasAnyRole("ADMIN","CATASTO");
+		http.authorizeRequests().antMatchers("/realestates/profile").hasAnyRole("UTENTE");
+		http.authorizeRequests().antMatchers("/vehicles/**").hasAnyRole("ADMIN","MOTORIZZAZIONE");
+		http.authorizeRequests().antMatchers("/vehicles/profile").hasAnyRole("UTENTE");
+		http.authorizeRequests().antMatchers("/isees/**").hasAnyRole("ADMIN","ENTRATE");
+		http.authorizeRequests().antMatchers("/isees/profile").hasAnyRole("UTENTE");
+		http.authorizeRequests().antMatchers("/families/**").hasAnyRole("ADMIN","ENTRATE");
+		http.authorizeRequests().antMatchers("/families/profile").hasAnyRole("UTENTE");
 		http.authorizeRequests().antMatchers("/users/**").hasAnyRole("ADMIN","ENTRATE");
 		http.authorizeRequests().antMatchers("/users/profile").hasAnyRole("UTENTE");
+		http.authorizeRequests().antMatchers("/users/edit/**").hasAnyRole("ADMIN","ENTRATE","UTENTE");
 	}
 }

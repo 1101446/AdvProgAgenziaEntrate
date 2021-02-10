@@ -15,6 +15,8 @@ public interface ISEEDao {
 	
 	public void setSession(Session session);
 	
+	List<ISEE> findAllWithUser();
+	
 	List<ISEE> findAll();
 	
 	ISEE findById(long id);

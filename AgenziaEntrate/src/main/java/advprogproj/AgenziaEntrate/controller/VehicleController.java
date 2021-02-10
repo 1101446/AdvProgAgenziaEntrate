@@ -1,7 +1,6 @@
 package advprogproj.AgenziaEntrate.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
-import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.entities.User;
-import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.services.UserVehicleService;
 import advprogproj.AgenziaEntrate.services.VehicleService;
@@ -52,6 +49,15 @@ public class VehicleController {
 		vehicleModel.addAttribute("numVehicles", numVehicles);
 		vehicleModel.addAttribute("numUserVehicles", numUserVehicles);
 		
+		return "vehicles/list";
+	}
+	
+	@PostMapping(value = "/profile")
+	public String getProfile(@RequestParam("email") String email, Model userModel) {
+		//logger.info("Listing RealEstates");
+		User profile = this.userService.findUserEmail(email);
+		Set<UserVehicle> profileVehicles = this.userService.getUserVehicles(profile);
+		userModel.addAttribute("profileVehicles", profileVehicles);
 		return "vehicles/list";
 	}
 	

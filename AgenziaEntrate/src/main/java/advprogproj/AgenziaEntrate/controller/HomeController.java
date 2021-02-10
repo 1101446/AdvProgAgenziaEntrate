@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.User;
@@ -23,6 +24,9 @@ public class HomeController {
 	
 	@Autowired
 	String appName;
+
+	private UserService userService;
+	private AccessService accessService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -37,6 +41,32 @@ public class HomeController {
 		model.addAttribute("appName", appName);
 		
 		return "home";
+	}
+	
+	@PostMapping(value = "/registration/save")
+    public String registration(@ModelAttribute("newUser") User newUser, 
+    						   @RequestParam(value="isHandicap") boolean handicap) {
+        Access a = accessService.findAccessByName("UTENTE");
+        newUser.setHandicap(handicap);
+        newUser.setAccess(a);
+    	this.userService.update(newUser);
+        return "redirect:/login";
+    }
+	
+	@GetMapping(value = "/registration")
+    public String registrationPage(Model model) {
+        model.addAttribute("newUser", new User());
+        return "registration";
+    }
+	
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
+	@Autowired
+	public void setAccessService(AccessService accessService) {
+		this.accessService = accessService;
 	}
 	
 }

@@ -23,10 +23,15 @@ public class ISEEServiceDefault implements ISEEService{
 	
 	@Transactional
 	@Override
+	public List<ISEE> findAllUserISEEs() {
+		return this.iseeDao.findAllWithUser();
+	}
+	
+	@Transactional
+	@Override
 	public List<ISEE> findAllISEEs() {
 		return this.iseeDao.findAll();
 	}
-	
 	
 	@Transactional
 	@Override
@@ -50,9 +55,10 @@ public class ISEEServiceDefault implements ISEEService{
 	@Override
 	public void delete(long id) {
 		ISEE i = this.findISEE(id);
-		Set<User> users = this.iseeDao.getAssociatedUsers(this.findISEE(id));
+		Set<User> users = this.iseeDao.getAssociatedUsers(i);
 		for(User u : users) {
-			this.userDao.removeAssociatedISEE(u, i);
+			u.getAssociatedISEEs().removeIf(ie -> ie.getId() == i.getId());
+			this.userDao.update(u);
 		}
 		this.iseeDao.delete(i);
 	}
