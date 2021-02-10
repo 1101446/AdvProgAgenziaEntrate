@@ -50,7 +50,7 @@ public class HomeController {
         newUser.setHandicap(handicap);
         newUser.setAccess(a);
     	this.userService.update(newUser);
-        return "redirect:/login";
+        return "redirect:/home";
     }
 	
 	@GetMapping(value = "/registration")

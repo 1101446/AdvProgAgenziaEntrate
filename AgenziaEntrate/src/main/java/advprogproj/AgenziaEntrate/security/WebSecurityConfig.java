@@ -46,12 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/registration/").permitAll().antMatchers("/registration/**").permitAll();
-		http.authorizeRequests().antMatchers("/**").hasAnyRole("ADMIN","UTENTE")
+		http.authorizeRequests().antMatchers("/registration").permitAll().antMatchers("/registration/**").permitAll();
+		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll();
+		http.authorizeRequests().antMatchers("/**/**").hasAnyRole("ADMIN","UTENTE")
 			.and().formLogin().loginPage("/login").defaultSuccessUrl("/")
 			.failureUrl("/login?error=true").permitAll().and().logout().logoutSuccessUrl("/") 
 			.invalidateHttpSession(true).permitAll().and().csrf().disable();
-		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll();
 		http.authorizeRequests().antMatchers("/roles/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/institution/**").hasAnyRole("ADMIN","ENTE");
 		http.authorizeRequests().antMatchers("/institution/profile").hasAnyRole("UTENTE");
