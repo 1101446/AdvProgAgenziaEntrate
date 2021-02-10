@@ -27,6 +27,12 @@ public class FamilyDaoDefault extends DefaultDao implements FamilyDao{
 	}
 	
 	@Override
+	public List<Family> findByHouseHolder(String houseHolder) {
+		Query q = this.getSession().createQuery("from Family a WHERE a.houseHolder = :houseHolder",Family.class);
+		return q.setParameter("houseHolder", houseHolder).getResultList();
+	}
+	
+	@Override
 	public Family create(long id, User user, String hierarchy, String houseHolder) {
 		Family family = new Family();
 		family.setId(id);
