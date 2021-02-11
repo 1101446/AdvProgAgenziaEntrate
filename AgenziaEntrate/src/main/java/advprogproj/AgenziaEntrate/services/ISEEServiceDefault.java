@@ -66,26 +66,6 @@ public class ISEEServiceDefault implements ISEEService{
 		this.iseeDao.delete(i);
 	}
 	
-	@Transactional
-	@Override
-	public void addAssociatedUser(long isee, String user) {
-		ISEE i = this.findISEE(isee);
-		User u = this.userDao.findById(user);
-		this.iseeDao.addUserAssociated(u, i);
-		this.userDao.update(u);
-		this.iseeDao.update(i);
-	}
-	
-	@Transactional
-	@Override
-	public void removeAssociatedUser(long isee, String user) {
-		ISEE i = this.findISEE(isee);
-		User u = this.userDao.findById(user);
-		this.iseeDao.removeUserAssociated(u, i);
-		this.userDao.update(u);
-		this.iseeDao.update(i);
-	}
-	
 	@Autowired
 	public void setISEEDao(ISEEDao iseeDao) {
 		this.iseeDao = iseeDao;

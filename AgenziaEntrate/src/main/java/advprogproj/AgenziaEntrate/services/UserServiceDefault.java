@@ -95,7 +95,7 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 		}
 		
 		for(UserISEE ui : u.getAssociatedISEEs()) {
-			ui.getISEE().removeAssociatedUser(ui);
+			ui.getIsee().removeAssociatedUser(ui);
 			this.userISEEDao.delete(ui);
 		}
 		
