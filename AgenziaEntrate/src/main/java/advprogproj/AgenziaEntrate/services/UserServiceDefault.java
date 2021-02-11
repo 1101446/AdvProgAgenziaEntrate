@@ -1,11 +1,8 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User.UserBuilder;
@@ -16,15 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
-import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
-import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.dao.AccessDao;
-import advprogproj.AgenziaEntrate.model.dao.BankAccountDao;
+import advprogproj.AgenziaEntrate.model.dao.UserBankAccountDao;
 import advprogproj.AgenziaEntrate.model.dao.FamilyDao;
-import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
+import advprogproj.AgenziaEntrate.model.dao.UserISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
@@ -34,13 +31,12 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Autowired
 	private UserDao userDao;
-	
-	private BankAccountDao bankAccountDao;
 	private AccessDao accessDao;
-	private ISEEDao iseeDao;
 	private FamilyDao familyDao;
+	private UserBankAccountDao userBankAccountDao;
 	private UserRealEstateDao userRealEstateDao;
 	private UserVehicleDao userVehicleDao;
+	private UserISEEDao userISEEDao;
 	
 	@Transactional
 	@Override
@@ -93,12 +89,14 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	public void delete(String user) {
 		User u = this.userDao.findById(user);
 		
-		for(BankAccount a : u.getBankAccounts()) {
-			a.getOwners().removeIf(us -> us == u);
+		for(UserBankAccount ubk : u.getBankAccounts()) {
+			ubk.getBankAccount().removeOwner(ubk);
+			this.userBankAccountDao.delete(ubk);
 		}
 		
-		for(ISEE i : u.getAssociatedISEEs()) {
-			i.getAssociatedUsers().removeIf(us -> us == u);
+		for(UserISEE ui : u.getAssociatedISEEs()) {
+			ui.getISEE().removeAssociatedUser(ui);
+			this.userISEEDao.delete(ui);
 		}
 		
 		for(UserRealEstate ure : u.getUserRealEstates()) {
@@ -120,24 +118,24 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Transactional
 	@Override
-	public void addBankAccount(String user, String IBAN, LocalDate billDate) {
-		this.userDao.addBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
+	public void addBankAccount(String user, UserBankAccount userBankAccount) {
+		this.userDao.addBankAccount(this.findUser(user), userBankAccount);
 	}
 	
 	@Override
-	public void removeBankAccount(String user, String IBAN, LocalDate billDate) {
-		this.userDao.removeBankAccount(this.findUser(user), this.bankAccountDao.findById(IBAN, billDate));
+	public void removeBankAccount(String user, UserBankAccount userBankAccount) {
+		this.userDao.removeBankAccount(this.findUser(user), userBankAccount);
 	}
 	
 	@Transactional
 	@Override
-	public void addISEE(String user, long isee, String billDate) {
-		this.userDao.addAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
+	public void addISEE(String user, UserISEE userISEE) {
+		this.userDao.addAssociatedISEE(this.findUser(user), userISEE);
 	}
 	
 	@Override
-	public void removeISEE(String user, long isee) {
-		this.userDao.removeAssociatedISEE(this.findUser(user), this.iseeDao.findById(isee));
+	public void removeISEE(String user, UserISEE userISEE) {
+		this.userDao.removeAssociatedISEE(this.findUser(user), userISEE);
 	}
 	
 	@Transactional
@@ -181,13 +179,13 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Transactional
 	@Override
-	public Set<BankAccount> getBankAccounts(User user) {
+	public Set<UserBankAccount> getUserBankAccounts(User user) {
 		return this.userDao.getBankAccounts(user);
 	}
 	
 	@Transactional
 	@Override
-	public Set<ISEE> getAssociatedISEEs(User user) {
+	public Set<UserISEE> getAssociatedISEEs(User user) {
 		return this.userDao.getAssociatedISEEs(user);
 	}
 	
@@ -209,8 +207,8 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	}
 	
 	@Autowired
-	public void setBankAccountDao(BankAccountDao bankAccountDao) {
-		this.bankAccountDao = bankAccountDao;
+	public void setUserBankAccountDao(UserBankAccountDao userBankAccountDao) {
+		this.userBankAccountDao = userBankAccountDao;
 	}
 	
 	@Autowired
@@ -219,13 +217,8 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	}
 	
 	@Autowired
-	public void setISEEDao(ISEEDao iseeDao) {
-		this.iseeDao = iseeDao;
-	}
-	
-	@Autowired
-	public void setIseeDao(ISEEDao iseeDao) {
-		this.iseeDao = iseeDao;
+	public void setISEEDao(UserISEEDao userISEEDao) {
+		this.userISEEDao = userISEEDao;
 	}
 	
 	@Autowired

@@ -19,9 +19,4 @@ public interface ISEEService {
 	public ISEE update(ISEE isee);
 	
 	public void delete(long id);
-	
-	public void addAssociatedUser(long isee, String user);
-	
-	public void removeAssociatedUser(long isee, String user);
-
 }

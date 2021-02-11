@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.hibernate.Session;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
-import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
 
 public interface BankAccountDao {
 	Session getSession();
@@ -27,9 +27,9 @@ public interface BankAccountDao {
 	
 	void delete(BankAccount bankAccount);
 	
-	void addOwner(User user, BankAccount bankAccount);
+	void addOwner(BankAccount bankAccount, UserBankAccount userBankAccount);
 	
-	void removeOwner(User user, BankAccount bankAccount);
+	void removeOwner(BankAccount bankAccount, UserBankAccount userBankAccount);
 	
-	Set<User> getOwners(BankAccount bankAccount);
+	Set<UserBankAccount> getOwners(BankAccount bankAccount);
 }

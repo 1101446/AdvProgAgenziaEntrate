@@ -11,6 +11,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import advprogproj.AgenziaEntrate.app.DataServiceConfig;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.Vehicle;
@@ -28,6 +30,8 @@ import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.dao.UserVehicleDao;
 import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
+import advprogproj.AgenziaEntrate.model.dao.UserBankAccountDao;
+import advprogproj.AgenziaEntrate.model.dao.UserISEEDao;
 
 public class LoadDataTest {
 	public static void main(String ... args) {
@@ -44,7 +48,9 @@ public class LoadDataTest {
 			FamilyDao familyDao = ctx.getBean(FamilyDao.class);
 			UserRealEstateDao userRealEstateDao = ctx.getBean(UserRealEstateDao.class);
 			UserVehicleDao userVehicleDao = ctx.getBean(UserVehicleDao.class);
+			UserBankAccountDao userBankAccountDao = ctx.getBean(UserBankAccountDao.class);
 			ISEEDao iseeDao = ctx.getBean(ISEEDao.class);
+			UserISEEDao userISEEDao = ctx.getBean(UserISEEDao.class);
 			
 			try (Session session = sf.openSession()) {
 				
@@ -57,6 +63,8 @@ public class LoadDataTest {
 				userRealEstateDao.setSession(session);
 				userVehicleDao.setSession(session);
 				iseeDao.setSession(session);
+				userBankAccountDao.setSession(session);
+				userISEEDao.setSession(session);
 				
 				// Popolazione database
 				
@@ -124,29 +132,27 @@ public class LoadDataTest {
 				BankAccount bankAccount3 = bankAccountDao.findById("IT05G0003430005200000000999", billDate2018);
 				BankAccount bankAccount4 = bankAccountDao.findById("IT05G0003430005200000000999", billDate2019);
 				
-				userDao.addBankAccount(mario, bankAccount1);
-				userDao.addBankAccount(mario, bankAccount2);
-				userDao.update(mario);
+				session.getTransaction().commit();		
+				session.beginTransaction();
 				
-				assert(mario.getBankAccounts().contains(bankAccount1));
-				assert(mario.getBankAccounts().contains(bankAccount2));
+				UserBankAccount marioBankAccount1 = userBankAccountDao.create(mario, bankAccount1);
+				UserBankAccount marioBankAccount2 = userBankAccountDao.create(mario, bankAccount2);
+				
+				assert(mario.getBankAccounts().contains(marioBankAccount1));
+				assert(mario.getBankAccounts().contains(marioBankAccount2));
 				
 				session.getTransaction().commit();		
 				session.beginTransaction();
 				
-				bankAccountDao.addOwner(paolo, bankAccount2);
-				bankAccountDao.addOwner(paolo, bankAccount3);
-				bankAccountDao.addOwner(paolo, bankAccount4);
+				UserBankAccount paoloBankAccount2 = userBankAccountDao.create(paolo, bankAccount2);
+				UserBankAccount paoloBankAccount3 = userBankAccountDao.create(paolo, bankAccount3);
+				UserBankAccount paoloBankAccount4 = userBankAccountDao.create(paolo, bankAccount4);
 				
-				bankAccountDao.update(bankAccount2);
-				bankAccountDao.update(bankAccount3);
-				bankAccountDao.update(bankAccount4);
-				
-				assert (bankAccount1.getOwners().contains(mario));
-				assert (bankAccount2.getOwners().contains(paolo));
-				assert (bankAccount2.getOwners().contains(mario));
-				assert (bankAccount3.getOwners().contains(paolo));
-				assert (bankAccount4.getOwners().contains(paolo));
+				assert (bankAccount1.getOwners().contains(marioBankAccount1));
+				assert (bankAccount2.getOwners().contains(paoloBankAccount2));
+				assert (bankAccount2.getOwners().contains(marioBankAccount2));
+				assert (bankAccount3.getOwners().contains(paoloBankAccount3));
+				assert (bankAccount4.getOwners().contains(paoloBankAccount4));
 				
 				session.getTransaction().commit();			
 				session.beginTransaction();
@@ -212,22 +218,25 @@ public class LoadDataTest {
 				ISEE iseeMario2018 = iseeDao.create(2018, 22000);
 				ISEE iseePaolo2018 = iseeDao.create(2018, 30000);
 				
-				userDao.addAssociatedISEE(mario, iseeMario2018);
-				userDao.addAssociatedISEE(marco, iseeMario2018);
-				userDao.addAssociatedISEE(paolo, iseePaolo2018);
-				userDao.addAssociatedISEE(luca, iseePaolo2018);
+				session.getTransaction().commit();		
+				session.beginTransaction();
 				
-				assert (mario.getAssociatedISEEs().contains(iseeMario2018));
-				assert (marco.getAssociatedISEEs().contains(iseeMario2018));
+				UserISEE marioISEE2018 = userISEEDao.create(mario, iseeMario2018);
+				UserISEE marcoISEE2018 = userISEEDao.create(marco, iseeMario2018);
+				UserISEE paoloISEE2018 = userISEEDao.create(paolo, iseePaolo2018);
+				UserISEE lucaISEE2018 = userISEEDao.create(luca, iseePaolo2018);
 				
-				assert (paolo.getAssociatedISEEs().contains(iseePaolo2018));
-				assert (luca.getAssociatedISEEs().contains(iseePaolo2018));
+				assert (mario.getAssociatedISEEs().contains(marioISEE2018));
+				assert (marco.getAssociatedISEEs().contains(marcoISEE2018));
 				
-				assert (iseeMario2018.getAssociatedUsers().contains(mario));
-				assert (iseeMario2018.getAssociatedUsers().contains(marco));
+				assert (paolo.getAssociatedISEEs().contains(paoloISEE2018));
+				assert (luca.getAssociatedISEEs().contains(lucaISEE2018));
 				
-				assert (iseePaolo2018.getAssociatedUsers().contains(paolo));
-				assert (iseePaolo2018.getAssociatedUsers().contains(luca));
+				assert (iseeMario2018.getAssociatedUsers().contains(marioISEE2018));
+				assert (iseeMario2018.getAssociatedUsers().contains(marcoISEE2018));
+				
+				assert (iseePaolo2018.getAssociatedUsers().contains(paoloISEE2018));
+				assert (iseePaolo2018.getAssociatedUsers().contains(lucaISEE2018));
 				
 				userDao.update(mario);
 				userDao.update(marco);
@@ -240,22 +249,25 @@ public class LoadDataTest {
 				ISEE iseeMario2019 = iseeDao.create(2019, 22000);
 				ISEE iseePaolo2019 = iseeDao.create(2019, 30000);
 				
-				userDao.addAssociatedISEE(mario, iseeMario2019);
-				userDao.addAssociatedISEE(marco, iseeMario2019);
-				userDao.addAssociatedISEE(paolo, iseePaolo2019);
-				userDao.addAssociatedISEE(luca, iseePaolo2019);
+				session.getTransaction().commit();		
+				session.beginTransaction();
 				
-				assert (mario.getAssociatedISEEs().contains(iseeMario2019));
-				assert (marco.getAssociatedISEEs().contains(iseeMario2019));
+				UserISEE marioISEE2019 = userISEEDao.create(mario, iseeMario2019);
+				UserISEE marcoISEE2019 = userISEEDao.create(marco, iseeMario2019);
+				UserISEE paoloISEE2019 = userISEEDao.create(paolo, iseePaolo2019);
+				UserISEE lucaISEE2019 = userISEEDao.create(luca, iseePaolo2019);
 				
-				assert (paolo.getAssociatedISEEs().contains(iseePaolo2019));
-				assert (luca.getAssociatedISEEs().contains(iseePaolo2019));
+				assert (mario.getAssociatedISEEs().contains(marioISEE2019));
+				assert (marco.getAssociatedISEEs().contains(marcoISEE2019));
 				
-				assert (iseeMario2019.getAssociatedUsers().contains(mario));
-				assert (iseeMario2019.getAssociatedUsers().contains(marco));
+				assert (paolo.getAssociatedISEEs().contains(paoloISEE2019));
+				assert (luca.getAssociatedISEEs().contains(lucaISEE2019));
 				
-				assert (iseePaolo2019.getAssociatedUsers().contains(paolo));
-				assert (iseePaolo2019.getAssociatedUsers().contains(luca));
+				assert (iseeMario2019.getAssociatedUsers().contains(marioISEE2019));
+				assert (iseeMario2019.getAssociatedUsers().contains(marcoISEE2019));
+				
+				assert (iseePaolo2019.getAssociatedUsers().contains(paoloISEE2019));
+				assert (iseePaolo2019.getAssociatedUsers().contains(lucaISEE2019));
 				
 				userDao.update(mario);
 				userDao.update(marco);
@@ -266,12 +278,14 @@ public class LoadDataTest {
 				session.beginTransaction();
 				//rimuovo solo i riferimenti alel altre entità, i conti correnti verrano poi intestati a
 				//un altro utente
-				for(BankAccount a : mario.getBankAccounts()) {
-					a.getOwners().removeIf(u -> u == mario);
+				for(UserBankAccount ubk : mario.getBankAccounts()) {
+					ubk.getBankAccount().removeOwner(ubk);
+					userBankAccountDao.delete(ubk);
 				}
 				
-				for(ISEE i : mario.getAssociatedISEEs()) {
-					i.getAssociatedUsers().removeIf(u -> u == mario);
+				for(UserISEE ui : mario.getAssociatedISEEs()) {
+					ui.getIsee().removeAssociatedUser(ui);
+					userISEEDao.delete(ui);
 				}
 				
 				for(UserRealEstate ure : mario.getUserRealEstates()) {
@@ -283,6 +297,7 @@ public class LoadDataTest {
 					uv.getVehicle().removeOwner(uv);
 					userVehicleDao.delete(uv);
 				}
+				
 				mario.getBankAccounts().clear();
 				mario.getAssociatedISEEs().clear();
 				mario.getUserRealEstates().clear();
@@ -319,14 +334,16 @@ public class LoadDataTest {
 				session.getTransaction().commit();
 				session.beginTransaction();
 				
-				for(User u : bankAccount2.getOwners()) {
-					u.getBankAccounts().removeIf(b -> b == bankAccount2);
+				for(UserBankAccount ubk : bankAccount2.getOwners()) {
+					ubk.getUser().removeBankAccount(ubk);
+					userBankAccountDao.delete(ubk);
 				}
 				
 				bankAccountDao.delete(bankAccount2);
 				
-				for(User u : iseeMario2019.getAssociatedUsers()) {
-					u.getAssociatedISEEs().removeIf(i -> i == iseeMario2019);
+				for(UserISEE ui : iseeMario2019.getAssociatedUsers()) {
+					ui.getUser().removeAssociatedISEE(ui);
+					userISEEDao.delete(ui);
 				}
 				
 				iseeDao.delete(iseeMario2019);
@@ -339,12 +356,12 @@ public class LoadDataTest {
 				for (User u : allUser) {
 					System.out.println(u.getFirstName() + " " + u.getSecondName() + ":" + u.getBirthD());
 					
-					Set<BankAccount> bankAccounts = userDao.getBankAccounts(u);
+					Set<UserBankAccount> bankAccounts = userDao.getBankAccounts(u);
 					System.out.println("Conti correnti: " + bankAccounts.size());
-					for (BankAccount bk : bankAccounts) {
-						System.out.println("- " + bk.getBankName()+ ": " 
-										   + bk.getIBAN() + " Data Saldo:" + bk.getBillDate() + " Saldo:"
-										   + bk.getBalance());					
+					for (UserBankAccount ubk : bankAccounts) {
+						System.out.println("- " + ubk.getBankAccount().getBankName()+ ": " 
+										   + ubk.getBankAccount().getIBAN() + " Data Saldo:" + ubk.getBankAccount().getBillDate() + " Saldo:"
+										   + ubk.getBankAccount().getBalance());					
 					}
 					Set<UserRealEstate> realEstates = userDao.getUserRealEstates(u);
 					System.out.println("Immobili: " + realEstates.size());

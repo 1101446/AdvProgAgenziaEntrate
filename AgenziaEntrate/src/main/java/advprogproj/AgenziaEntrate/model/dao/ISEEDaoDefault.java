@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
-import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 
 @Repository("ISEEDao")
 public class ISEEDaoDefault extends DefaultDao implements ISEEDao {
@@ -49,18 +49,18 @@ public class ISEEDaoDefault extends DefaultDao implements ISEEDao {
 	}
 
 	@Override
-	public void addUserAssociated(User user, ISEE isee) {
-		user.addAssociatedISEE(isee);
+	public void addUserAssociated(ISEE isee, UserISEE userISEE) {
+		isee.addAssociatedUser(userISEE);
 	}
 
 	@Override
-	public void removeUserAssociated(User user, ISEE isee) {
-		user.removeAssociatedISEE(isee);
+	public void removeUserAssociated(ISEE isee, UserISEE userISEE) {
+		isee.removeAssociatedUser(userISEE);
 	}
 
 	@Override
-	public Set<User> getAssociatedUsers(ISEE isee) {
-		Query q = this.getSession().createQuery("from User a join fetch a.associatedISEEs i WHERE i = :isee", User.class);
-		return new HashSet<User>(q.setParameter("isee", isee).getResultList());
+	public Set<UserISEE> getAssociatedUsers(ISEE isee) {
+		Query q = this.getSession().createQuery("from UserISEE a join fetch a.ISEE WHERE a.ISEE = :isee", UserISEE.class);
+		return new HashSet<UserISEE>(q.setParameter("isee", isee).getResultList());
 	}
 }

@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
-import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
 
 @Repository("bankAccountDao")
 public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
@@ -59,18 +59,18 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 	}
 	
 	@Override
-	public void addOwner(User user, BankAccount bankAccount) {
-		bankAccount.addOwner(user);
+	public void addOwner(BankAccount bankAccount, UserBankAccount userBankAccount) {
+		bankAccount.addOwner(userBankAccount);
 	}
 	
 	@Override
-	public void removeOwner(User user, BankAccount bankAccount) {
-		bankAccount.removeOwner(user);
+	public void removeOwner(BankAccount bankAccount, UserBankAccount userBankAccount) {
+		bankAccount.removeOwner(userBankAccount);
 	}
 	
 	@Override
-	public Set<User> getOwners(BankAccount bankAccount){
-		Query q = this.getSession().createQuery("from User a JOIN FETCH a.bankAccounts bk WHERE bk = :bankAccount", User.class);
-		return new HashSet<User>(q.setParameter("bankAccount", bankAccount).getResultList());
+	public Set<UserBankAccount> getOwners(BankAccount bankAccount){
+		Query q = this.getSession().createQuery("from UserBankAccount a JOIN FETCH a.bankAccount WHERE a.bankAcconut = :bankAccount", UserBankAccount.class);
+		return new HashSet<UserBankAccount>(q.setParameter("bankAccount", bankAccount).getResultList());
 	}
 }

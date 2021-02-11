@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
@@ -74,15 +76,15 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	}
 	
 	@Override
-	public Set<BankAccount> getBankAccounts(User user) {
-		Query q = this.getSession().createQuery("from BankAccount a join fetch a.owners u WHERE u = :user", BankAccount.class);
-		return new HashSet<BankAccount>(q.setParameter("user", user).getResultList());
+	public Set<UserBankAccount> getBankAccounts(User user) {
+		Query q = this.getSession().createQuery("from UserBankAccount a join fetch a.user WHERE a.user = :user", UserBankAccount.class);
+		return new HashSet<UserBankAccount>(q.setParameter("user", user).getResultList());
 	}
 	
 	@Override
-	public Set<ISEE> getAssociatedISEEs(User user) {
-		Query q = this.getSession().createQuery("from ISEE a join fetch a.associatedUsers u WHERE u = :user", ISEE.class);
-		return new HashSet<ISEE>(q.setParameter("user", user).getResultList());
+	public Set<UserISEE> getAssociatedISEEs(User user) {
+		Query q = this.getSession().createQuery("from userISEE a join fetch a.user WHERE a.user = :user", UserISEE.class);
+		return new HashSet<UserISEE>(q.setParameter("user", user).getResultList());
 	}
 	
 	@Override
@@ -98,23 +100,23 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	}
 	
 	@Override
-	public void addBankAccount(User user, BankAccount bankAccount) {
-		user.addBankAccount(bankAccount);
+	public void addBankAccount(User user, UserBankAccount userBankAccount) {
+		user.addBankAccount(userBankAccount);
 	}
 	
 	@Override
-	public void removeBankAccount(User user, BankAccount bankAccount) {
-		user.removeBankAccount(bankAccount);
+	public void removeBankAccount(User user, UserBankAccount userBankAccount) {
+		user.removeBankAccount(userBankAccount);
 	}
 	
 	@Override
-	public void addAssociatedISEE(User user, ISEE isee) {
-		user.addAssociatedISEE(isee);
+	public void addAssociatedISEE(User user, UserISEE userISEE) {
+		user.addAssociatedISEE(userISEE);
 	}
 	
 	@Override
-	public void removeAssociatedISEE(User user, ISEE isee) {
-		user.removeAssociatedISEE(isee);
+	public void removeAssociatedISEE(User user, UserISEE userISEE) {
+		user.removeAssociatedISEE(userISEE);
 	}
 
 	@Override

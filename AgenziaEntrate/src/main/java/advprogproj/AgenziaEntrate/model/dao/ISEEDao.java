@@ -1,13 +1,12 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
 
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
-import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 
 public interface ISEEDao {
 	
@@ -27,9 +26,9 @@ public interface ISEEDao {
 	
 	void delete(ISEE isee);
 	
-	void addUserAssociated(User user, ISEE isee);
+	void addUserAssociated(ISEE isee, UserISEE userISEE);
 	
-	void removeUserAssociated(User user, ISEE isee);
+	void removeUserAssociated(ISEE isee, UserISEE userISEE);
 	
-	Set<User> getAssociatedUsers(ISEE isee);
+	Set<UserISEE> getAssociatedUsers(ISEE isee);
 }

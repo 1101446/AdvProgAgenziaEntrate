@@ -10,8 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_real_estate")
+@Table(name = "user_isee")
 public class UserISEE implements Serializable{
+	
 	private User user;
 	private ISEE isee;
 	
@@ -29,11 +30,11 @@ public class UserISEE implements Serializable{
 	@Id
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "ID_ISEE")
-	public ISEE getISEE() {
+	public ISEE getIsee() {
 		return this.isee;
 	}
 	
-	public void setISEE(ISEE isee) {
+	public void setIsee(ISEE isee) {
 		this.isee = isee;
 	}
 }

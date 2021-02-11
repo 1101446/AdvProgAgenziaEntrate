@@ -8,6 +8,8 @@ import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 
@@ -25,13 +27,13 @@ public interface UserService {
 	
 	public void delete(String user);
 	
-	public void addBankAccount(String user, String bankAccount, LocalDate billDate);
+	public void addBankAccount(String user, UserBankAccount userBankAccount);
 	
-	public void removeBankAccount(String user, String bankAccount, LocalDate billDate);
+	public void removeBankAccount(String user, UserBankAccount userBankAccount);
 	
-	public void addISEE(String user, long isee, String billDate);
+	public void addISEE(String user, UserISEE userISEE);
 
-	public void removeISEE(String user, long isee);
+	public void removeISEE(String user, UserISEE userISEE);
 	
 	public void addUserRealEstate(String user, UserRealEstate userRealEstate);
 
@@ -45,9 +47,9 @@ public interface UserService {
 	
 	public Set<Family> getFamilies(User user);
 
-	public Set<BankAccount> getBankAccounts(User user);
+	public Set<UserBankAccount> getUserBankAccounts(User user);
 	
-	public Set<ISEE> getAssociatedISEEs(User user);
+	public Set<UserISEE> getAssociatedISEEs(User user);
 	
 	public Set<UserVehicle> getUserVehicles(User user);
 	

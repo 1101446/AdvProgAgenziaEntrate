@@ -111,15 +111,6 @@ public class User implements Serializable{
 		this.access = access;
 	}
 	
-	/*@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	public Family getFamily() {
-		return this.family;
-	}
-
-	public void setFamily(Family family) {
-		this.family = family;
-	}*/
-	
 	@OneToMany(mappedBy = "user")
 	public Set<UserBankAccount> getBankAccounts() {
 		return this.bankAccounts;

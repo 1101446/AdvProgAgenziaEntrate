@@ -11,15 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
+import advprogproj.AgenziaEntrate.model.dao.UserISEEDao;
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 
 @Service("ISEE")
 public class ISEEServiceDefault implements ISEEService{
 	
 	private ISEEDao iseeDao;
 	private UserDao userDao;
+	private UserISEEDao userISEEDao;
 	
 	@Transactional
 	@Override
@@ -55,10 +58,10 @@ public class ISEEServiceDefault implements ISEEService{
 	@Override
 	public void delete(long id) {
 		ISEE i = this.findISEE(id);
-		Set<User> users = this.iseeDao.getAssociatedUsers(i);
-		for(User u : users) {
-			u.getAssociatedISEEs().removeIf(ie -> ie.getId() == i.getId());
-			this.userDao.update(u);
+		for(UserISEE ui : this.iseeDao.getAssociatedUsers(i)) {
+			this.userDao.removeAssociatedISEE(ui.getUser(), ui);
+			this.iseeDao.removeUserAssociated(i, ui);
+			this.userISEEDao.delete(ui);
 		}
 		this.iseeDao.delete(i);
 	}
@@ -84,12 +87,17 @@ public class ISEEServiceDefault implements ISEEService{
 	}
 	
 	@Autowired
-	public void setIseeDao(ISEEDao iseeDao) {
+	public void setISEEDao(ISEEDao iseeDao) {
 		this.iseeDao = iseeDao;
 	}
 	
 	@Autowired
 	public void setUserDao(UserDaoDefault userDao) {
 		this.userDao = userDao;
+	}
+	
+	@Autowired
+	public void setUserISEEDao(UserISEEDao userISEEDao) {
+		this.userISEEDao = userISEEDao;
 	}
 }

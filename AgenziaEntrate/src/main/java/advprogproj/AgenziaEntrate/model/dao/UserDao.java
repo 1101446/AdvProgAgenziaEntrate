@@ -11,6 +11,8 @@ import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 
@@ -33,21 +35,21 @@ public interface UserDao {
 	
 	public Set<Family> getFamilies(User user);
 	
-	Set<BankAccount> getBankAccounts(User user);
+	Set<UserBankAccount> getBankAccounts(User user);
 	
-	Set<ISEE> getAssociatedISEEs(User user);
+	Set<UserISEE> getAssociatedISEEs(User user);
 	
 	Set<UserVehicle> getUserVehicles(User user);
 	
 	Set<UserRealEstate> getUserRealEstates(User user);
 	
-	void addBankAccount(User user, BankAccount bankAccount);
+	void addBankAccount(User user, UserBankAccount userBankAccount);
 	
-	void removeBankAccount(User user, BankAccount bankAccount);
+	void removeBankAccount(User user, UserBankAccount userBankAccount);
 	
-	public void addAssociatedISEE(User user, ISEE isee);
+	public void addAssociatedISEE(User user, UserISEE userISEE);
 	
-	public void removeAssociatedISEE(User user, ISEE isee);
+	public void removeAssociatedISEE(User user, UserISEE userISEE);
 	
 	public void addUserVehicle(User user, UserVehicle userVehicle);
 	
