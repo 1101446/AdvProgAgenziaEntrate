@@ -117,7 +117,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	public DateFormatter dateFormatter() {
-		return new DateFormatter("dd/MM/YYYY");
+		return new DateFormatter("dd/MM/YY");
 	}
 
 	@Bean

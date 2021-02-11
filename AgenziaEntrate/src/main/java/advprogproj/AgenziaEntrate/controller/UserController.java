@@ -50,13 +50,17 @@ public class UserController {
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("user") User user, 
 					   @RequestParam("accessId") long access,
-					   @RequestParam("isHandicap") boolean handicap, BindingResult br) {
+					   @RequestParam("isHandicap") boolean handicap, 
+					   @RequestParam("updateUser") boolean updateUser, BindingResult br) {
 		User u = user;
 		Access a = this.accessService.findAccess(access);
 		u.setHandicap(handicap);
 		u.setAccess(a);
 		this.userService.update(u);
-		return "redirect:/users/list";
+		if(updateUser)
+			return "redirect:/";
+		else
+			return "redirect:/users/list";
 	}
 	
 	@GetMapping(value = "/add")

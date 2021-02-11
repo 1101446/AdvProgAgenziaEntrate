@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +20,7 @@ public class ISEE {
 	private int yearOfValidity;
 	private int valueOfISEE;
 	
-	private Set<User> associatedUsers = new HashSet<User>();
+	private Set<UserISEE> associatedUsers = new HashSet<UserISEE>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,12 +51,12 @@ public class ISEE {
 		this.valueOfISEE = valueOfISEE;
 	}
 	
-	@ManyToMany(mappedBy = "associatedISEEs")
-	public Set<User> getAssociatedUsers() {
+	@OneToMany(mappedBy = "isee")
+	public Set<UserISEE> getAssociatedUsers() {
 		return this.associatedUsers;
 	}
 
-	public void setAssociatedUsers(Set<User> associatedUsers) {
+	public void setAssociatedUsers(Set<UserISEE> associatedUsers) {
 		this.associatedUsers = associatedUsers;
 	}
 }

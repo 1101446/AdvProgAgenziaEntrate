@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +20,7 @@ public class BankAccount implements Serializable{
 	private String bankName;
 	private long balance;
 	
-	private Set<User> owners = new HashSet<User>();
+	private Set<UserBankAccount> owners = new HashSet<UserBankAccount>();
 	
 	@Id
 	@Column(name = "ID_BANK_ACCOUNT")
@@ -59,22 +60,20 @@ public class BankAccount implements Serializable{
 		this.balance = balance;
 	}
 	
-	@ManyToMany(mappedBy = "bankAccounts")
-	public Set<User> getOwners() {
+	@OneToMany(mappedBy = "bankAccount")
+	public Set<UserBankAccount> getOwners() {
 		return this.owners;
 	}
 
-	public void setOwners(Set<User> owners) {
+	public void setOwners(Set<UserBankAccount> owners) {
 		this.owners = owners;
 	}
 	
-	public void addOwner(User user) {
-		this.owners.add(user);
-		user.getBankAccounts().add(this);
+	public void addOwner(UserBankAccount userBankAccont) {
+		this.owners.add(userBankAccont);
 	}
 	
-	public void removeOwner(User user) {
-		this.owners.remove(user);
-		user.getBankAccounts().remove(this);
+	public void removeOwner(UserBankAccount userBankAccont) {
+		this.owners.remove(userBankAccont);
 	}
 }

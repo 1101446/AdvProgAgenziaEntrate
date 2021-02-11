@@ -31,8 +31,8 @@ public class User implements Serializable{
     private Access access;
     //private Family family;
     
-    private Set<BankAccount> bankAccounts = new HashSet<BankAccount>();
-    private Set<ISEE> associatedISEEs = new HashSet<ISEE>();
+    private Set<UserBankAccount> bankAccounts = new HashSet<UserBankAccount>();
+    private Set<UserISEE> associatedISEEs = new HashSet<UserISEE>();
     
     private Set<UserVehicle> userVehicles = new HashSet<UserVehicle>();
     private Set<UserRealEstate> userRealEstates = new HashSet<UserRealEstate>();
@@ -120,41 +120,21 @@ public class User implements Serializable{
 		this.family = family;
 	}*/
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.PERSIST
-    })
-	@JoinTable(
-			name= "user_bank_account",
-			joinColumns = @JoinColumn(name = "ID_USER"),
-			inverseJoinColumns = {@JoinColumn(name = "ID_BANK_ACCOUNT"),@JoinColumn(name = "BILL_DATE")}
-			)
-	public Set<BankAccount> getBankAccounts() {
+	@OneToMany(mappedBy = "user")
+	public Set<UserBankAccount> getBankAccounts() {
 		return this.bankAccounts;
 	}
 
-	public void setBankAccounts(Set<BankAccount> bankAccounts) {
-		this.bankAccounts = bankAccounts;
+	public void setBankAccounts(Set<UserBankAccount> userBankAccounts) {
+		this.bankAccounts = userBankAccounts;
 	}
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.PERSIST
-    })
-	@JoinTable(
-			name= "user_isee",
-			joinColumns = @JoinColumn(name = "ID_USER"),
-			inverseJoinColumns = @JoinColumn(name = "ID_ISEE")
-			)
-	public Set<ISEE> getAssociatedISEEs() {
+	@OneToMany(mappedBy = "user")
+	public Set<UserISEE> getAssociatedISEEs() {
 		return this.associatedISEEs;
 	}
 
-	public void setAssociatedISEEs(Set<ISEE> associatedISEEs) {
+	public void setAssociatedISEEs(Set<UserISEE> associatedISEEs) {
 		this.associatedISEEs = associatedISEEs;
 	}
 
@@ -176,24 +156,20 @@ public class User implements Serializable{
 		this.userRealEstates = userRealEstates;
 	}
 	
-	public void addBankAccount(BankAccount bankAccount) {
+	public void addBankAccount(UserBankAccount bankAccount) {
 		this.bankAccounts.add(bankAccount);
-		bankAccount.getOwners().add(this);
 	}
 	
-	public void removeBankAccount(BankAccount bankAccount) {
-		this.bankAccounts.remove(bankAccount);
-		bankAccount.getOwners().remove(this);
+	public void removeBankAccount(UserBankAccount userBankAccount) {
+		this.bankAccounts.remove(userBankAccount);
 	}
 	
-	public void addAssociatedISEE(ISEE isee) {
-		this.associatedISEEs.add(isee);
-		isee.getAssociatedUsers().add(this);
+	public void addAssociatedISEE(UserISEE userISEE) {
+		this.associatedISEEs.add(userISEE);
 	}
 	
-	public void removeAssociatedISEE(ISEE isee) {
-		this.associatedISEEs.remove(isee);
-		isee.getAssociatedUsers().remove(this);
+	public void removeAssociatedISEE(UserISEE userISEE) {
+		this.associatedISEEs.remove(userISEE);
 	}
 	
 	public void addUserVehicle(UserVehicle userVehicle) {
