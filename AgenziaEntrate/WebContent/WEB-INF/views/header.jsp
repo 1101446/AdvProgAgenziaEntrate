@@ -51,6 +51,10 @@
   				<input type="hidden" name="email" value="${username}" />
   				<input type="submit" class="navbar-brand" value="Profilo" />
   			</form>
+  			<form method="POST" id="userForm" action="<c:url value="/institution/profile" />">
+  				<input type="hidden" name="email" value="${username}" />
+  				<input type="submit" class="navbar-brand" value="Conti Correnti" />
+  			</form>
   			<form method="POST" action="<c:url value="/realestates/profile" />">
   				<input type="hidden" name="email" value="${username}" />
   				<input type="submit" class="navbar-brand" value="Immobili" />

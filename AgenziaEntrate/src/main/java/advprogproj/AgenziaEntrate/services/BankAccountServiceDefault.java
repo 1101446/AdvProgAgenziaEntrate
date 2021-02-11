@@ -57,6 +57,11 @@ public class BankAccountServiceDefault implements BankAccountService{
 	}
 	
 	@Autowired
+	public void setUserBankAccountDao(UserBankAccountDao userBankAccountDao) {
+		this.userBankAccountDao = userBankAccountDao;
+	}
+	
+	@Autowired
 	public void setBankAccountDao(BankAccountDao bankAccountDao) {
 		this.bankAccountDao = bankAccountDao;
 	}

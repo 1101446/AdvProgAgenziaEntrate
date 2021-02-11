@@ -83,7 +83,7 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	
 	@Override
 	public Set<UserISEE> getAssociatedISEEs(User user) {
-		Query q = this.getSession().createQuery("from userISEE a join fetch a.user WHERE a.user = :user", UserISEE.class);
+		Query q = this.getSession().createQuery("from UserISEE a join fetch a.user WHERE a.user = :user", UserISEE.class);
 		return new HashSet<UserISEE>(q.setParameter("user", user).getResultList());
 	}
 	

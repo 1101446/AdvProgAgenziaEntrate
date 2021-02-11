@@ -20,14 +20,10 @@
 			</thead>
 			<c:forEach items="${profileISEEs}" var="i">
 				<tr>
-					<td>${i.yearOfValidity}</td>
-					<td>${i.valueOfISEE}</td>
+					<td>${i.isee.yearOfValidity}</td>
+					<td>${i.isee.valueOfISEE}</td>
 					<td>
-						<ul>
-							<c:forEach items="${i.associatedUsers}" var="u">
-								<li>${u.cf} - ${u.firstName} ${u.secondName}</li>
-							</c:forEach>
-						</ul>
+						${i.user.cf} - ${i.user.firstName} ${i.user.secondName}</li>
 					</td>
 				</tr>
 			</c:forEach>
@@ -40,7 +36,6 @@
 				<td>Id</td>
 				<td>Anno di validità</td>
 				<td>Valore</td>
-				<td>Intestatari</td>
 				<td>Modifica</td>
 				<td>Elimina</td>
 			</thead>
@@ -62,17 +57,13 @@
 				<td>Valore</td>
 				<td>Intestatari</td>
 			</thead>
-			<c:forEach items="${allUserISEEs}" var="i">
+			<c:forEach items="${allUserISEEs}" var="ui">
 				<tr>
-					<td>${i.id}</td>
-					<td>${i.yearOfValidity}</td>
-					<td>${i.valueOfISEE}</td>
+					<td>${ui.isee.id}</td>
+					<td>${ui.isee.yearOfValidity}</td>
+					<td>${ui.isee.valueOfISEE}</td>
 					<td>
-						<ul>
-							<c:forEach items="${i.associatedUsers}" var="u">
-								<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/isees/${i.id}/user/${u.cf}/unlink" />">-/-</a>]</li>
-							</c:forEach>
-						</ul>
+						${ui.user.cf} - ${ui.user.firstName} ${ui.user.secondName} [<a href="<c:url value="/isees/${ui.isee.id}/user/${ui.user.cf}/unlink" />">-/-</a>]
 					</td>
 				</tr>
 			</c:forEach>

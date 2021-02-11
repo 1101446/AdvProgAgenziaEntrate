@@ -106,9 +106,11 @@
   							</td>
 						</tr>
 						<tr>
-							<td>Dai su sto scherzando continua pure con le tue malefatte</td>
-							<td>E grazie per essere passato</td>
-							<td><a class="navbar-brand" href="https://www.youtube.com/watch?v=HO8ctP_QNZc&ab_channel=LEZZO" />Salva</a></td>
+							<td>Dai su sto scherzando, vada avanti, non cincischi</td>
+						</tr>
+						<tr>
+							<td>Grazie mille per essere passato</td>
+							<td><a class="navbar-brand" href="https://www.youtube.com/watch?v=aS7RXAsq3NI" />DISTRUGGI IL SITO</a></td>
 						</tr>
 					</table>
 				</c:otherwise>

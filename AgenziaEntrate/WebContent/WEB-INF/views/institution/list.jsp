@@ -28,11 +28,7 @@
 					<td>${ba.bankAccount.billDate}</td>
 					<td>${ba.bankAccount.balance}</td>
 					<td>
-						<ul>
-							<c:forEach items="${ba.bankAccount.owners}" var="u">
-								<li>${u.cf} - ${u.firstName} ${u.secondName}</li>
-							</c:forEach>
-						</ul>
+						${ba.user.cf} - ${ba.user.firstName} ${ba.user.secondName}
 					</td>
 				</tr>
 			</c:forEach>
@@ -72,15 +68,13 @@
 			</thead>
 			<c:forEach items="${allUserBankAccounts}" var="uba">
 				<tr>
-					<td>${ba.IBAN}</td>
-					<td>${ba.bankName}</td>
-					<td>${ba.billDate}</td>
-					<td>${ba.balance}</td>
+					<td>${uba.bankAccount.IBAN}</td>
+					<td>${uba.bankAccount.bankName}</td>
+					<td>${uba.bankAccount.billDate}</td>
+					<td>${uba.bankAccount.balance}</td>
 					<td>
 						<ul>
-							<c:forEach items="${ba.owners}" var="u">
-								<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink" />">-/-</a>]</li>
-							</c:forEach>
+							<li>${uba.user.cf} - ${uba.user.firstName} ${uba.user.secondName} [<a href="<c:url value="/institution/${uba.bankAccount.IBAN}/${uba.bankAccount.billDate}/user/${uba.user.cf}/unlink" />">-/-</a>]</li>
 						</ul>
 					</td>
 				</tr>

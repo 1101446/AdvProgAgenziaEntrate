@@ -15,11 +15,6 @@ import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 public class ISEEDaoDefault extends DefaultDao implements ISEEDao {
 
 	@Override
-	public List<ISEE> findAllWithUser() {
-		return this.getSession().createQuery("from ISEE a join fetch a.associatedUsers", ISEE.class).getResultList();
-	}
-	
-	@Override
 	public List<ISEE> findAll() {
 		return this.getSession().createQuery("from ISEE a", ISEE.class).getResultList();
 	}
@@ -60,7 +55,7 @@ public class ISEEDaoDefault extends DefaultDao implements ISEEDao {
 
 	@Override
 	public Set<UserISEE> getAssociatedUsers(ISEE isee) {
-		Query q = this.getSession().createQuery("from UserISEE a join fetch a.ISEE WHERE a.ISEE = :isee", UserISEE.class);
+		Query q = this.getSession().createQuery("from UserISEE a join fetch a.isee WHERE a.isee = :isee", UserISEE.class);
 		return new HashSet<UserISEE>(q.setParameter("isee", isee).getResultList());
 	}
 }

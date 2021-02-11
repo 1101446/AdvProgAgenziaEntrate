@@ -109,18 +109,6 @@ public class InstitutionController {
 		return "institution/form";
 	}
 	
-	@GetMapping(value = "/{bankAccountId}/{billDate}/user/{userId}/edit")
-	public String editUserISEE(@PathVariable("bankAccountId") String bankAccountId,
-							   @PathVariable("bankAccountId") String billDate,
-							   @PathVariable("userId") String userId, Model institutionModel) {
-		UserBankAccount ubk = this.userBankAccountService.findUserBankAccount(userId,bankAccountId,LocalDate.parse(billDate));
-		institutionModel.addAttribute("userBankAccount", ubk);
-		institutionModel.addAttribute("bankAccount", ubk.getBankAccount());
-		institutionModel.addAttribute("user", ubk.getUser());
-		institutionModel.addAttribute("update", true);
-		return "realestates/link_choose";
-	}
-	
 	@GetMapping(value = "/{bankAccountId}/{billDate}/delete")
 	public String delete(@PathVariable("bankAccountId") String bankAccountId, 
 						 @PathVariable("billDate") String billDate) {
@@ -138,14 +126,9 @@ public class InstitutionController {
 	
 	@PostMapping("/link")
 	public String link(@RequestParam(value="bankAccount") String bankAccount,
-					   @RequestParam(value="user") String userId,
-					   @RequestParam(value="update") boolean update){
+					   @RequestParam(value="user") String userId){
 		String []bankAccountId = bankAccount.split("--");
-		if(update){
-			this.userBankAccountService.update(userId, bankAccountId[0], LocalDate.parse(bankAccountId[1]));
-		}else {
-			this.userBankAccountService.create(userId, bankAccountId[0], LocalDate.parse(bankAccountId[1]));
-		}
+		this.userBankAccountService.create(userId, bankAccountId[0], LocalDate.parse(bankAccountId[1]));
 		return "redirect:/institution/list";
 	}
 	

@@ -1,8 +1,6 @@
 package advprogproj.AgenziaEntrate.services;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +10,7 @@ import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDaoDefault;
 import advprogproj.AgenziaEntrate.model.dao.UserISEEDao;
-import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
-import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 
 @Service("ISEE")
@@ -23,12 +19,6 @@ public class ISEEServiceDefault implements ISEEService{
 	private ISEEDao iseeDao;
 	private UserDao userDao;
 	private UserISEEDao userISEEDao;
-	
-	@Transactional
-	@Override
-	public List<ISEE> findAllUserISEEs() {
-		return this.iseeDao.findAllWithUser();
-	}
 	
 	@Transactional
 	@Override

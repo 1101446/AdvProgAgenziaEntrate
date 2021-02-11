@@ -101,33 +101,17 @@ public class ISEEController {
 		return "isees/form";
 	}
 	
-	@GetMapping(value = "/{iseeId}/user/{userId}/edit")
-	public String editUserISEE(@PathVariable("realEstateId") long iseeId,
-							   @PathVariable("userId") String userId, Model iseeModel) {
-		UserISEE ui = this.userISEEService.findUserISEE(userId,iseeId);
-		iseeModel.addAttribute("userISEE", ui);
-		iseeModel.addAttribute("ISEE", ui.getIsee());
-		iseeModel.addAttribute("user", ui.getUser());
-		iseeModel.addAttribute("update", true);
-		return "realestates/link_choose";
-	}
-	
 	@GetMapping("/link/choose")
 	public String link(Model iseeModel) {
 		iseeModel.addAttribute("isees", this.iseeService.findAllISEEs());
 		iseeModel.addAttribute("users", this.userService.findAllUsers());
-		iseeModel.addAttribute("update", false);
 		return "isees/link_choose";
 	}
 	
 	@PostMapping("/link")
 	public String link(@RequestParam(value="isee") long isee,
-					   @RequestParam(value="user") String userId,
-					   @RequestParam(value="update") boolean update){
-		if(update)
-			this.userISEEService.update(userId, isee);
-		else 
-			this.userISEEService.create(userId, isee);
+					   @RequestParam(value="user") String userId){
+		this.userISEEService.create(userId, isee);
 		return "redirect:/isees/list";
 	}
 	

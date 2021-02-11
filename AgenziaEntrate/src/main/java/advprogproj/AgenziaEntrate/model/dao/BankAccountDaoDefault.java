@@ -70,7 +70,7 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 	
 	@Override
 	public Set<UserBankAccount> getOwners(BankAccount bankAccount){
-		Query q = this.getSession().createQuery("from UserBankAccount a JOIN FETCH a.bankAccount WHERE a.bankAcconut = :bankAccount", UserBankAccount.class);
+		Query q = this.getSession().createQuery("from UserBankAccount a JOIN FETCH a.bankAccount WHERE a.bankAccount = :bankAccount", UserBankAccount.class);
 		return new HashSet<UserBankAccount>(q.setParameter("bankAccount", bankAccount).getResultList());
 	}
 }
