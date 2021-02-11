@@ -1,6 +1,8 @@
 package advprogproj.AgenziaEntrate.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,30 +21,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 import advprogproj.AgenziaEntrate.services.ISEEService;
+import advprogproj.AgenziaEntrate.services.UserISEEService;
 import advprogproj.AgenziaEntrate.services.UserService;
 //import ch.qos.logback.classic.Logger;
 
 @RequestMapping("/isees")
 @Controller
 public class ISEEController {
-	
 	//private final Logger logger = (Logger) LoggerFactory.getLogger(RealEstateController.class);
 	private ISEEService iseeService;
+	private UserISEEService userISEEService;
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model iseeModel) {
 		//logger.info("Listing RealEstates");
 		List<ISEE> allISEEs = new ArrayList<ISEE>();
-		List<ISEE> allUserISEEs = new ArrayList<ISEE>();
+		Set<UserISEE> allUserISEEs = new HashSet<UserISEE>();
 		int numISEEs = -1;
 		int numUserISEEs = -1;
 		try {
 			allISEEs = this.iseeService.findAllISEEs();
 			numISEEs = allISEEs.size();
 			
-			allUserISEEs = this.iseeService.findAllUserISEEs();
+			allUserISEEs = this.userISEEService.findAllUserISEEs();
 			numUserISEEs = allUserISEEs.size();
 		}catch(Exception e) {
 			//logger.error(e.getMessage());
@@ -59,7 +63,7 @@ public class ISEEController {
 	public String getProfile(@RequestParam("email") String email, Model userModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(email);
-		Set<ISEE> profileISEEs = this.userService.getAssociatedISEEs(profile);
+		Set<UserISEE> profileISEEs = this.userService.getAssociatedISEEs(profile);
 		userModel.addAttribute("profileISEEs", profileISEEs);
 		return "isees/list";
 	}
@@ -74,9 +78,9 @@ public class ISEEController {
 	}
 	
 	@GetMapping(value = "/save/{iseeId}/{userId}")
-	public String saveISEEUser(@PathVariable("iseeId") long iseeId,
+	public String saveUserISEE(@PathVariable("iseeId") long iseeId,
 									  @PathVariable("userId") String userId) {
-		this.iseeService.addAssociatedUser(iseeId, userId);
+		this.userISEEService.create(userId, iseeId);
 		return "redirect:/isees/list";
 	}
 	
@@ -89,7 +93,7 @@ public class ISEEController {
 	}
 	
 	@GetMapping(value = "/{iseeId}/edit")
-	public String edit(@PathVariable("iseeId") long iseeId, Model iseeModel) {
+	public String editISEE(@PathVariable("iseeId") long iseeId, Model iseeModel) {
 		ISEE isee = this.iseeService.findISEE(iseeId);
 		List<User> users = this.userService.findAllUsers();
 		iseeModel.addAttribute("isee", isee);
@@ -97,18 +101,33 @@ public class ISEEController {
 		return "isees/form";
 	}
 	
+	@GetMapping(value = "/{iseeId}/user/{userId}/edit")
+	public String editUserISEE(@PathVariable("realEstateId") long iseeId,
+							   @PathVariable("userId") String userId, Model iseeModel) {
+		UserISEE ui = this.userISEEService.findUserISEE(userId,iseeId);
+		iseeModel.addAttribute("userISEE", ui);
+		iseeModel.addAttribute("ISEE", ui.getIsee());
+		iseeModel.addAttribute("user", ui.getUser());
+		iseeModel.addAttribute("update", true);
+		return "realestates/link_choose";
+	}
+	
 	@GetMapping("/link/choose")
 	public String link(Model iseeModel) {
 		iseeModel.addAttribute("isees", this.iseeService.findAllISEEs());
 		iseeModel.addAttribute("users", this.userService.findAllUsers());
-		
+		iseeModel.addAttribute("update", false);
 		return "isees/link_choose";
 	}
 	
 	@PostMapping("/link")
 	public String link(@RequestParam(value="isee") long isee,
-					   @RequestParam(value="user") String userId){
-		this.iseeService.addAssociatedUser(isee, userId);
+					   @RequestParam(value="user") String userId,
+					   @RequestParam(value="update") boolean update){
+		if(update)
+			this.userISEEService.update(userId, isee);
+		else 
+			this.userISEEService.create(userId, isee);
 		return "redirect:/isees/list";
 	}
 	
@@ -116,7 +135,7 @@ public class ISEEController {
 	public String unlinkISEE( 
 			@PathVariable("iseeId") long iseeId, 
 			@PathVariable("userId") String userId){
-		this.iseeService.removeAssociatedUser(iseeId, userId);
+		this.userISEEService.delete(userId, iseeId);
 		return "redirect:/isees/list";
 	}
 	
@@ -129,6 +148,11 @@ public class ISEEController {
 	@Autowired
 	public void setISEEService(ISEEService iseeService) {
 		this.iseeService = iseeService;
+	}
+	
+	@Autowired
+	public void setUserISEEService(UserISEEService userISEEService) {
+		this.userISEEService = userISEEService;
 	}
 	
 	@Autowired

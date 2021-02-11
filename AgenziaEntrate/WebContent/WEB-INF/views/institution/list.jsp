@@ -23,14 +23,14 @@
 			</thead>
 			<c:forEach items="${profileBankAccounts}" var="ba">
 				<tr>
-					<td>${ba.IBAN}</td>
-					<td>${ba.bankName}</td>
-					<td>${ba.billDate}</td>
-					<td>${ba.balance}</td>
+					<td>${ba.bankAccount.IBAN}</td>
+					<td>${ba.bankAccount.bankName}</td>
+					<td>${ba.bankAccount.billDate}</td>
+					<td>${ba.bankAccount.balance}</td>
 					<td>
 						<ul>
-							<c:forEach items="${ba.owners}" var="u">
-								<li>${u.cf} - ${u.firstName} ${u.secondName} [<a href="<c:url value="/institution/${ba.IBAN}/${ba.billDate}/user/${u.cf}/unlink" />">-/-</a>]</li>
+							<c:forEach items="${ba.bankAccount.owners}" var="u">
+								<li>${u.cf} - ${u.firstName} ${u.secondName}</li>
 							</c:forEach>
 						</ul>
 					</td>
@@ -70,7 +70,7 @@
 				<td>Saldo</td>
 				<td>Intestatari</td>
 			</thead>
-			<c:forEach items="${allUserBankAccounts}" var="ba">
+			<c:forEach items="${allUserBankAccounts}" var="uba">
 				<tr>
 					<td>${ba.IBAN}</td>
 					<td>${ba.bankName}</td>

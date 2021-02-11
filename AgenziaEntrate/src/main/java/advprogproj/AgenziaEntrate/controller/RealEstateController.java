@@ -131,9 +131,8 @@ public class RealEstateController {
 					   @RequestParam(value="endOfYear") LocalDate endOfYear,
 					   @RequestParam(value="price") int price,
 					   @RequestParam(value="update") boolean update){
-		if(update){
+		if(update)
 			this.userRealEstateService.update(userId, realEstateId, endOfYear, price);
-		}
 		else
 			this.userRealEstateService.create(userId, realEstateId, endOfYear, price);
 		return "redirect:/realestates/list";

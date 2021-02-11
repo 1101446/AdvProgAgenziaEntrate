@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.User;
+import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
 import advprogproj.AgenziaEntrate.services.BankAccountService;
+import advprogproj.AgenziaEntrate.services.UserBankAccountService;
 import advprogproj.AgenziaEntrate.services.UserService;
 //import ch.qos.logback.classic.Logger;
 
@@ -27,19 +30,20 @@ import advprogproj.AgenziaEntrate.services.UserService;
 public class InstitutionController {
 	//private final Logger logger = (Logger) LoggerFactory.getLogger(BankAccountController.class);
 	private BankAccountService bankAccountService;
+	private UserBankAccountService userBankAccountService;
 	private UserService userService;
 	
 	@GetMapping(value = "/list")
 	public String list(Model institutionModel) {
 		//logger.info("Listing BankAccounts");
 		List<BankAccount> allBankAccounts = new ArrayList<BankAccount>();
-		List<BankAccount> allUserBankAccounts = new ArrayList<BankAccount>();
+		Set<UserBankAccount> allUserBankAccounts = new HashSet<UserBankAccount>();
 		int numBankAccounts = -1;
 		int numUserBankAccounts = -1;
 		
 		try {
 			allBankAccounts = this.bankAccountService.findAllBankAccounts();
-			allUserBankAccounts = this.bankAccountService.findAllUserBankAccounts();
+			allUserBankAccounts = this.userBankAccountService.findAllUserBankAccounts();
 			numBankAccounts = allBankAccounts.size();
 			numUserBankAccounts = allUserBankAccounts.size();
 		}catch(Exception e) {
@@ -57,7 +61,7 @@ public class InstitutionController {
 	public String getProfile(@RequestParam("email") String email, Model userModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(email);
-		Set<BankAccount> profileBankAccounts = this.userService.getBankAccounts(profile);
+		Set<UserBankAccount> profileBankAccounts = this.userService.getUserBankAccounts(profile);
 		userModel.addAttribute("profileBankAccounts", profileBankAccounts);
 		return "institution/list";
 	}
@@ -78,10 +82,10 @@ public class InstitutionController {
 	}
 	
 	@GetMapping(value = "/save/{bankAccountId}/{billDate}/{userId}")
-	public String saveBankAccountUser(@PathVariable("bankAccountId") String bankAccountId,
+	public String saveUserBankAccount(@PathVariable("bankAccountId") String bankAccountId,
 									  @PathVariable("billDate") String billDate,
 									  @PathVariable("userId") String userId) {
-		this.bankAccountService.addOwner(userId, bankAccountId, billDate);
+		this.userBankAccountService.create(userId, bankAccountId, LocalDate.parse(billDate));
 		return "redirect:/institution/list";
 	}
 	
@@ -95,7 +99,7 @@ public class InstitutionController {
 	}
 	
 	@GetMapping(value = "/{bankAccountId}/{billDate}/edit")
-	public String edit(@PathVariable("bankAccountId") String bankAccountId, 
+	public String editBankAccount(@PathVariable("bankAccountId") String bankAccountId, 
 					   @PathVariable("billDate") String billDate, Model institutionModel) {
 		List<User> users = this.userService.findAllUsers();
 		BankAccount bk = this.bankAccountService.findBankAccount(bankAccountId, LocalDate.parse(billDate));
@@ -103,6 +107,18 @@ public class InstitutionController {
 		institutionModel.addAttribute("users", users);
 		institutionModel.addAttribute("update", true);
 		return "institution/form";
+	}
+	
+	@GetMapping(value = "/{bankAccountId}/{billDate}/user/{userId}/edit")
+	public String editUserISEE(@PathVariable("bankAccountId") String bankAccountId,
+							   @PathVariable("bankAccountId") String billDate,
+							   @PathVariable("userId") String userId, Model institutionModel) {
+		UserBankAccount ubk = this.userBankAccountService.findUserBankAccount(userId,bankAccountId,LocalDate.parse(billDate));
+		institutionModel.addAttribute("userBankAccount", ubk);
+		institutionModel.addAttribute("bankAccount", ubk.getBankAccount());
+		institutionModel.addAttribute("user", ubk.getUser());
+		institutionModel.addAttribute("update", true);
+		return "realestates/link_choose";
 	}
 	
 	@GetMapping(value = "/{bankAccountId}/{billDate}/delete")
@@ -122,9 +138,14 @@ public class InstitutionController {
 	
 	@PostMapping("/link")
 	public String link(@RequestParam(value="bankAccount") String bankAccount,
-					   @RequestParam(value="user") String userId){
+					   @RequestParam(value="user") String userId,
+					   @RequestParam(value="update") boolean update){
 		String []bankAccountId = bankAccount.split("--");
-		this.bankAccountService.addOwner(userId, bankAccountId[0], bankAccountId[1]);
+		if(update){
+			this.userBankAccountService.update(userId, bankAccountId[0], LocalDate.parse(bankAccountId[1]));
+		}else {
+			this.userBankAccountService.create(userId, bankAccountId[0], LocalDate.parse(bankAccountId[1]));
+		}
 		return "redirect:/institution/list";
 	}
 	
@@ -133,13 +154,18 @@ public class InstitutionController {
 			@PathVariable("bankAccountId") String bankAccountId, 
 			@PathVariable("billDate") String billDate,
 			@PathVariable("userId") String userId){
-		this.bankAccountService.removeOwner(userId,bankAccountId,billDate);
+		this.userBankAccountService.delete(userId,bankAccountId,LocalDate.parse(billDate));
 		return "redirect:/institution/list";
 	}
 	
 	@Autowired
 	public void setBankAccountService(BankAccountService bankAccountService) {
 		this.bankAccountService = bankAccountService;
+	}
+	
+	@Autowired
+	public void setUserBankAccountService(UserBankAccountService userBankAccountService) {
+		this.userBankAccountService = userBankAccountService;
 	}
 	
 	@Autowired
