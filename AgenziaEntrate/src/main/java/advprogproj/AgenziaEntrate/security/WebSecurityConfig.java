@@ -48,10 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/registration").permitAll().antMatchers("/registration/**").permitAll();
 		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll();
-		http.authorizeRequests().antMatchers("/**/**").hasAnyRole("ADMIN","ENTRATE","ENTE","MOTORIZZAZIONE","CATASTO","UTENTE")
-			.and().formLogin().loginPage("/login").defaultSuccessUrl("/")
-			.failureUrl("/login?error=true").permitAll().and().logout().logoutSuccessUrl("/") 
-			.invalidateHttpSession(true).permitAll().and().csrf().disable();
 		http.authorizeRequests().antMatchers("/roles/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/institution/profile").hasAnyRole("UTENTE");
 		http.authorizeRequests().antMatchers("/institution/**").hasAnyRole("ADMIN","ENTE");
@@ -64,8 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/families/profile").hasAnyRole("UTENTE");
 		http.authorizeRequests().antMatchers("/families/**").hasAnyRole("ADMIN","ENTRATE");
 		http.authorizeRequests().antMatchers("/users/profile").hasAnyRole("UTENTE");
-		http.authorizeRequests().antMatchers("/users/list").hasAnyRole("ADMIN","ENTRATE");
 		http.authorizeRequests().antMatchers("/users/edit/**").hasAnyRole("ADMIN","ENTRATE","UTENTE");
 		http.authorizeRequests().antMatchers("/users/**").hasAnyRole("ADMIN","ENTRATE");
+		http.authorizeRequests().antMatchers("/**/**").hasAnyRole("ADMIN","ENTRATE","ENTE","MOTORIZZAZIONE","CATASTO","UTENTE")
+		.and().formLogin().loginPage("/login").defaultSuccessUrl("/")
+		.failureUrl("/login?error=true").permitAll().and().logout().logoutSuccessUrl("/") 
+		.invalidateHttpSession(true).permitAll().and().csrf().disable();
 	}
 }

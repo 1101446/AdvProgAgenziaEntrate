@@ -10,8 +10,6 @@ public interface FamilyService {
 	
 	public Family findFamily(long id, String user);
 	
-	public List<Family> findFamilyByHouseHolder(String houseHolder);
-	
 	public Family create(long id, String user, String hierarchy, String houseHolder);
 	
 	public Family update(Family family);

@@ -1,6 +1,7 @@
 package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -173,8 +174,12 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Transactional
 	@Override
-	public Set<Family> getFamilies(User user) {
-		return this.userDao.getFamilies(user);
+	public List<Family> getFamilies(User user) {
+		List<Family> families = new ArrayList<Family>();
+		for(Family a : this.userDao.getFamilies(user)) {
+			families.addAll(this.familyDao.findByHouseHolder(a.getHouseHolder()));
+		}
+		return families;
 	}
 	
 	@Transactional

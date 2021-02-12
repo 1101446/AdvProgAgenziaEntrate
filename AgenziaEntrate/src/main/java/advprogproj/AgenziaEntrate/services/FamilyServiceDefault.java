@@ -30,12 +30,6 @@ public class FamilyServiceDefault implements FamilyService{
 	
 	@Transactional
 	@Override
-	public List<Family> findFamilyByHouseHolder(String houseHolder){
-		return this.familyDao.findByHouseHolder(houseHolder);
-	}
-	
-	@Transactional
-	@Override
 	public Family create(long id, String user, String hierarchy, String houseHolder) {
 		return this.familyDao.create(id, this.userDao.findById(user), hierarchy, houseHolder);
 	}

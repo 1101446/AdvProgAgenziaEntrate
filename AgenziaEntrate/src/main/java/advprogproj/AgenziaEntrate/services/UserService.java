@@ -45,8 +45,8 @@ public interface UserService {
 
 	void replaceAccess(long accessId);
 	
-	public Set<Family> getFamilies(User user);
-
+	public List<Family> getFamilies(User user);
+	
 	public Set<UserBankAccount> getUserBankAccounts(User user);
 	
 	public Set<UserISEE> getAssociatedISEEs(User user);

@@ -53,7 +53,7 @@ public class FamilyController {
 	public String getProfile(@RequestParam("email") String email, Model userModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(email);
-		Set<Family> profileFamilies = this.userService.getFamilies(profile);
+		List<Family> profileFamilies = this.userService.getFamilies(profile);
 		userModel.addAttribute("profileFamilies", profileFamilies);
 		return "families/list";
 	}
