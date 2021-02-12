@@ -24,8 +24,8 @@
 					<td><form:hidden path="id" /></td>
 				</tr>
 				<tr>
-					<td>
-						<label name="userId">Assegna permesso a utente</label>
+					<td><label name="userId">Assegna permesso a utente</label></td>
+					<td>	
 						<select name="userId">
 						<option value="noUser" selected>----------</option>
 						<c:forEach items="${users}" var="u">

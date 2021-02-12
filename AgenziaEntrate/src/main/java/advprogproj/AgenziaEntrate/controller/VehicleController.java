@@ -22,6 +22,7 @@ import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
 import advprogproj.AgenziaEntrate.services.UserVehicleService;
 import advprogproj.AgenziaEntrate.services.VehicleService;
+import advprogproj.AgenziaEntrate.utils.LocalDateAttributeConverter;
 import advprogproj.AgenziaEntrate.services.UserService;
 //import ch.qos.logback.classic.Logger;
 
@@ -103,11 +104,13 @@ public class VehicleController {
 	@GetMapping(value = "/{vehicleId}/user/{userId}/endOfYear/{endOfYear}/edit")
 	public String editUserVehicle(@PathVariable("vehicleId") long vehicleId,
 									 @PathVariable("userId") String userId,
-									 @PathVariable("endOfYear") String endOfYear,Model vehicleModel) {
+									 @PathVariable("endOfYear") String endOfYear,
+									 LocalDateAttributeConverter localStringToDate, Model vehicleModel) {
 		UserVehicle uv = this.userVehicleService.findUserVehicle(userId,vehicleId,LocalDate.parse(endOfYear));
 		vehicleModel.addAttribute("userVehicle", uv);
 		vehicleModel.addAttribute("vehicle", uv.getVehicle());
 		vehicleModel.addAttribute("user", uv.getUser());
+		vehicleModel.addAttribute("endOfYear", localStringToDate.convertToDatabaseColumn(uv.getEndOfYear()));
 		vehicleModel.addAttribute("update", true);
 		return "vehicles/link_choose";
 	}

@@ -79,8 +79,10 @@ public class AccessController {
 	
 	@GetMapping(value = "/{accessId}/edit")
 	public String edit(@PathVariable("accessId") long accessId, Model accessModel) {
+		List<User> users = this.userService.findAllUsers();
 		Access a = this.accessService.findAccess(accessId);
 		accessModel.addAttribute("access", a);
+		accessModel.addAttribute("users", users);
 		return "roles/form";
 	}
 	

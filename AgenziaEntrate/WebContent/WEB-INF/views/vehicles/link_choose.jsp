@@ -17,14 +17,17 @@
 					<td>${user.cf} - ${user.firstName} ${user.secondName}</td>
 				</tr>
 				<tr>
+					<td>Data Saldo</td>
+					<td>${endOfYear}</td>
+				</tr>
+				<tr>
             		<td><input name="vehicle" type="hidden" value="${vehicle.id}"/></td>
        			</tr>
 				<tr>
             		<td><input name="user" type="hidden" value="${user.cf}"/></td>
        			</tr>
 				<tr>
-					<td><label name="endOfYear">Data Saldo</label></td>
-					<td><input name="endOfYear" type="date" value="${userVehicle.endOfYear.getDayOfMonth()}/${userVehicle.endOfYear.getMonthValue()}/${userVehicle.endOfYear.getYear()}"/></td>
+					<td><input name="endOfYear" type="hidden" value="${endOfYear}" /></td>
 				</tr>
 			</c:when>
 			<c:otherwise>

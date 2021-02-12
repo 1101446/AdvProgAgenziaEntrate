@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,11 +24,12 @@ import advprogproj.AgenziaEntrate.services.UserRealEstateService;
 import advprogproj.AgenziaEntrate.services.RealEstateService;
 import advprogproj.AgenziaEntrate.services.UserService;
 //import ch.qos.logback.classic.Logger;
+import advprogproj.AgenziaEntrate.utils.LocalDateAttributeConverter;
 
 @RequestMapping("/realestates")
 @Controller
 public class RealEstateController {
-	
+
 	//private final Logger logger = (Logger) LoggerFactory.getLogger(RealEstateController.class);
 	private RealEstateService realEstateService;
 	private UserRealEstateService userRealEstateService;
@@ -102,11 +103,12 @@ public class RealEstateController {
 	@GetMapping(value = "/{realEstateId}/user/{userId}/endOfYear/{endOfYear}/edit")
 	public String editUserRealEstate(@PathVariable("realEstateId") long realEstateId,
 									 @PathVariable("userId") String userId,
-									 @PathVariable("endOfYear") String endOfYear,Model reModel) {
+									 @PathVariable("endOfYear") String endOfYear, Model reModel, LocalDateAttributeConverter localStringToDate) {
 		UserRealEstate ure = this.userRealEstateService.findUserRealEstate(userId,realEstateId,LocalDate.parse(endOfYear));
 		reModel.addAttribute("userRealEstate", ure);
 		reModel.addAttribute("realEstate", ure.getRealEstate());
 		reModel.addAttribute("user", ure.getUser());
+		reModel.addAttribute("endOfYear", localStringToDate.convertToDatabaseColumn(ure.getEndOfYear()));
 		reModel.addAttribute("update", true);
 		return "realestates/link_choose";
 	}
@@ -131,6 +133,7 @@ public class RealEstateController {
 					   @RequestParam(value="endOfYear") LocalDate endOfYear,
 					   @RequestParam(value="price") int price,
 					   @RequestParam(value="update") boolean update){
+		System.out.println(endOfYear);
 		if(update)
 			this.userRealEstateService.update(userId, realEstateId, endOfYear, price);
 		else

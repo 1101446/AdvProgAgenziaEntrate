@@ -17,11 +17,18 @@
 					<td>${user.cf} - ${user.firstName} ${user.secondName}</td>
 				</tr>
 				<tr>
+					<td>Data Saldo</td>
+					<td>${endOfYear}</td>
+				</tr>
+				<tr>
             		<td><input name="realEstate" type="hidden" value="${realEstate.id}"/></td>
        			</tr>
 				<tr>
            			<td><input name="user" type="hidden" value="${user.cf}"/></td>
         		</tr>
+				<tr>
+					<td><input name="endOfYear" type="hidden" value="${endOfYear}" /></td>
+				</tr>
 			</c:when>
 			<c:otherwise>
 				<tr>
@@ -44,12 +51,12 @@
 						</select>
 					</td>
 				</tr>
+				<tr>
+					<td><label name="endOfYear" >Data Saldo</label></td>
+					<td><input name="endOfYear" type="date" /></td>
+				</tr>
 			</c:otherwise>
 		</c:choose>
-		<tr>
-			<td><label name="endOfYear" >Data Saldo</label></td>
-			<td><input name="endOfYear" type="date" value="${userRealEstate.endOfYear.getDayOfMonth()}/${userRealEstate.endOfYear.getMonthValue()}/${userRealEstate.endOfYear.getYear()}" /></td>
-		</tr>
 		<tr>
 			<td><label path="price">Prezzo</label></td>
 			<td><input name="price" type="number" value="${userRealEstate.price}"/></td>
