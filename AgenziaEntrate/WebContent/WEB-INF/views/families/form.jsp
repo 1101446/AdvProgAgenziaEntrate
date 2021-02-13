@@ -9,24 +9,33 @@
         	<table>
 				<tr>
 					<td><label name="id">Id</td>
-					<td><input name="id" type="number" value="${family.id}"/></td>
+					<c:choose>
+						<c:when test="${update}" >
+							<td>${family.id}</td>
+							<td><input name="id" type="hidden" value="${family.id}"/></td>
+						</c:when>
+						<c:otherwise>
+							<td><input name="id" type="number" /></td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 				<tr>
 					<td><label name="userId">Utente</td>
-					<td>
-						<select name="userId">
-						<c:forEach items="${users}" var="u">
-							<c:choose>
-								<c:when test="${update && u.cf == userId}">
-									<option value="${u.cf}" selected>${u.cf} - ${u.firstName} ${u.secondName}</option>
-							 	</c:when>
-							 	<c:otherwise>
-							 		<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option>
-							 	</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						</select>
-					</td>
+					<c:choose>
+						<c:when test="${update}" >
+							<td>${family.user.firstName} ${family.user.secondName}</td>
+							<td><input type="hidden" name="userId" value="${family.user.cf}"></td>
+						</c:when>
+						<c:otherwise>
+							<td>
+								<select name="userId">
+									<c:forEach items="${users}" var="u">
+										<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option>
+									</c:forEach>
+								</select>
+							</td>
+						</c:otherwise>
+					</c:choose>
                 </tr>
 				<tr>
                    	<td><label name="hierarchy">Gerarchia</label></td>
