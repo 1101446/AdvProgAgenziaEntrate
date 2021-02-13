@@ -11,6 +11,7 @@
 </c:if>
 <c:choose>
 	<c:when test="${isUser}">
+		<sec:authentication property="principal.username" var="username"/>
 		<h4>Cronologia ISEE effettuati</h4>
 		<table>
 			<thead>
@@ -28,6 +29,24 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<h4>Calcola ISEE</h4>
+		<form method="POST" action="<c:url value="/isees/evaluate" />" >
+			<table>
+				<tr>
+					<td>
+						<select name="year">
+							<option value="2018">2018</option>
+						</select>
+					</td>
+				</tr>
+			<tr>
+				<td><input type="hidden" name="user" value="${username}" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Calcola ISEE" /></td>
+			</tr>
+			</table>
+		</form>
 	</c:when>
 	<c:otherwise>
 		<h4>Elenco isee: ${numISEEs}</h4>

@@ -56,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/vehicles/profile").hasAnyRole("UTENTE");
 		http.authorizeRequests().antMatchers("/vehicles/**").hasAnyRole("ADMIN","MOTORIZZAZIONE");
 		http.authorizeRequests().antMatchers("/isees/profile").hasAnyRole("UTENTE");
+		http.authorizeRequests().antMatchers("/isees/evaluate").hasAnyRole("UTENTE");
 		http.authorizeRequests().antMatchers("/isees/**").hasAnyRole("ADMIN","ENTRATE");
 		http.authorizeRequests().antMatchers("/families/profile").hasAnyRole("UTENTE");
 		http.authorizeRequests().antMatchers("/families/**").hasAnyRole("ADMIN","ENTRATE");

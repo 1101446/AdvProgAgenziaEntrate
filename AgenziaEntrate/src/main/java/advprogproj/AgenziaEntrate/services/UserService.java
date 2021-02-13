@@ -45,6 +45,8 @@ public interface UserService {
 	
 	public List<Family> getFamilies(User user);
 	
+	public void evaluateISEE(User user, int year);
+	
 	public Set<UserBankAccount> getUserBankAccounts(User user);
 	
 	public Set<UserISEE> getAssociatedISEEs(User user);

@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,16 +13,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
 import advprogproj.AgenziaEntrate.model.entities.UserISEE;
 import advprogproj.AgenziaEntrate.model.entities.UserRealEstate;
 import advprogproj.AgenziaEntrate.model.entities.UserVehicle;
+import advprogproj.AgenziaEntrate.model.entities.Vehicle;
+import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
+import advprogproj.AgenziaEntrate.model.entities.ISEE;
+import advprogproj.AgenziaEntrate.model.entities.RealEstate;
 import advprogproj.AgenziaEntrate.model.dao.AccessDao;
 import advprogproj.AgenziaEntrate.model.dao.UserBankAccountDao;
 import advprogproj.AgenziaEntrate.model.dao.FamilyDao;
+import advprogproj.AgenziaEntrate.model.dao.ISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.UserISEEDao;
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
 import advprogproj.AgenziaEntrate.model.dao.UserRealEstateDao;
@@ -37,6 +44,7 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	private UserBankAccountDao userBankAccountDao;
 	private UserRealEstateDao userRealEstateDao;
 	private UserVehicleDao userVehicleDao;
+	private ISEEDao iseeDao;
 	private UserISEEDao userISEEDao;
 	
 	@Transactional
@@ -185,6 +193,73 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	
 	@Transactional
 	@Override
+	public void evaluateISEE(User user, int year) {
+		for(Family f : this.userDao.getFamilies(user)) {
+			double denominator = 0;
+			long totalValueBankAccounts = 0;
+			long totalValueRealEstates = 0;
+			long totalValueVehicles = 0;
+			int valueOfISEE = 0;
+			int countSons = 0;
+			Set<BankAccount> checkedBK = new HashSet<BankAccount>();
+			List<Family> familyMembers = this.familyDao.findByHouseHolder(f.getHouseHolder());
+			switch(familyMembers.size()) {
+				case 0:
+					denominator = 1;
+					break;
+				case 1:
+					denominator = 1;
+					break;
+				case 2:
+					denominator = 1.75;
+					break;
+				case 3:
+					denominator = 2.04;
+					break;
+				case 4:
+					denominator = 2.46;
+					break;
+				case 5:
+					denominator = 2.85;
+					break;
+				default:
+					denominator = 2.85 + ((familyMembers.size()-5) * 0.35);
+					break;
+			}
+			double handicap = 0;
+			for(Family fm : familyMembers) {
+				for(UserBankAccount bk: this.userDao.getBankAccounts(fm.getUser())) {
+					if(!checkedBK.contains(bk.getBankAccount()) && bk.getBankAccount().getBillDate().getYear() == year) {
+						totalValueBankAccounts += bk.getBankAccount().getBalance();
+						checkedBK.add(bk.getBankAccount());
+					}
+				}
+				for(UserRealEstate ure : this.userDao.getUserRealEstates(fm.getUser())) {
+					if(ure.getEndOfYear().getYear() == year)
+						totalValueRealEstates += ure.getPrice();
+				}
+				for(UserVehicle uv :this.userDao.getUserVehicles(fm.getUser())) {
+					if(uv.getEndOfYear().getYear() == year)
+						totalValueVehicles += uv.getPrice();
+				}
+				if(fm.getUser().isHandicap())
+					handicap = 0.5;
+				if(fm.getHierarchy().equals("Figlio"))
+					countSons++;
+			}
+			if(countSons >= 3)
+				denominator += 0.2;
+			denominator += handicap;
+			valueOfISEE = (int)((totalValueBankAccounts + (totalValueRealEstates + totalValueVehicles) * 0.20)/denominator);
+			ISEE i = this.iseeDao.create(year, valueOfISEE);
+			for(Family fm : familyMembers) {
+				this.userISEEDao.create(fm.getUser(), i);
+			}
+		}
+	}
+	
+	@Transactional
+	@Override
 	public Set<UserBankAccount> getUserBankAccounts(User user) {
 		return this.userDao.getBankAccounts(user);
 	}
@@ -223,7 +298,12 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	}
 	
 	@Autowired
-	public void setISEEDao(UserISEEDao userISEEDao) {
+	public void setISEEDao(ISEEDao iseeDao) {
+		this.iseeDao = iseeDao;
+	}
+	
+	@Autowired
+	public void setUserISEEDao(UserISEEDao userISEEDao) {
 		this.userISEEDao = userISEEDao;
 	}
 	

@@ -67,6 +67,14 @@ public class ISEEController {
 		return "isees/list";
 	}
 	
+	@PostMapping(value = "/evaluate")
+	public String evaluateISEE(@RequestParam("user") String user, @RequestParam("year") int year) {
+		//logger.info("Listing RealEstates");
+		User profile = this.userService.findUserEmail(user);
+		this.userService.evaluateISEE(profile, year);
+		return "redirect:/";
+	}
+	
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("ISEE") ISEE isee,
 			 		   @RequestParam(value="userId") String userId) {
