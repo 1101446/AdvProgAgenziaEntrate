@@ -53,11 +53,11 @@ public class RealEstateController {
 	}
 	
 	@PostMapping(value = "/profile")
-	public String getProfile(@RequestParam("email") String email, Model userModel) {
+	public String getProfile(@RequestParam("email") String email, Model reModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(email);
 		Set<UserRealEstate> profileRealEstates = this.userService.getUserRealEstates(profile);
-		userModel.addAttribute("profileRealEstates", profileRealEstates);
+		reModel.addAttribute("profileRealEstates", profileRealEstates);
 		return "realestates/list";
 	}
 	

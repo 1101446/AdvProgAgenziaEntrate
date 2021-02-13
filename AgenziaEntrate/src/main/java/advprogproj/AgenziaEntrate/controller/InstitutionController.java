@@ -58,11 +58,11 @@ public class InstitutionController {
 	}
 	
 	@PostMapping(value = "/profile")
-	public String getProfile(@RequestParam("email") String email, Model userModel) {
+	public String getProfile(@RequestParam("email") String email, Model institutionModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(email);
 		Set<UserBankAccount> profileBankAccounts = this.userService.getUserBankAccounts(profile);
-		userModel.addAttribute("profileBankAccounts", profileBankAccounts);
+		institutionModel.addAttribute("profileBankAccounts", profileBankAccounts);
 		return "institution/list";
 	}
 	

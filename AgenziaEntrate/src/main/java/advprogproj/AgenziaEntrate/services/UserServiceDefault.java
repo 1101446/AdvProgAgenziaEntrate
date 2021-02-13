@@ -251,7 +251,8 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 				denominator += 0.2;
 			denominator += handicap;
 			valueOfISEE = (int)((totalValueBankAccounts + (totalValueRealEstates + totalValueVehicles) * 0.20)/denominator);
-			ISEE i = this.iseeDao.create(year, valueOfISEE);
+			int yearOfValidity = year+2;
+			ISEE i = this.iseeDao.create(yearOfValidity, valueOfISEE);
 			for(Family fm : familyMembers) {
 				this.userISEEDao.create(fm.getUser(), i);
 			}

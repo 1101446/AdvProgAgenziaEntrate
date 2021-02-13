@@ -54,11 +54,11 @@ public class VehicleController {
 	}
 	
 	@PostMapping(value = "/profile")
-	public String getProfile(@RequestParam("email") String email, Model userModel) {
+	public String getProfile(@RequestParam("email") String email, Model vehicleModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(email);
 		Set<UserVehicle> profileVehicles = this.userService.getUserVehicles(profile);
-		userModel.addAttribute("profileVehicles", profileVehicles);
+		vehicleModel.addAttribute("profileVehicles", profileVehicles);
 		return "vehicles/list";
 	}
 	

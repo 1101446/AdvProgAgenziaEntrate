@@ -1,5 +1,6 @@
 package advprogproj.AgenziaEntrate.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -59,11 +60,12 @@ public class ISEEController {
 	}
 	
 	@PostMapping(value = "/profile")
-	public String getProfile(@RequestParam("email") String email, Model userModel) {
+	public String getProfile(@RequestParam("email") String email, Model iseeModel) {
 		//logger.info("Listing RealEstates");
 		User profile = this.userService.findUserEmail(email);
 		Set<UserISEE> profileISEEs = this.userService.getAssociatedISEEs(profile);
-		userModel.addAttribute("profileISEEs", profileISEEs);
+		iseeModel.addAttribute("profileISEEs", profileISEEs);
+		iseeModel.addAttribute("currentYear", LocalDate.now().getYear());
 		return "isees/list";
 	}
 	

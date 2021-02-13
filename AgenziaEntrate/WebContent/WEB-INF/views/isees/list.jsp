@@ -35,7 +35,9 @@
 				<tr>
 					<td>
 						<select name="year">
-							<option value="2018">2018</option>
+						<c:forEach var="y" begin="2000" end="${currentYear}" >
+							<option value="${y-2}">${y}</option>
+						</c:forEach>
 						</select>
 					</td>
 				</tr>
