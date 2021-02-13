@@ -60,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/families/profile").hasAnyRole("UTENTE");
 		http.authorizeRequests().antMatchers("/families/**").hasAnyRole("ADMIN","ENTRATE");
 		http.authorizeRequests().antMatchers("/users/profile").hasAnyRole("UTENTE");
-		http.authorizeRequests().antMatchers("/users/edit/**").hasAnyRole("ADMIN","ENTRATE","UTENTE");
+		http.authorizeRequests().antMatchers("/users/save").hasAnyRole("ADMIN","ENTRATE","UTENTE");
+		http.authorizeRequests().antMatchers("/users/**/edit").hasAnyRole("ADMIN","ENTRATE","UTENTE");
 		http.authorizeRequests().antMatchers("/users/**").hasAnyRole("ADMIN","ENTRATE");
 		http.authorizeRequests().antMatchers("/**/**").hasAnyRole("ADMIN","ENTRATE","ENTE","MOTORIZZAZIONE","CATASTO","UTENTE")
 		.and().formLogin().loginPage("/login").defaultSuccessUrl("/")

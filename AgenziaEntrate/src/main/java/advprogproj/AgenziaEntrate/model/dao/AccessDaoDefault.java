@@ -1,6 +1,5 @@
 package advprogproj.AgenziaEntrate.model.dao;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;

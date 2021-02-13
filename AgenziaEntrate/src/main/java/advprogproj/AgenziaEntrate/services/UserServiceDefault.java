@@ -76,12 +76,13 @@ public class UserServiceDefault implements UserService, UserDetailsService{
 	@Transactional
 	@Override
 	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, long access) {
-		return this.userDao.create(cf, firstName, secondName, birthDate, email, password, handicap, this.accessDao.findById(access));
+		return this.userDao.create(cf, firstName, secondName, birthDate, email, this.userDao.encryptPassword(password), handicap, this.accessDao.findById(access));
 	}
 	
 	@Transactional
 	@Override
 	public User update(User user) {
+		user.setPassword(this.userDao.encryptPassword(user.getPassword()));
 		return this.userDao.update(user);
 	}
 

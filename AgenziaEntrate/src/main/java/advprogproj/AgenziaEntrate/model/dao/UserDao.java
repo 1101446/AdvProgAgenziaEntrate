@@ -7,9 +7,7 @@ import java.util.Set;
 import org.hibernate.Session;
 
 import advprogproj.AgenziaEntrate.model.entities.Access;
-import advprogproj.AgenziaEntrate.model.entities.BankAccount;
 import advprogproj.AgenziaEntrate.model.entities.Family;
-import advprogproj.AgenziaEntrate.model.entities.ISEE;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.model.entities.UserBankAccount;
 import advprogproj.AgenziaEntrate.model.entities.UserISEE;

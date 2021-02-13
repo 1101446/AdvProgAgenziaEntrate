@@ -48,13 +48,13 @@
   							</td>
 						</tr>
 						<tr>
-							<td><form:hidden path="firstName" value="${user.firstName}"/></td>
+							<td><form:hidden path="firstName" /></td>
 						</tr>
 						<tr>
-							<td><form:hidden path="secondName" value="${user.secondName}"/></td>
+							<td><form:hidden path="secondName" /></td>
 						</tr>
 						<tr>
-							<td><form:hidden path="cf" value="${user.cf}"/></td>
+							<td><form:hidden path="cf" /></td>
 						</tr>
 						<tr>	
 							<td><form:hidden path="email" /></td>
@@ -63,10 +63,10 @@
 							<td><input type="hidden" name="accessId" value="${user.access.id}"/></td>
 						</tr>
 						<tr>
-							<td><input type="hidden" name="updateUser" value="true"/></td>
+							<td><input type="hidden" name="updateUser" value="true" /></td>
 						</tr>
 						<tr>
-              	      		<td><input type="submit" value="Salva"/></td>
+              	      		<td><input type="submit" value="Salva" /></td>
                 		</tr>
             		</table>
 				</c:when>
@@ -118,6 +118,21 @@
 		</c:when>
 		<c:otherwise>
 			<table>
+				<c:choose>
+					<c:when test="${user.cf == null}">
+						<tr>	
+							<td><form:label path="cf">Codice fiscale:</form:label></td>
+							<td><form:input path="cf" class="form-control" placeholder="Codice fiscale" type='text'  /></td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<tr>	
+							<td>Codice fiscale:</td>
+							<td>${user.cf}</td>
+							<td><form:hidden path="cf" /></td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
 				<tr>
 					<td><form:label path="firstName">Nome:</form:label></td>
 					<td><form:input path="firstName" class="form-control" placeholder="Nome" type='text'/></td>
@@ -125,10 +140,6 @@
 				<tr>
 					<td><form:label path="secondName">Cognome:</form:label></td>
 					<td><form:input path="secondName" class="form-control" placeholder="Cognome" type='text'/></td>
-				</tr>
-				<tr>	
-					<td><form:label path="cf">Codice fiscale:</form:label></td>
-					<td><form:input path="cf" class="form-control" placeholder="Codice fiscale" type='text'  /></td>
 				</tr>
 				<tr>	
 					<td><form:label path="birthD">Data di nascita:</form:label></td>
