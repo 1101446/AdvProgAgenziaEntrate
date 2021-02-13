@@ -30,7 +30,13 @@
                 </tr>
 				<tr>
                    	<td><label name="hierarchy">Gerarchia</label></td>
-                   	<td><input name="hierarchy" type="text" value="${family.hierarchy}"/></td>
+                   	<!--<td><input name="hierarchy" type="text" value="${family.hierarchy}"/></td>-->
+					<td>
+						<select name="hierarchy">
+							<option value="Genitore">Genitore</option>
+							<option value="Figlio">Figlio</option>
+						</select>
+					</td>
                </tr>
                <tr>
                     <td><label name="houseHolder">Capo famiglia</label></td>
