@@ -53,7 +53,7 @@
 				</tr>
 				<tr>
 					<td><label name="endOfYear" >Data Saldo</label></td>
-					<td><input name="endOfYear" type="date" /></td>
+					<td><input name="endOfYear" type="date" value="31/12/00"/></td>
 				</tr>
 			</c:otherwise>
 		</c:choose>

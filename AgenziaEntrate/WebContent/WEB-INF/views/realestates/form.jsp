@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<td><label name="endOfYear">Data Saldo</label></td>
-                   	<td><input name="endOfYear" type="date" value="01/01/90" /></td>
+                   	<td><input name="endOfYear" type="date" value="31/12/00" /></td>
 				</tr>
 				<tr>
 					<td><label name="price">Valore</label></td>
