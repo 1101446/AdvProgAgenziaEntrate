@@ -80,6 +80,8 @@ public class ISEEController {
 	@PostMapping(value = "/save")
 	public String save(@ModelAttribute("ISEE") ISEE isee,
 			 		   @RequestParam(value="userId") String userId) {
+		if(isee.getValueOfISEE() < 0)
+			return "redirect:/isees/add";
 		ISEE i = this.iseeService.update(isee);
 		if(!userId.equals("noUser")) 
 			return "redirect:/isees/save/"+i.getId()+"/"+userId;

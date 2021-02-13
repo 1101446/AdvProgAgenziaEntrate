@@ -71,7 +71,9 @@ public class InstitutionController {
 					   @RequestParam(value="userId") String userId,
 					   @RequestParam(value="update") boolean update) {
 		BankAccount bk;
-		if(update)
+		if(newBankAccount.getBalance() < 0)
+			return "redirect:/institution/add";
+		else if(update)
 			bk = this.bankAccountService.update(newBankAccount);
 		else
 			bk = this.bankAccountService.create(newBankAccount.getIBAN(), newBankAccount.getBankName(), newBankAccount.getBillDate(), newBankAccount.getBalance());

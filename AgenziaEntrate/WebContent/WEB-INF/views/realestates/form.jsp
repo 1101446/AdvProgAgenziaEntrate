@@ -42,7 +42,7 @@
 				</tr>
 				<tr>
 					<td><label name="price">Valore</label></td>
-                   	<td><input name="price" type="number" value="0" /></td>
+                   	<td><input name="price" type="number" value="0" min="0"/></td>
 				</tr>
                 <tr>
                     <td><input type="submit" value="Salva"/></td>

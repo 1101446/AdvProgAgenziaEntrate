@@ -21,7 +21,7 @@
                </tr>			
 				<tr>
                     <td><form:label path="balance">Saldo</form:label></td>
-                    <td><form:input path="balance"/></td>
+                    <td><form:input path="balance" /></td>
                 </tr>
 				<tr>
 					<td><label path="userId">Assegna conto corrente a utente</label></td>

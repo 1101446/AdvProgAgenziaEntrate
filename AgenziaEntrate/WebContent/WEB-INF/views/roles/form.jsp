@@ -13,7 +13,7 @@
                </tr>
                <tr>
                     <td><form:label path="priority">Livello priorità</form:label></td>
-                    <td><form:input path="priority"/></td>
+                    <td><form:input path="priority" min="0"/></td>
                </tr>
 				
 				<tr>

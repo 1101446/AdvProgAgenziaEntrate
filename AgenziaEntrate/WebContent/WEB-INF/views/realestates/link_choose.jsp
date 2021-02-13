@@ -59,7 +59,7 @@
 		</c:choose>
 		<tr>
 			<td><label path="price">Prezzo</label></td>
-			<td><input name="price" type="number" value="${userRealEstate.price}"/></td>
+			<td><input name="price" type="number" min="0" value="${userRealEstate.price}"/></td>
 		</tr>
 		<tr>
             <td><input name="update" type="hidden" value="${update}"/></td>

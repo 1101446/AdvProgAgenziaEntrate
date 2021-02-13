@@ -15,7 +15,7 @@
 							<td><input name="id" type="hidden" value="${family.id}"/></td>
 						</c:when>
 						<c:otherwise>
-							<td><input name="id" type="number" /></td>
+							<td><input name="id" type="number" min="1"/></td>
 						</c:otherwise>
 					</c:choose>
 				</tr>
