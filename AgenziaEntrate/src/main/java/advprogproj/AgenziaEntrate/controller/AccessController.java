@@ -50,6 +50,8 @@ public class AccessController {
 	@PostMapping(value = "/save")
 	public String saveAccess(@ModelAttribute("access") Access newAccess, 
 							 @RequestParam(value="userId") String userId) {
+		if(newAccess.getPriority() < 1)
+			return "redirect:/roles/add";
 		Access a = this.accessService.update(newAccess);
 		String id = Long.toString(a.getId());
 		if(!userId.equals("noUser")) {
