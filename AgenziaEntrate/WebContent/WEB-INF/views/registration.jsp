@@ -9,7 +9,7 @@
 
 <div>
 <c:url value="/registration/save" var="action_url" />
-<form:form method='POST' action="<c:url value='${action_url}'/>" modelAttribute="newUser">
+<form:form method='POST' action="${action_url}" modelAttribute="newUser">
 		<form:label path="firstName" class="sr-only">Nome:</form:label>
 		<form:input path="firstName" class="form-control" placeholder="Nome" type='text'/>
 		<form:label path="secondName" class="sr-only">Cognome:</form:label>
