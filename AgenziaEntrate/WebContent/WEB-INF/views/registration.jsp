@@ -22,6 +22,7 @@
 		<form:input path="email" class="form-control" placeholder="Email" type='email'/>
 		<form:label path="password" class="sr-only">Password:</form:label>
 		<form:input path="password" class="form-control" type='password' />
+		<label>Disabilità:</label>
 		<input type="radio" id="si" name="isHandicap" value="true" />
   		<label for="si">Si</label>
   		<input type="radio" id="no" name="isHandicap" value="false" />
