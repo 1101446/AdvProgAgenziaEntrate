@@ -100,7 +100,7 @@ public class TestRealEstate {
 	}
 	
 	@Test
-	void testAllCreatedAreFound() {
+	void testAllCreatedAreFoundAndFoundById() {
 		
 		int n = 5;		
 		
@@ -109,11 +109,166 @@ public class TestRealEstate {
 		realEstateDao.setSession(s);
 		
 		for(int i=0; i<n; i++) {
-			realEstateDao.create("Via"+i, "Paese"+i, 10000+i);
+			RealEstate newRealEstateI = realEstateDao.create("Via"+i, "Paese"+i, 10000+i);
 				
-			List<RealEstate> allAccess = realEstateDao.findAll();
+			List<RealEstate> allRealEstate = realEstateDao.findAll();
 				
-			assertEquals(allAccess.size(),i+1);
+			assertEquals(allRealEstate.size(),i+1);
+			
+			RealEstate newRealEstateF = realEstateDao.findById(newRealEstateI.getId());
+			
+			assertSame(newRealEstateI, newRealEstateF);
+			
 		}
+	}
+	
+	@Test
+	void testRealEstateMustHaveAddress() {
+		
+		Session s = sf.openSession();
+		
+		assertThrows(Exception.class, () -> {realEstateDao.create("", "Paese", 0); } );
+	}
+	
+	@Test
+	void testRealEstateMustHaveCountry() {
+		
+		Session s = sf.openSession();
+		
+		assertThrows(Exception.class, () -> {realEstateDao.create("Via", "", 10000); } );
+	}
+	
+	@Test
+	void testRealEstateNotFoundById() {
+		Session s = sf.openSession();
+
+		realEstateDao.setSession(s);
+
+		RealEstate newRealEstateI = realEstateDao.create("Via", "Paese", 10000);
+		
+		RealEstate RealEstateF = realEstateDao.findById(newRealEstateI.getId() + 10);
+		
+		assertNull(RealEstateF);
+	}
+	
+	@Test
+	void testRealEstateIsUpdatedCorrectlyWithMerging() {
+		Session s = sf.openSession();
+
+		realEstateDao.setSession(s);
+
+		RealEstate realEstateI = realEstateDao.create("Via", "Paese", 10000);
+		
+		RealEstate realEstateU = new RealEstate();
+		realEstateU.setId(realEstateI.getId());
+		realEstateU.setAddress("Via1");
+		realEstateU.setAddress("Paese1");
+		realEstateU.setCAP(10001);
+		
+		realEstateU = realEstateDao.update(realEstateU);
+		
+		RealEstate realEstateF = realEstateDao.findById(realEstateI.getId());
+		
+		assertSame(realEstateI, realEstateU);
+		assertSame(realEstateU, realEstateF);
+		assertSame(realEstateF, realEstateI);
+	}
+
+	
+	@Test
+	void testRealEstateIsUpdatedCorrectlyWithoutMerging() {
+		Session s = sf.openSession();
+
+		realEstateDao.setSession(s);
+
+		RealEstate realEstateI = realEstateDao.create("Via", "Paese", 10000);
+		
+		RealEstate realEstateU = new RealEstate();
+		realEstateU.setId(realEstateI.getId());
+		realEstateU.setAddress("Via1");
+		realEstateU.setAddress("Paese1");
+		realEstateU.setCAP(10001);
+		
+		realEstateDao.update(realEstateU);	
+		
+		RealEstate realEstateF = realEstateDao.findById(realEstateI.getId());
+		
+		assertNotNull(realEstateF);
+		assertEquals(realEstateF, realEstateI);
+		assertSame(realEstateF, realEstateI);
+		
+		//assertEquals(found, updated);
+		assertNotSame(realEstateF, realEstateU);
+		
+		assertEquals(realEstateF.getAddress(), realEstateU.getAddress());
+		assertEquals(realEstateF.getCountry(), realEstateU.getCountry());
+		assertEquals(realEstateF.getId(), realEstateU.getId());
+		assertEquals(realEstateF.getCAP(), realEstateU.getCAP());
+		
+	}
+
+	@Test
+	void testRealEstateIsCreatedAndDeleted() {
+		Session s = sf.openSession();
+
+		realEstateDao.setSession(s);
+		
+		// 1. create a RealEstate
+		s.beginTransaction();
+
+		assertEquals(0, realEstateDao.findAll().size());
+		
+		RealEstate realEstateI = realEstateDao.create("Via", "Paese", 10000);
+		
+		s.getTransaction().commit();
+		
+		// 2. delete the RealEstate
+		s.beginTransaction();
+		
+		assertEquals(1, realEstateDao.findAll().size());
+		
+		realEstateDao.delete(realEstateI);
+		
+		s.getTransaction().commit();
+		
+		// 3. check no more RealEstates
+		assertEquals(0, realEstateDao.findAll().size());
+		
+	}
+	
+	@Test
+	void testDeleteNonExistingRealEstateDoesNotCauseError() {
+		/**
+		 * A RealEstate that does not exist can be deleted without begin noticed to the callee
+		 * 
+		 */
+		Session s = sf.openSession();
+
+		realEstateDao.setSession(s);
+				
+		RealEstate fake = new RealEstate();
+		fake.setId(100L);
+		
+		assertNull(realEstateDao.findById(fake.getId()));
+		
+		try {
+			realEstateDao.delete(fake);
+			assertTrue(true);
+		} catch (Exception e) {
+			fail("Unexpected exception when deleting fake RealEstate");
+		}
+		
+	}
+	
+	@Test
+	void testJustCreatedRealEstateHasNoOwners() {
+		Session s = sf.openSession();
+
+		realEstateDao.setSession(s);
+		
+		RealEstate realEstateI = realEstateDao.create("Via", "Paese", 10000);
+		
+		assertEquals(0, realEstateI.getOwners().size());
+
 	}
 }

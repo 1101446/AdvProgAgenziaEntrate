@@ -30,7 +30,7 @@ public class AccessDaoDefault extends DefaultDao implements AccessDao{
 	public Access create(String roleName, int priority, String description) {
 		if ((roleName == null || roleName.length() == 0) || 
 				(priority < 1)) {
-			throw new RuntimeException("A singer must have a first name or a last name");
+			throw new RuntimeException("A role must have a role name and priority level > than 0");
 		}
 		Access access = new Access();
 		access.setRoleName(roleName);
