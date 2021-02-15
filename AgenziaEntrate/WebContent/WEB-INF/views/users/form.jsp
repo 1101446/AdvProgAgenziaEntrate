@@ -28,7 +28,7 @@
 						</tr>
 						<tr>	
 							<td><form:label path="birthD">Data di Nacita:</form:label></td>
-							<td><form:input path="birthD" class="form-control"/></td>
+							<td><form:input path="birthD" placeholder="gg/mm/aa" class="form-control"/></td>
 						</tr>
 						<tr>	
 							<td>Email</td>
@@ -143,7 +143,7 @@
 				</tr>
 				<tr>	
 					<td><form:label path="birthD">Data di nascita:</form:label></td>
-					<td><form:input path="birthD" class="form-control" /></td>
+					<td><form:input path="birthD" placeholder="gg/mm/aa" class="form-control" /></td>
 				</tr>
 				<tr>	
 					<td><form:label path="email">Email:</form:label></td>

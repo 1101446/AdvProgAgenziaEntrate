@@ -17,7 +17,7 @@
 		<form:label path="cf" class="sr-only">Codice fiscale:</form:label>
 		<form:input path="cf" class="form-control" placeholder="Codice fiscale" type='text'  />
 		<form:label path="birthD" class="sr-only">Data di nascita:</form:label>
-		<form:input path="birthD" class="form-control"/>
+		<form:input path="birthD" class="form-control" placeholder="gg/mm/aa"/>
 		<form:label path="email" class="sr-only">Email:</form:label>
 		<form:input path="email" class="form-control" placeholder="Email" type='email'/>
 		<form:label path="password" class="sr-only">Password:</form:label>

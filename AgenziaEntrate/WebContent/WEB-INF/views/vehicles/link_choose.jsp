@@ -53,7 +53,7 @@
 				</tr>
 				<tr>
 					<td><label name="endOfYear">Data Saldo</label></td>
-					<td><input class="form-control" name="endOfYear" value="31/12/00"/></td>
+					<td><input class="form-control" name="endOfYear" placeholder="gg/mm/aa" value="31/12/00"/></td>
 				</tr>
 			</c:otherwise>
 		</c:choose>

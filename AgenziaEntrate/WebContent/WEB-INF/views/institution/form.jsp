@@ -13,7 +13,7 @@
                	</tr>
 				<tr>
                    	<td><form:label path="billDate">Data Saldo</form:label></td>
-                   	<td><form:input path="billDate" class="form-control" /></td>
+                   	<td><form:input path="billDate" class="form-control" placeholder="gg/mm/aa" /></td>
                </tr>
                <tr>
                     <td><form:label path="bankName">Ente di credito</form:label></td>
