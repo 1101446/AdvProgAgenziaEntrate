@@ -9,15 +9,15 @@
         	<table>
 				<tr>
                    	<td><form:label path="brand">Marca</form:label></td>
-                   	<td><form:input path="brand"/></td>
+                   	<td><form:input class="form-control" path="brand"/></td>
                </tr>
                <tr>
                     <td><form:label path="model">Modello</form:label></td>
-                    <td><form:input path="model"/></td>
+                    <td><form:input class="form-control" path="model"/></td>
                </tr>
 				<tr>
                     <td><form:label path="vehicleRegistration">Targa</form:label></td>
-                    <td><form:input path="vehicleRegistration"/></td>
+                    <td><form:input class="form-control" path="vehicleRegistration"/></td>
                 </tr>
 				<tr>
 					<td><form:hidden path="id" /></td>
@@ -38,11 +38,11 @@
                 </tr>
 				<tr>
 					<td><label name="endOfYear">Data Saldo</label></td>
-                   	<td><input name="endOfYear" type="date" type="date" value="31/12/00" /></td>
+                   	<td><input class="form-control" name="endOfYear" value="31/12/00" /></td>
 				</tr>
 				<tr>
 					<td><label name="price">Valore</label></td>
-                   	<td><input name="price" type="number" value="0" min="0"/></td>
+                   	<td><input class="form-control" name="price" type="number" value="0" min="0"/></td>
 				</tr>
 				<tr>
                     <td><input type="submit" value="Aggiungi"/></td>

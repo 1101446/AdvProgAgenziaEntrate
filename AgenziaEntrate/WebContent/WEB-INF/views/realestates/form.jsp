@@ -9,15 +9,15 @@
         	<table>
              	<tr>
                    	<td><form:label path="address">Indirizzo</form:label></td>
-                   	<td><form:input path="address"/></td>
+                   	<td><form:input path="address" class="form-control" /></td>
                	</tr>
 				<tr>
                    	<td><form:label path="CAP">CAP</form:label></td>
-                   	<td><form:input path="CAP"/></td>
+                   	<td><form:input path="CAP" class="form-control" /></td>
                	</tr>
                	<tr>
                     <td><form:label path="country">Stato</form:label></td>
-                    <td><form:input path="country"/></td>
+                    <td><form:input path="country" class="form-control" /></td>
                	</tr>
 			   	<tr>
 					<td><form:hidden path="id" /></td>
@@ -38,11 +38,11 @@
 				</tr>
 				<tr>
 					<td><label name="endOfYear">Data Saldo</label></td>
-                   	<td><input name="endOfYear" type="date" value="31/12/00" /></td>
+                   	<td><input name="endOfYear" class="form-control" value="31/12/00" /></td>
 				</tr>
 				<tr>
 					<td><label name="price">Valore</label></td>
-                   	<td><input name="price" type="number" value="0" min="0"/></td>
+                   	<td><input name="price" class="form-control" type="number" value="0" min="0"/></td>
 				</tr>
                 <tr>
                     <td><input type="submit" value="Salva"/></td>

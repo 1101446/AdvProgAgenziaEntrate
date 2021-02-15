@@ -53,13 +53,13 @@
 				</tr>
 				<tr>
 					<td><label name="endOfYear">Data Saldo</label></td>
-					<td><input name="endOfYear" type="date" value="31/12/00"/></td>
+					<td><input class="form-control" name="endOfYear" type="date" value="31/12/00"/></td>
 				</tr>
 			</c:otherwise>
 		</c:choose>
 		<tr>
 			<td><label path="price">Prezzo</label></td>
-			<td><input name="price" type="number" min="0" value="${userVehicle.price}" /></td>
+			<td><input class="form-control" name="price" type="number" min="0" value="${userVehicle.price}" /></td>
 		</tr>
 		<tr>
             <td><input name="update" type="hidden" value="${update}"/></td>

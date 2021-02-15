@@ -9,16 +9,16 @@
         	<table>
 				<tr>
                    	<td><form:label path="roleName">Nome Ruolo</form:label></td>
-                   	<td><form:input path="roleName"/></td>
+                   	<td><form:input path="roleName" class="form-control" /></td>
                </tr>
                <tr>
                     <td><form:label path="priority">Livello priorità</form:label></td>
-                    <td><form:input path="priority" min="0"/></td>
+                    <td><form:input path="priority" class="form-control" min="0"/></td>
                </tr>
 				
 				<tr>
                     <td><form:label path="description">Descrizione</form:label></td>
-                    <td><form:input path="description"/></td>
+                    <td><form:input path="description" class="form-control" /></td>
                 </tr>
 				<tr>
 					<td><form:hidden path="id" /></td>

@@ -9,19 +9,19 @@
         	<table>
              	<tr>
                    	<td><form:label path="IBAN">IBAN</form:label></td>
-                   	<td><form:input path="IBAN"/></td>
+                   	<td><form:input path="IBAN" class="form-control" /></td>
                	</tr>
 				<tr>
                    	<td><form:label path="billDate">Data Saldo</form:label></td>
-                   	<td><form:input path="billDate" /></td>
+                   	<td><form:input path="billDate" class="form-control" /></td>
                </tr>
                <tr>
                     <td><form:label path="bankName">Ente di credito</form:label></td>
-                    <td><form:input path="bankName"/></td>
+                    <td><form:input path="bankName" class="form-control" /></td>
                </tr>			
 				<tr>
                     <td><form:label path="balance">Saldo</form:label></td>
-                    <td><form:input path="balance" /></td>
+                    <td><form:input path="balance" class="form-control" /></td>
                 </tr>
 				<tr>
 					<td><label path="userId">Assegna conto corrente a utente</label></td>

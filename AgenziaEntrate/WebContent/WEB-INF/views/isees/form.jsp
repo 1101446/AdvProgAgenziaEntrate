@@ -9,11 +9,11 @@
         	<table>
              	<tr>
                    	<td><form:label path="yearOfValidity">Anno Validità</form:label></td> 
-                   	<td><form:input path="yearOfValidity"/></td>
+                   	<td><form:input path="yearOfValidity" class="form-control" /></td>
                	</tr>
 				<tr>
                    	<td><form:label path="valueOfISEE">Valore</form:label></td>
-                   	<td><form:input path="valueOfISEE" /></td>
+                   	<td><form:input path="valueOfISEE" class="form-control" /></td>
                </tr>
 				<tr>
 					<td><label path="userId">Assegna ISEE a utente</label></td>
