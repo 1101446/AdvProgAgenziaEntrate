@@ -28,6 +28,10 @@ public class AccessDaoDefault extends DefaultDao implements AccessDao{
 	
 	@Override
 	public Access create(String roleName, int priority, String description) {
+		if ((roleName == null || roleName.length() == 0) || 
+				(priority < 1)) {
+			throw new RuntimeException("A singer must have a first name or a last name");
+		}
 		Access access = new Access();
 		access.setRoleName(roleName);
 		access.setPriority(priority);

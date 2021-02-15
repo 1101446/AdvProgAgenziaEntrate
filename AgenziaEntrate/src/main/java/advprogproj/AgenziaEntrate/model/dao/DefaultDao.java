@@ -2,6 +2,7 @@ package advprogproj.AgenziaEntrate.model.dao;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -25,11 +26,16 @@ public class DefaultDao {
 	}
 	
 	public Session getSession() {
-		// 1. in case a shared session exists, return it (e.g. data generation script)
+		// 1. in case a shared session exists, return it (data generation script)
 		Session session = this.session;
 		if (session == null) {
-			// 2. otherwise generate a new session using the factory (e.g. Spring MVC)
-			session = this.sessionFactory.getCurrentSession();
+			// 2. otherwise generate a new session using the factory (Spring MVCs)
+			try {
+				session = this.sessionFactory.getCurrentSession();
+			} catch (HibernateException ex) {
+				// error getting current session, try to open a new one
+				session = this.sessionFactory.openSession();
+			}
 		}
 		return session;
 	}
