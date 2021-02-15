@@ -13,7 +13,7 @@
                </tr>
                <tr>
                     <td><form:label path="priority">Livello priorità</form:label></td>
-                    <td><form:input path="priority" class="form-control" min="0"/></td>
+                    <td><form:input path="priority" class="form-control" /></td>
                </tr>
 				
 				<tr>
@@ -26,7 +26,7 @@
 				<tr>
 					<td><label name="userId">Assegna permesso a utente</label></td>
 					<td>	
-						<select name="userId">
+						<select class="form-control" name="userId">
 						<option value="noUser" selected>----------</option>
 						<c:forEach items="${users}" var="u">
 							<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 

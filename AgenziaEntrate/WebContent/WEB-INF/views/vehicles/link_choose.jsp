@@ -34,7 +34,7 @@
 				<tr>
 					<td>Veicolo</td>
 					<td>
-						<select name="vehicle">
+						<select class="form-control" name="vehicle">
 						<c:forEach items="${vehicles}" var="v">
 							<option value="${v.id}">${v.brand} - ${v.model} - ${v.vehicleRegistration}</option> 
 						</c:forEach>
@@ -44,7 +44,7 @@
 				<tr>
 					<td>Utente</td>
 					<td>
-						<select name="user">
+						<select class="form-control" name="user">
 						<c:forEach items="${users}" var="u">
 							<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 						</c:forEach>

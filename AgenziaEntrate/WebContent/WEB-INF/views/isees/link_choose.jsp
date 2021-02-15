@@ -9,7 +9,7 @@
 		<tr>
 			<td>ISEE</td>
 			<td>
-				<select name="isee">
+				<select class="form-control" name="isee">
 					<c:forEach items="${isees}" var="i">
 						<option value="${i.id}">${i.yearOfValidity} - ${i.valueOfISEE}</option> 
 					</c:forEach>
@@ -19,7 +19,7 @@
 		<tr>
 			<td>Utente</td>
 			<td>
-				<select name="user">
+				<select class="form-control" name="user">
 				<c:forEach items="${users}" var="u">
 					<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 				</c:forEach>

@@ -26,7 +26,7 @@
 				<tr>
 					<td><label path="userId">Assegna conto corrente a utente</label></td>
 					<td>
-						<select name="userId">
+						<select class="form-control" name="userId">
 							<option value="noUser" selected>----------</option>
 							<c:forEach items="${users}" var="u">
 								<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 

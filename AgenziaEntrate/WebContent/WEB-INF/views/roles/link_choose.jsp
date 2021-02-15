@@ -8,7 +8,7 @@
 		<tr>
 			<td>Permesso</td>
 			<td>
-				<select name="access">
+				<select class="form-control" name="access">
 					<c:forEach items="${access}" var="a">
 						<option value="${a.id}">${a.roleName}</option> 
 					</c:forEach>
@@ -18,7 +18,7 @@
 		<tr>
 			<td>Utente</td>
 			<td>
-				<select name="user">
+				<select class="form-control" name="user">
 				<c:forEach items="${users}" var="u">
 					<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 				</c:forEach>

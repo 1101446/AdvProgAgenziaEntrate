@@ -165,7 +165,7 @@
 				<tr>
 					<td><label>Permesso</label></td>
 					<td>
-						<select name="accessId" >
+						<select class="form-control" name="accessId" >
 						<c:forEach items="${allAccess}" var="a">
 							<option value="${a.id}">${a.roleName}</option> 
 						</c:forEach>

@@ -9,7 +9,7 @@
 		<tr>
 			<td>Contro Corrente</td>
 			<td>
-				<select name="bankAccount">
+				<select class="form-control" name="bankAccount">
 					<c:forEach items="${bankAccounts}" var="bk">
 						<option value="${bk.IBAN}--${bk.billDate}">${bk.IBAN} - ${bk.billDate}</option> 
 					</c:forEach>
@@ -19,7 +19,7 @@
 		<tr>
 			<td>Utente</td>
 			<td>
-				<select name="user">
+				<select class="form-control" name="user">
 				<c:forEach items="${users}" var="u">
 					<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 				</c:forEach>

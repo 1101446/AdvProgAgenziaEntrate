@@ -28,7 +28,7 @@
 						</c:when>
 						<c:otherwise>
 							<td>
-								<select name="userId">
+								<select class="form-control" name="userId">
 									<c:forEach items="${users}" var="u">
 										<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option>
 									</c:forEach>
@@ -40,7 +40,7 @@
 				<tr>
                    	<td><label name="hierarchy">Gerarchia</label></td>
 					<td>
-						<select name="hierarchy">
+						<select class="form-control" name="hierarchy">
 							<option value="Genitore">Genitore</option>
 							<option value="Figlio">Figlio</option>
 						</select>

@@ -34,7 +34,7 @@
 				<tr>
 					<td>Immobile</td>
 					<td>
-						<select name="realEstate">
+						<select class="form-control" name="realEstate">
 							<c:forEach items="${realEstates}" var="re">
 								<option value="${re.id}">${re.address} CAP ${re.CAP} Paese ${re.country}</option> 
 							</c:forEach>
@@ -44,7 +44,7 @@
 				<tr>
 					<td>Utente</td>
 					<td>
-						<select name="user">
+						<select class="form-control" name="user">
 						<c:forEach items="${users}" var="u">
 							<option value="${u.cf}">${u.cf} - ${u.firstName} ${u.secondName}</option> 
 						</c:forEach>
