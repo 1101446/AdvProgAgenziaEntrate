@@ -39,6 +39,10 @@ public class BankAccountDaoDefault extends DefaultDao implements BankAccountDao{
 	
 	@Override
 	public BankAccount create(String IBAN, String bankName, LocalDate billDate, long balance) {
+		if ((bankName == null || bankName.length() == 0) || 
+				(balance < 0)) {
+			throw new RuntimeException("A bankAcount must have a bank name and positive balance");
+		}
 		BankAccount bankAccount= new BankAccount();
 		bankAccount.setIBAN(IBAN);
 		bankAccount.setBankName(bankName);

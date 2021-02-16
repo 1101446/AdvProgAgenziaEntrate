@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import advprogproj.AgenziaEntrate.model.dao.UserDao;
-import advprogproj.AgenziaEntrate.model.entities.Access;
 import advprogproj.AgenziaEntrate.model.entities.User;
 import advprogproj.AgenziaEntrate.test.DataServiceConfigTest;
 
@@ -78,11 +77,17 @@ public class TestUser {
 		Session s = sf.openSession();
 		
 		userDao.setSession(s);
+		s.beginTransaction();
 		
 		User newUser1 = userDao.create("CODICEFISCALE", "Nome", "Cognome",LocalDate.of(1900,01,01), "email@email", "password", false, null);
-			
+		
+		s.getTransaction().commit();	
 		try {
+			s.beginTransaction();
+			
 			User newUser2 = userDao.create(newUser1.getCf()+"AA", newUser1.getFirstName(), newUser1.getSecondName(), newUser1.getBirthD(), newUser1.getEmail()+"1email", newUser1.getPassword(), newUser1.isHandicap(), newUser1.getAccess());
+			
+			s.getTransaction().commit();
 			assertTrue(true);
 		}catch(Exception e) {
 			assertTrue(false);
@@ -95,11 +100,18 @@ public class TestUser {
 		Session s = sf.openSession();
 		
 		userDao.setSession(s);
+		s.beginTransaction();
 		
-		User newUser1 = userDao.create("CODICEFISCALE", "Nome", "Cognome",LocalDate.of(1900,1,1), "email@email", "password", false, null);
-			
+		User newUser1 = userDao.create("CODICEFISCALE", "Nome", "Cognome",LocalDate.of(1900,1,1), "email@email", userDao.encryptPassword("password"), false, null);
+		
+		s.getTransaction().commit();	
 		try {
+			s.beginTransaction();
+			
 			User newUser2 = userDao.create(newUser1.getCf()+"AA", newUser1.getFirstName(), newUser1.getSecondName(), newUser1.getBirthD(), newUser1.getEmail(), newUser1.getPassword(), newUser1.isHandicap(), null);
+			
+			s.getTransaction().commit();
+			
 			assertTrue(false);
 		}catch(Exception e) {
 			assertTrue(true);
@@ -128,12 +140,12 @@ public class TestUser {
 		userDao.setSession(s);
 		
 		for(int i=0; i<n; i++) {
-			Access a = new Access();
-			a.setId(1);
-			a.setRoleName("Role");
-			a.setPriority(2);
-			User newUserI = userDao.create("CODICEFISCALEASD"+i, "Nome"+i, "Cognome"+i, LocalDate.of(1990,1,1), "email@email"+i, "password"+i, false, a);
-				
+			s.beginTransaction();
+			
+			User newUserI = userDao.create("CODICEFISCALEASD"+i, "Nome"+i, "Cognome"+i, LocalDate.of(1990,1,1), i+"email@email", userDao.encryptPassword("password"+i), false, null);
+			
+			s.getTransaction().commit();
+			
 			List<User> allUser = userDao.findAll();
 				
 			assertEquals(allUser.size(),i+1);
@@ -150,7 +162,7 @@ public class TestUser {
 		
 		Session s = sf.openSession();
 		
-		assertThrows(Exception.class, () -> {userDao.create("CODICEFISCALE", "", "",LocalDate.of(1900,01,01), "email@email", "password", false, null); } );
+		assertThrows(Exception.class, () -> {userDao.create("CODICEFISCALE", "", "",LocalDate.of(1900,01,01), "email@email", userDao.encryptPassword("password"), false, null); } );
 	}
 	
 	@Test
@@ -158,7 +170,7 @@ public class TestUser {
 		
 		Session s = sf.openSession();
 		
-		assertThrows(Exception.class, () -> {userDao.create("CODICEFISCALE", "Nome", "Cognome",null, "email@email", "password", false, null); } );
+		assertThrows(Exception.class, () -> {userDao.create("CODICEFISCALE", "Nome", "Cognome",null, "email@email", userDao.encryptPassword("password"), false, null); } );
 	}
 	
 	@Test
@@ -182,8 +194,12 @@ public class TestUser {
 		Session s = sf.openSession();
 
 		userDao.setSession(s);
-
+		
+		s.beginTransaction();
+		
 		User newUserI = userDao.create("CODICEFISCALE", "Nome", "Cognome",LocalDate.of(1900,01,01), "email@email", "password", false, null);
+		
+		s.getTransaction().commit();
 		
 		User UserF = userDao.findById(newUserI.getCf() + "ABC");
 		
@@ -195,8 +211,12 @@ public class TestUser {
 		Session s = sf.openSession();
 
 		userDao.setSession(s);
-
+		
+		s.beginTransaction();
+		
 		User userI = userDao.create("CODICEFISCALE", "Nome", "Cognome",LocalDate.of(1900,01,01), "email@email", "password", false, null);
+		
+		s.getTransaction().commit();
 		
 		User userU = new User();
 		userU.setCf(userI.getCf());
@@ -208,7 +228,11 @@ public class TestUser {
 		userU.setHandicap(true);
 		userDao.update(userU);
 		
+		s.beginTransaction();
+		
 		userU = userDao.update(userU);
+		
+		s.getTransaction().commit();
 		
 		User userF = userDao.findById(userI.getCf());
 		
@@ -224,7 +248,11 @@ public class TestUser {
 
 		userDao.setSession(s);
 
+		s.beginTransaction();
+		
 		User userI = userDao.create("CODICEFISCALE", "Nome", "Cognome",LocalDate.of(1900,01,01), "email@email", "password", false, null);
+		
+		s.getTransaction().commit();
 		
 		User userU = new User();
 		userU.setCf(userI.getCf());
@@ -234,8 +262,12 @@ public class TestUser {
 		userU.setEmail("email1@email1");
 		userU.setPassword("Password1");
 		userU.setHandicap(true);
+		
+		s.beginTransaction();
+		
 		userDao.update(userU);	
 		
+		s.getTransaction();
 		User userF = userDao.findById(userI.getCf());
 		
 		assertNotNull(userF);

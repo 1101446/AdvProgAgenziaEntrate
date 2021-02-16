@@ -44,6 +44,11 @@ public class UserDaoDefault extends DefaultDao implements UserDao{
 	
 	@Override
 	public User create(String cf, String firstName, String secondName, LocalDate birthDate, String email, String password, boolean handicap, Access access) {
+		if ((firstName == null || firstName.length() == 0) || (secondName == null || secondName.length() == 0) ||
+			(birthDate == null) || (email == null || email.length() == 0) ||
+			(password == null || password.length() == 0)) {
+			throw new RuntimeException("A user must have a complete name, a birth date, an email and a correct password");
+		}
 		User user = new User();
 		user.setCf(cf);
 		user.setFirstName(firstName);

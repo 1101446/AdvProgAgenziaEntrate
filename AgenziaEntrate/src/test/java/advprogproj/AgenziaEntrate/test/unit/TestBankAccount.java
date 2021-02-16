@@ -78,10 +78,18 @@ public class TestBankAccount {
 		
 		bankAccountDao.setSession(s);
 		
+		s.beginTransaction();
+		
 		BankAccount newBankAccount1 = bankAccountDao.create("IBAN", "Bank", LocalDate.of(1900, 12, 31), 1000);
-			
+		
+		s.getTransaction().commit();
+		
 		try {
+			s.beginTransaction();
+			
 			BankAccount newBankAccount2 = bankAccountDao.create("IBAN2",newBankAccount1.getBankName(), newBankAccount1.getBillDate(), newBankAccount1.getBalance());
+			
+			s.getTransaction().commit();
 			assertTrue(true);
 		}catch(Exception e) {
 			assertTrue(false);
@@ -110,8 +118,12 @@ public class TestBankAccount {
 		bankAccountDao.setSession(s);
 		
 		for(int i=0; i<n; i++) {
+			s.beginTransaction();
+			
 			BankAccount newBankAccountI = bankAccountDao.create("IBAN"+i, "Bank"+i, LocalDate.of(1900+i, 12, 31), 1000+i);
-				
+			
+			s.getTransaction().commit();
+			
 			List<BankAccount> allBankAccount = bankAccountDao.findAll();
 				
 			assertEquals(allBankAccount.size(),i+1);
@@ -132,11 +144,11 @@ public class TestBankAccount {
 	}
 	
 	@Test
-	void testBankAccountMustHaveBalance() {
+	void testBankAccountMustHaveCorrectBalance() {
 		
 		Session s = sf.openSession();
 		
-		assertThrows(Exception.class, () -> {bankAccountDao.create("IBAN", "Bank", LocalDate.of(1900, 12, 31), 0); } );
+		assertThrows(Exception.class, () -> {bankAccountDao.create("IBAN", "Bank", LocalDate.of(1900, 12, 31), -1); } );
 	}
 	
 	@Test
@@ -155,8 +167,12 @@ public class TestBankAccount {
 		Session s = sf.openSession();
 
 		bankAccountDao.setSession(s);
-
+		
+		s.beginTransaction();
+		
 		BankAccount bankAccountI = bankAccountDao.create("IBAN", "Bank", LocalDate.of(1900, 12, 31), 10000);
+		
+		s.getTransaction().commit();
 		
 		BankAccount bankAccountU = new BankAccount();
 		bankAccountU.setIBAN(bankAccountI.getIBAN());
@@ -164,7 +180,11 @@ public class TestBankAccount {
 		bankAccountU.setBankName("Bank1");
 		bankAccountU.setBalance(11000);
 		
+		s.beginTransaction();
+		
 		bankAccountU = bankAccountDao.update(bankAccountU);
+		
+		s.getTransaction().commit();
 		
 		BankAccount bankAccountF = bankAccountDao.findById(bankAccountI.getIBAN(), bankAccountI.getBillDate());
 		
@@ -180,15 +200,22 @@ public class TestBankAccount {
 
 		bankAccountDao.setSession(s);
 
+		s.beginTransaction();
+		
 		BankAccount bankAccountI = bankAccountDao.create("IBAN", "Bank", LocalDate.of(1900, 12, 31), 10000);
 		
+		s.getTransaction().commit();		
 		BankAccount bankAccountU = new BankAccount();
 		bankAccountU.setIBAN(bankAccountI.getIBAN());
 		bankAccountU.setBillDate(bankAccountI.getBillDate());
 		bankAccountU.setBankName("Bank1");
 		bankAccountU.setBalance(11000);
 		
+		s.beginTransaction();
+		
 		bankAccountDao.update(bankAccountU);	
+		
+		s.getTransaction().commit();
 		
 		BankAccount bankAccountF = bankAccountDao.findById(bankAccountI.getIBAN(), bankAccountI.getBillDate());
 		
