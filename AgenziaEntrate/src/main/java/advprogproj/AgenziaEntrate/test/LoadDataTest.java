@@ -110,6 +110,18 @@ public class LoadDataTest {
 				session.getTransaction().commit();
 				session.beginTransaction();
 				
+				bankAccountDao.create("IT01A0000000000000000000001","BCC Roma",billDate2018,15000);
+				bankAccountDao.create("IT01A0000000000000000000001","BCC Roma",billDate2019,12500);
+				bankAccountDao.create("IT10B0003330002200000000443","Intesa San Paolo Milano",billDate2017,30000);
+				bankAccountDao.create("IT10B0003330002200000000443","Intesa San Paolo Milano",billDate2018,40000);
+				bankAccountDao.create("IT10B0003330002200000000443","Intesa San Paolo Milano",billDate2019,20000);
+				bankAccountDao.create("IT05G0003430005200000000991","Monte dei Paschi Siena",billDate2017,10000);
+				bankAccountDao.create("IT05G0003430005200000000991","Monte dei Paschi Siena",billDate2018,20500);
+				bankAccountDao.create("IT05G0003430005200000000991","Monte dei Paschi Siena",billDate2019,15000);
+				
+				session.getTransaction().commit();
+				session.beginTransaction();
+				
 				userDao.create("ADMINAD0A00A000A", "admin", "admin", LocalDate.of(1970, 5, 22), "admin@admin.com", userDao.encryptPassword("admin"), false, adminAccess);
 				userDao.create("AAABBB20A78L700X", "Mario", "Rossi", LocalDate.of(1970, 5, 22), "mariorossi@libero.it", userDao.encryptPassword("mario"), false, userAccess);
 				userDao.create("ABABAB78B14T880I", "Mario", "Rossi", LocalDate.of(1980, 3, 20), "mario.rossi@gmail.com", userDao.encryptPassword("giovanni"), false, adminAccess);
@@ -122,21 +134,73 @@ public class LoadDataTest {
 				session.getTransaction().commit();
 				session.beginTransaction();
 				
+				userDao.create("CDDCDFF0A00A000A", "Giovanni", "Verdi", LocalDate.of(1960, 5, 22), "g.verdi@gmail.com", userDao.encryptPassword("giovanni"), false, userAccess);
+				userDao.create("XSSD4DS0A78L700X", "Cristina", "Giorgietti", LocalDate.of(1970, 5, 22), "c.giorgietti@gmail.com", userDao.encryptPassword("cristina"), false, userAccess);
+				userDao.create("ABABAB78B14T880Z", "Giacomo", "Verdi", LocalDate.of(1995, 3, 20), "gia.verdi@gmail.com", userDao.encryptPassword("giacomo"), true, userAccess);
+				userDao.create("XYZXYZ80A72L598X", "Margherita", "Verdi", LocalDate.of(1997, 5, 22), "m.verdi@gmail.com", userDao.encryptPassword("margherita"), false, userAccess);
+				
+				userDao.create("987FDSKHAKKNVLSD", "Gigi", "Proietti", LocalDate.of(1940, 11, 2), "g.proietti@gmail.com", userDao.encryptPassword("gigi"), true, userAccess);
+				userDao.create("348SDFSDJFSAAJSB", "Cinzia", "Giustini", LocalDate.of(1960, 5, 22), "c.giustini@gmail.com", userDao.encryptPassword("cinzia"), false, userAccess);
+				userDao.create("78AFNSDSF789ASDA", "Laura", "Proietti", LocalDate.of(1980, 4, 29), "l.proietti@gmail.com", userDao.encryptPassword("laura"), false, userAccess);
+				userDao.create("947SDFKJS97ASFDF", "Cristian", "Proietti", LocalDate.of(1990, 8, 22), "c.proietti@gmail.com", userDao.encryptPassword("cristian"), true, userAccess);
+				
+				session.getTransaction().commit();
+				session.beginTransaction();
+				
 				User mario = userDao.findByEmail("mariorossi@libero.it");
 				User paolo = userDao.findByEmail("p.bianchi@yahoo.com");
 				User marco = userDao.findByEmail("marco.rossi@gmail.com");
 				User luca = userDao.findByEmail("l.bianchi@yahoo.com");
+				
+				User verdi1 = userDao.findByEmail("g.verdi@gmail.com");
+				User verdi2 = userDao.findByEmail("c.giorgietti@gmail.com");
+				User verdi3 = userDao.findByEmail("gia.verdi@gmail.com");
+				User verdi4 = userDao.findByEmail("m.verdi@gmail.com");
+				
+				User proietti1 = userDao.findByEmail("g.proietti@gmail.com");
+				User proietti2 = userDao.findByEmail("c.giustini@gmail.com");
+				User proietti3 = userDao.findByEmail("l.proietti@gmail.com");
+				User proietti4 = userDao.findByEmail("c.proietti@gmail.com");
 				
 				BankAccount bankAccount1 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2018);
 				BankAccount bankAccount2 = bankAccountDao.findById("IT01A0000000000000000000000", billDate2019);
 				BankAccount bankAccount3 = bankAccountDao.findById("IT05G0003430005200000000999", billDate2018);
 				BankAccount bankAccount4 = bankAccountDao.findById("IT05G0003430005200000000999", billDate2019);
 				
+				BankAccount bankAccountV1 = bankAccountDao.findById("IT01A0000000000000000000001",billDate2018);
+				BankAccount bankAccountV2 = bankAccountDao.findById("IT01A0000000000000000000001", billDate2019);
+				BankAccount bankAccountV3 = bankAccountDao.findById("IT10B0003330002200000000443", billDate2018);
+				BankAccount bankAccountV4 = bankAccountDao.findById("IT10B0003330002200000000443", billDate2019);
+				
+				BankAccount bankAccountP1 = bankAccountDao.findById("IT05G0003430005200000000991",billDate2017);
+				BankAccount bankAccountP2 = bankAccountDao.findById("IT05G0003430005200000000991",billDate2018);
+				BankAccount bankAccountP3 = bankAccountDao.findById("IT05G0003430005200000000991",billDate2019);
+				
 				session.getTransaction().commit();		
 				session.beginTransaction();
 				
 				UserBankAccount marioBankAccount1 = userBankAccountDao.create(mario, bankAccount1);
 				UserBankAccount marioBankAccount2 = userBankAccountDao.create(mario, bankAccount2);
+				
+				UserBankAccount verdiBankAccount1 = userBankAccountDao.create(verdi1, bankAccountV1);
+				UserBankAccount verdiBankAccount2 = userBankAccountDao.create(verdi1, bankAccountV2);
+				
+				UserBankAccount verdiBankAccount3 = userBankAccountDao.create(verdi2, bankAccountV1);
+				UserBankAccount verdiBankAccount4 = userBankAccountDao.create(verdi2, bankAccountV2);
+				
+				UserBankAccount verdiBankAccount5 = userBankAccountDao.create(verdi3, bankAccountV3);
+				
+				UserBankAccount verdiBankAccount8 = userBankAccountDao.create(verdi4, bankAccountV4);
+				
+				UserBankAccount proiettiBankAccount1 = userBankAccountDao.create(proietti1, bankAccountP1);
+				UserBankAccount proiettiBankAccount2 = userBankAccountDao.create(proietti1, bankAccountP2);
+				
+				UserBankAccount proiettiBankAccount3 = userBankAccountDao.create(proietti2, bankAccountP1);
+				UserBankAccount proiettiBankAccount4 = userBankAccountDao.create(proietti2, bankAccountP2);
+				
+				UserBankAccount proiettiBankAccount5 = userBankAccountDao.create(proietti3, bankAccountP3);
+				
+				UserBankAccount proiettiBankAccount8 = userBankAccountDao.create(proietti4, bankAccountP3);
 				
 				assert(mario.getBankAccounts().contains(marioBankAccount1));
 				assert(mario.getBankAccounts().contains(marioBankAccount2));
@@ -207,10 +271,20 @@ public class LoadDataTest {
 				session.getTransaction().commit();
 				session.beginTransaction();
 				
-				familyDao.create(1, mario, "Padre", "Mario Rossi");
+				familyDao.create(1, mario, "Genitore", "Mario Rossi");
 				familyDao.create(1, marco, "Figlio", "Mario Rossi");
-				familyDao.create(2, paolo, "Padre", "Paolo Bianchi");
+				familyDao.create(2, paolo, "Genitore", "Paolo Bianchi");
 				familyDao.create(1, luca, "Figlio", "Paolo Bianchi");
+				
+				familyDao.create(3, proietti1, "Genitore", "Gigi Proietti");
+				familyDao.create(3, proietti2, "Genitore", "Gigi Proietti");
+				familyDao.create(3, proietti3, "Figlio", "Gigi Proietti");
+				familyDao.create(3, proietti4, "Figlio", "Gigi Proietti");
+				
+				familyDao.create(4, verdi1, "Genitore", "Giovanni Verdi");
+				familyDao.create(4, verdi2, "Genitore", "Giovanni Verdi");
+				familyDao.create(4, verdi3, "Figlio", "Giovanni Verdi");
+				familyDao.create(4, verdi4, "Figlio", "Giovanni Verdi");
 				
 				session.getTransaction().commit();
 				session.beginTransaction();
