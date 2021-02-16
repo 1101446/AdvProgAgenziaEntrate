@@ -7,14 +7,34 @@
 		<c:url value="/institution/save" var="action_url" />
         <form:form method="POST" action="${action_url}" modelAttribute="bankAccount">
         	<table>
-             	<tr>
-                   	<td><form:label path="IBAN">IBAN</form:label></td>
-                   	<td><form:input path="IBAN" class="form-control" /></td>
-               	</tr>
-				<tr>
-                   	<td><form:label path="billDate">Data Saldo</form:label></td>
-                   	<td><form:input path="billDate" class="form-control" placeholder="gg/mm/aa" /></td>
-               </tr>
+				<c:choose>
+					<c:when test="${update}">
+             			<tr>
+                   			<td>IBAN</td>
+                   			<td>${bankAccount.IBAN}</td>
+               			</tr>
+						<tr>
+                   			<td>Data Saldo</td>
+                   			<td>${bankAccount.billDate}</td>
+               			</tr>
+						<tr>
+							<td><form:hidden path="IBAN" /></td>
+						</tr>
+						<tr>
+							<td><form:hidden path="billDate" /></td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<tr>
+                   			<td><form:label path="IBAN">IBAN</form:label></td>
+                   			<td><form:input path="IBAN" class="form-control" /></td>
+               			</tr>
+						<tr>
+                   			<td><form:label path="billDate">Data Saldo</form:label></td>
+                   			<td><form:input path="billDate" class="form-control" placeholder="gg/mm/aa" /></td>
+               			</tr>
+					</c:otherwise>
+				</c:choose>
                <tr>
                     <td><form:label path="bankName">Ente di credito</form:label></td>
                     <td><form:input path="bankName" class="form-control" /></td>
